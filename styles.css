@@ -6,8 +6,7 @@
     --light-bg: #f8fafc;
     --dark-bg: #1a202c;
     --border-color: #e2e8f0;
-    --success-color: #28a745;
-    --danger-color: #dc3545;
+    --danger-color: #e53e3e; /* Red for logout/errors */
 }
 
 *, *::before, *::after {
@@ -21,16 +20,9 @@ body {
     background-color: var(--light-bg);
     color: var(--text-color);
     line-height: 1.6;
-    /* Removed min-height: 100vh here to let #app control it */
-    overflow-x: hidden; /* Prevent horizontal scroll */
-}
-
-/* Ensure #app takes full height and manages its children */
-#app {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    width: 100%;
 }
 
 a {
@@ -46,11 +38,10 @@ a:hover {
 .page {
     display: none; /* Hidden by default */
     width: 100%;
-    /* Removed min-height: 100vh here, replaced with flex-grow on #app children */
-    justify-content: center; /* Centers content horizontally with flex */
-    align-items: center; /* Centers content vertically with flex */
-    padding: 20px; /* Padding around the content */
-    flex-grow: 1; /* Allows it to take available space */
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
 .page.active {
@@ -58,21 +49,18 @@ a:hover {
 }
 
 .hidden-content {
-    display: none; /* Hidden by default */
-    flex-grow: 1; /* Allows it to take available space when active */
-    flex-direction: column; /* For mainContent to stack navbar and sections */
+    display: none; /* Used for the main content area before login */
 }
 
 .hidden-content.active {
-    display: flex; /* Changed to flex to allow navbar and content sections to stack */
+    display: block; /* Shows the main content area after login */
 }
 
 .content-page {
-    padding: 20px; /* Padding inside content pages */
-    max-width: 1200px; /* Maximum width for content */
-    margin: 0 auto; /* Centers the content page */
-    width: 100%; /* Ensures it takes full width up to max-width */
-    flex-grow: 1; /* Allows content pages to take available space */
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .hidden-page {
@@ -81,132 +69,122 @@ a:hover {
 
 /* Authentication Forms (Login/Signup) */
 .auth-container {
-    background-color: #ffffff; /* White background */
-    padding: 40px; /* Generous padding */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
-    width: 100%; /* Full width within its parent */
-    max-width: 400px; /* Maximum width for the form */
-    text-align: center; /* Centers text content */
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
 }
 
 .auth-title {
-    font-size: 2em; /* Large font size */
-    margin-bottom: 25px; /* Space below title */
-    color: #333; /* Dark text color */
-    font-weight: 700; /* Bold font */
+    font-size: 2em;
+    margin-bottom: 25px;
+    color: #333;
+    font-weight: 700;
 }
 
 .auth-form {
-    display: flex; /* Flexbox for form elements */
-    flex-direction: column; /* Stacks elements vertically */
-    gap: 15px; /* Space between form elements */
-    text-align: left; /* Aligns labels/inputs to the left */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
 }
 
 .auth-form label {
-    font-weight: 600; /* Semi-bold font */
-    margin-bottom: 5px; /* Small space below label */
-    color: #555; /* Medium-dark text color */
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #555;
 }
 
 .auth-form input {
-    width: 100%; /* Full width */
-    padding: 12px; /* Padding inside input */
-    border: 1px solid var(--border-color); /* Light border */
-    border-radius: 8px; /* Rounded corners */
-    font-size: 1em; /* Standard font size */
-    transition: border-color 0.3s ease; /* Smooth transition for border */
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
 }
 
 .auth-form input:focus {
-    border-color: var(--primary-color); /* Primary color border on focus */
-    outline: none; /* Removes default outline */
-    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2); /* Soft blue shadow on focus */
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
 }
 
 .auth-button {
-    background-color: var(--primary-color); /* Primary background color */
-    color: white; /* White text */
-    padding: 12px 20px; /* Padding inside button */
-    border: none; /* No border */
-    border-radius: 8px; /* Rounded corners */
-    font-size: 1.1em; /* Slightly larger font */
-    font-weight: 600; /* Semi-bold font */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
-    margin-top: 20px; /* Space above button */
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
 }
 
 .auth-button:hover {
-    background-color: #357bd8; /* Darker blue on hover */
-    transform: translateY(-2px); /* Slight lift effect on hover */
+    background-color: #357bd8;
+    transform: translateY(-2px);
 }
 
 .auth-toggle {
-    margin-top: 20px; /* Space above text */
-    font-size: 0.9em; /* Smaller font size */
-    color: #666; /* Gray text color */
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #666;
 }
 
 .auth-toggle a {
-    font-weight: 600; /* Semi-bold link */
-}
-
-/* Error message styling */
-.error-message {
-    color: var(--danger-color); /* Red color for errors */
-    font-size: 0.9em; /* Smaller font size */
-    margin-top: 10px; /* Space above message */
-    text-align: center; /* Center aligns text */
-    display: block; /* Ensures it takes full width */
+    font-weight: 600;
 }
 
 /* Navbar */
 #navbar {
-    background-color: var(--dark-bg); /* Dark background color */
-    color: white; /* White text color */
-    padding: 15px 20px; /* Padding inside navbar */
-    display: flex; /* Flexbox for layout */
-    justify-content: space-between; /* Spreads items to ends */
-    align-items: center; /* Vertically aligns items */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Shadow below navbar */
-    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
-    width: 100%; /* Ensure navbar takes full width */
+    background-color: var(--dark-bg);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
 .nav-brand {
-    font-size: 1.8em; /* Large font size */
-    font-weight: 700; /* Bold font */
-    margin-right: 20px; /* Space to the right of brand */
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-right: 20px;
 }
 
 .nav-links {
-    list-style: none; /* Removes bullet points */
-    margin: 0; /* Removes default margin */
-    padding: 0; /* Removes default padding */
-    display: flex; /* Flexbox for links */
-    gap: 20px; /* Space between links */
-    flex-wrap: wrap; /* Allows links to wrap on smaller screens */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
 .nav-links li a,
 .nav-links button {
-    color: white; /* White text color */
-    padding: 8px 15px; /* Padding around text */
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s ease; /* Smooth background transition */
-    font-weight: 500; /* Medium font weight */
-    cursor: pointer; /* Pointer cursor on hover */
-    background: none; /* No background for buttons */
-    border: none; /* No border for buttons */
-    font-size: 1em; /* Standard font size */
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1em;
 }
 
 .nav-links li a:hover,
 .nav-links button:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Slight white background on hover */
-    text-decoration: none; /* Removes underline on hover for links */
+    background-color: rgba(255, 255, 255, 0.1);
+    text-decoration: none;
 }
 
 #logoutButton {
@@ -214,317 +192,277 @@ a:hover {
 }
 
 #logoutButton:hover {
-    background-color: #a71d2a; /* Darker red on hover */
+    background-color: #c53030;
 }
-
-.user-id-display {
-    font-size: 0.8em; /* Smaller font size */
-    color: rgba(255, 255, 255, 0.7); /* Light gray text */
-    margin-left: 15px; /* Space to the left */
-    word-break: break-all; /* Breaks long words to prevent overflow */
-    max-width: 120px; /* Limits width on smaller screens */
-    text-align: right; /* Aligns text to the right */
-}
-
 
 /* Home, Library, Profile Common Styles */
 .page-title {
-    font-size: 2.5em; /* Large font size */
-    font-weight: 700; /* Bold font */
-    color: #333; /* Dark text color */
-    text-align: center; /* Center aligns text */
-    margin-bottom: 30px; /* Space below title */
-    padding-top: 20px; /* Padding above title */
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    padding-top: 20px;
 }
 
 .search-bar-container {
-    width: 100%; /* Full width */
-    max-width: 600px; /* Maximum width */
-    margin: 0 auto 30px auto; /* Centers and adds bottom margin */
-    position: relative; /* For potential absolute positioning of icons */
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    position: relative;
 }
 
 .search-bar-container input {
-    width: 100%; /* Full width */
-    padding: 12px 15px; /* Padding inside input */
-    border: 1px solid var(--border-color); /* Light border */
-    border-radius: 25px; /* Very rounded corners (pill shape) */
-    font-size: 1em; /* Standard font size */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Soft shadow */
-    padding-left: 15px; /* Ensures text starts after padding */
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    font-size: 1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    padding-left: 45px; /* Space for icon if added via JS */
 }
 
 .search-bar-container input:focus {
-    border-color: var(--primary-color); /* Primary color border on focus */
-    outline: none; /* Removes default outline */
-    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2); /* Soft blue shadow on focus */
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
 }
 
-/* General action buttons (Add New Book, Edit Profile) */
 .action-button {
-    background-color: var(--secondary-color); /* Secondary background color */
-    color: white; /* White text */
-    padding: 12px 25px; /* Padding inside button */
-    border: none; /* No border */
-    border-radius: 8px; /* Rounded corners */
-    font-size: 1em; /* Standard font size */
-    font-weight: 600; /* Semi-bold font */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
-    display: block; /* Makes it a block element for centering */
-    margin: 0 auto 30px auto; /* Centers and adds bottom margin */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: block; /* Make it a block element for centering */
+    margin: 0 auto 30px auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .action-button:hover {
-    background-color: #e0993a; /* Darker orange on hover */
-    transform: translateY(-2px); /* Slight lift effect on hover */
+    background-color: #e0993a;
+    transform: translateY(-2px);
 }
 
 /* Book Grid */
 .book-grid {
-    display: grid; /* Enables CSS Grid layout */
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive columns */
-    gap: 20px; /* Space between grid items */
-    padding-bottom: 40px; /* Space at the bottom of the grid */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    padding-bottom: 40px; /* Space at the bottom */
 }
 
-/* Individual book card styling */
 .book-card {
-    background-color: white; /* White background */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
-    padding: 15px; /* Padding inside card */
-    text-align: center; /* Centers text content */
-    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .book-card:hover {
-    transform: translateY(-5px); /* Slight lift effect on hover */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* Images within book cards */
 .book-card img {
-    max-width: 100%; /* Ensures image fits within card */
-    height: 180px; /* Fixed height for consistent image size */
-    object-fit: cover; /* Crops image to fit without distortion */
-    border-radius: 5px; /* Slightly rounded corners for image */
-    margin-bottom: 10px; /* Space below image */
+    max-width: 100%;
+    height: 180px; /* Fixed height for image consistency */
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
-/* Book title in card */
 .book-card h3 {
-    font-size: 1.1em; /* Slightly larger font */
-    font-weight: 600; /* Semi-bold font */
-    color: #333; /* Dark text color */
-    margin-bottom: 5px; /* Small space below title */
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
 }
 
-/* Book author/category in card */
 .book-card p {
-    font-size: 0.9em; /* Smaller font size */
-    color: #666; /* Gray text color */
+    font-size: 0.9em;
+    color: #666;
 }
 
 /* Profile Page specific styles */
 .profile-details {
-    background-color: #ffffff; /* White background */
-    padding: 30px; /* Generous padding */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Soft shadow */
-    width: 100%; /* Full width within its parent */
-    max-width: 600px; /* Maximum width for profile section */
-    margin: 0 auto; /* Centers the profile section */
-    text-align: left; /* Aligns text to the left */
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
 }
 
-/* Placeholder for profile image */
 .profile-image-placeholder {
-    width: 100px; /* Fixed width */
-    height: 100px; /* Fixed height */
-    background-color: #ccc; /* Gray background */
-    border-radius: 50%; /* Makes it a circle */
-    margin: 0 auto 20px auto; /* Centers and adds bottom margin */
-    display: flex; /* Flexbox for centering content (if any) */
-    align-items: center; /* Centers content vertically */
-    justify-content: center; /* Centers content horizontally */
-    font-size: 0.8em; /* Smaller font for placeholder text */
-    color: #666; /* Gray text color */
-    border: 3px solid var(--primary-color); /* Primary color border */
+    width: 100px;
+    height: 100px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin: 0 auto 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    color: #666;
+    border: 3px solid var(--primary-color);
 }
 
-/* Paragraphs within profile details */
 .profile-details p {
-    margin-bottom: 10px; /* Space below paragraphs */
-    font-size: 1.1em; /* Slightly larger font */
-    color: #444; /* Darker gray text color */
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: #444;
 }
 
-/* Strong tags (labels) within profile details */
 .profile-details p strong {
-    color: #222; /* Even darker text color */
-    margin-right: 5px; /* Small space to the right of label */
-}
-
-/* Input fields within profile details (for editing) */
-.profile-details input {
-    width: 100%; /* Full width */
-    padding: 8px; /* Padding inside input */
-    margin-bottom: 10px; /* Space below input */
-    border: 1px solid var(--border-color); /* Light border */
-    border-radius: 5px; /* Rounded corners */
+    color: #222;
+    margin-right: 5px;
 }
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .nav-links {
-        flex-direction: column; /* Stacks nav links vertically */
-        width: 100%; /* Full width for links */
-        text-align: center; /* Centers text */
-        gap: 10px; /* Smaller gap between links */
-        margin-top: 10px; /* Space above links */
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        gap: 10px;
+        margin-top: 10px;
     }
 
     #navbar {
-        flex-direction: column; /* Stacks navbar items vertically */
-        align-items: flex-start; /* Aligns items to the start */
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .nav-brand {
-        margin-bottom: 10px; /* Space below brand */
+        margin-bottom: 10px;
     }
 
     .book-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Smaller min-width for book cards */
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }
 
     .book-card img {
-        height: 150px; /* Smaller fixed height for book images */
+        height: 150px;
     }
 
     .auth-container, .profile-details {
-        padding: 25px; /* Smaller padding for auth/profile containers */
+        padding: 25px;
     }
 
     .page-title {
-        font-size: 1.8em; /* Smaller font size for page titles */
-    }
-
-    .user-id-display {
-        margin-left: 0; /* Removes left margin */
-        margin-top: 10px; /* Adds top margin */
-        text-align: left; /* Aligns text to left */
+        font-size: 1.8em;
     }
 }
 
 @media (max-width: 480px) {
     .auth-container {
-        padding: 20px; /* Even smaller padding for auth container */
+        padding: 20px;
     }
 
     .auth-title {
-        font-size: 1.8em; /* Consistent smaller title font */
+        font-size: 1.8em;
     }
 
     .auth-button {
-        font-size: 1em; /* Smaller font for auth buttons */
-        padding: 10px 15px; /* Smaller padding for auth buttons */
+        font-size: 1em;
+        padding: 10px 15px;
     }
 
     .book-grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Even smaller min-width for book cards */
-        gap: 15px; /* Smaller gap between book cards */
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 15px;
     }
     .book-card img {
-        height: 120px; /* Even smaller fixed height for book images */
+        height: 120px;
     }
 }
 
 /* --- Modal Styles --- */
 .modal {
     display: none; /* Hidden by default */
-    position: fixed; /* Stays in place relative to the viewport */
-    z-index: 1000; /* Ensures it's on top of other content */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
-    overflow: auto; /* Enables scrolling if content overflows */
-    background-color: rgba(0,0,0,0.6); /* Semi-transparent black background */
-    justify-content: center; /* Centers modal content horizontally with flex */
-    align-items: center; /* Centers modal content vertically with flex */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    justify-content: center;
+    align-items: center;
 }
 
 .modal.active {
-    display: flex; /* Shows the modal when active */
+    display: flex;
 }
 
-/* Content box within the modal */
 .modal-content {
-    background-color: #fefefe; /* White background */
-    margin: auto; /* Centers the box within the flex container */
-    padding: 30px; /* Padding inside the content box */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Shadow for depth */
-    width: 90%; /* Takes 90% width of parent */
-    max-width: 400px; /* Maximum width */
-    text-align: center; /* Centers text content */
-    animation: fadeIn 0.3s ease-out; /* Fade-in animation */
+    background-color: #fefefe;
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    animation: fadeIn 0.3s ease-out;
 }
 
-/* Paragraph text within modal */
 .modal-content p {
-    margin-bottom: 20px; /* Space below text */
-    font-size: 1.1em; /* Slightly larger font */
-    color: var(--text-color); /* Text color from variables */
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: var(--text-color);
 }
 
-/* Input fields within modal */
 .modal-content input {
-    width: calc(100% - 20px); /* Full width minus padding */
-    padding: 10px; /* Padding inside input */
-    margin-bottom: 20px; /* Space below input */
-    border: 1px solid var(--border-color); /* Light border */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 1em; /* Standard font size */
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1em;
 }
 
-/* Container for modal buttons */
 .modal-buttons {
-    display: flex; /* Flexbox for buttons */
-    justify-content: center; /* Centers buttons horizontally */
-    gap: 15px; /* Space between buttons */
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
-/* General modal button styling */
 .modal-button {
-    background-color: var(--primary-color); /* Primary background color */
-    color: white; /* White text */
-    padding: 10px 20px; /* Padding inside button */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    font-size: 1em; /* Standard font size */
-    font-weight: 600; /* Semi-bold font */
-    transition: background-color 0.3s ease; /* Smooth background transition */
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
 }
 
 .modal-button:hover {
-    background-color: #357bd8; /* Darker blue on hover */
+    background-color: #357bd8;
 }
 
-/* Cancel button specific styling */
 .modal-button.cancel {
-    background-color: #6c757d; /* Gray background */
+    background-color: #6c757d;
 }
 
 .modal-button.cancel:hover {
-    background-color: #5a6268; /* Darker gray on hover */
+    background-color: #5a6268;
 }
 
-/* Keyframe animation for modal fade-in */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); } /* Starts invisible and slightly above */
-    to { opacity: 1; transform: translateY(0); } /* Ends fully visible at original position */
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
