@@ -7,72 +7,55 @@
     <link rel="stylesheet" href="styles.css">
     <!-- Google Fonts - Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Firebase SDKs - MUST be loaded BEFORE your script.js -->
-    <script type="module">
-        // Import the functions you need from the SDKs
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, collection, query, onSnapshot, addDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-        // Expose Firebase functions globally for script.js to use
-        window.firebase = {
-            initializeApp,
-            getAuth, signInAnonymously, signInWithCustomToken, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged,
-            getFirestore, doc, getDoc, setDoc, collection, query, onSnapshot, addDoc, updateDoc, deleteDoc
-        };
-    </script>
 </head>
 <body>
     <!-- Main application container -->
-    <div id="app" class="min-h-screen flex flex-col">
+    <div id="app">
         <!-- Login Page -->
-        <section id="loginPage" class="page active flex-grow">
+        <section id="loginPage" class="page active">
             <div class="auth-container">
                 <h1 class="auth-title">Login to your Account</h1>
                 <form id="loginForm" class="auth-form">
-                    <label for="loginEmail">Email:</label>
-                    <input type="email" id="loginEmail" required>
+                    <label for="loginUsernameEmail">Username/Email:</label>
+                    <input type="text" id="loginUsernameEmail" required>
 
                     <label for="loginPassword">Password:</label>
                     <input type="password" id="loginPassword" required>
 
                     <button type="submit" class="auth-button">LOG IN</button>
-                    <p id="loginError" class="error-message"></p>
                 </form>
                 <p class="auth-toggle">Don't have an account? <a href="#" id="showSignup">Sign Up</a></p>
             </div>
         </section>
 
         <!-- Sign-Up Page -->
-        <section id="signupPage" class="page flex-grow">
+        <section id="signupPage" class="page">
             <div class="auth-container">
                 <h1 class="auth-title">Sign-Up</h1>
                 <form id="signupForm" class="auth-form">
                     <label for="signupUsername">Username:</label>
                     <input type="text" id="signupUsername" required>
 
-                    <label for="signupEmail">E-mail:</label>
-                    <input type="email" id="signupEmail" required>
-
                     <label for="signupPassword">Password:</label>
                     <input type="password" id="signupPassword" required>
 
+                    <label for="signupEmail">E-mail:</label>
+                    <input type="email" id="signupEmail" required>
+
                     <label for="signupBirthdate">Birthdate:</label>
-                    <input type="date" id="signupBirthdate"> <!-- Not required for Firebase Auth, but good for profile -->
+                    <input type="date" id="signupBirthdate" required>
 
                     <label for="signupPhone">Phone Number:</label>
-                    <input type="tel" id="signupPhone"> <!-- Not required for Firebase Auth, but good for profile -->
+                    <input type="tel" id="signupPhone" required>
 
                     <button type="submit" class="auth-button">Sign-Up</button>
-                    <p id="signupError" class="error-message"></p>
                 </form>
                 <p class="auth-toggle">Already have an account? <a href="#" id="showLogin">Log In</a></p>
             </div>
         </section>
 
         <!-- Main Content Area (Hidden until logged in) -->
-        <div id="mainContent" class="hidden-content flex-grow flex flex-col">
+        <div id="mainContent" class="hidden-content">
             <!-- Navigation Bar -->
             <nav id="navbar">
                 <div class="nav-brand">Library Log</div>
@@ -82,14 +65,13 @@
                     <li><a href="#" data-page="library">Library</a></li>
                     <li><button id="logoutButton">Logout</button></li>
                 </ul>
-                <span id="currentUserId" class="user-id-display"></span>
             </nav>
 
             <!-- Home Page -->
             <section id="homePageContent" class="content-page">
                 <h1 class="page-title">Welcome to Library Log!</h1>
                 <div class="search-bar-container">
-                    <input type="text" id="homeSearchBar" placeholder="Search for books...">
+                    <input type="text" id="homeSearchBar" placeholder="Search Bar">
                 </div>
                 <div id="bookList" class="book-grid">
                     <!-- Book titles will be dynamically added here -->
@@ -99,12 +81,12 @@
             <!-- Profile Page -->
             <section id="profilePageContent" class="content-page hidden-page">
                 <h1 class="page-title">Profile</h1>
+                <div class="search-bar-container">
+                    <input type="text" id="profileSearchBar" placeholder="Search Bar">
+                </div>
                 <div class="profile-details">
                     <div class="profile-image-placeholder"></div>
-                    <p><strong>User ID:</strong> <span id="profileUserId"></span></p>
-                    <p><strong>Email:</strong> <span id="profileEmail"></span></p>
-                    <p><strong>Username:</strong> <span id="profileUsername"></span></p>
-                    <p><strong>Student's Name:</strong> <span id="profileName"></span></p>
+                    <p><strong>Student's Name:</strong> <span id="profileName">First Name, Middle Name, Surname</span></p>
                     <p><strong>School:</strong> <span id="profileSchool"></span></p>
                     <p><strong>Address:</strong> <span id="profileAddress"></span></p>
                     <p><strong>Year Level:</strong> <span id="profileYearLevel"></span></p>
@@ -117,7 +99,7 @@
             <section id="libraryPageContent" class="content-page hidden-page">
                 <h1 class="page-title">Library</h1>
                 <div class="search-bar-container">
-                    <input type="text" id="librarySearchBar" placeholder="Search books, authors, or categories...">
+                    <input type="text" id="librarySearchBar" placeholder="Search Bar">
                 </div>
                 <button id="addBookButton" class="action-button">Add New Book</button>
                 <div id="libraryBookList" class="book-grid">
