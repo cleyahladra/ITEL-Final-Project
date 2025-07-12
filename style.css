@@ -1,0 +1,541 @@
+:root {
+    --primary-color: #4a90e2; /* Blue */
+    --secondary-color: #f6ad55; /* Orange */
+    --text-color: #333;
+    --light-bg: #f8fafc;
+    --dark-bg: #1a202c;
+    --border-color: #e2e8f0;
+    --danger-color: #e53e3e; /* Red for logout/errors */
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Page containers */
+.page {
+    display: none; /* Hidden by default */
+    width: 100%;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.page.active {
+    display: flex; /* Shows the page when active */
+}
+
+.hidden-content {
+    display: none; /* Used for the main content area before login */
+}
+
+.hidden-content.active {
+    display: block; /* Shows the main content area after login */
+}
+
+.content-page {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.hidden-page {
+    display: none; /* Used to hide specific content pages within mainContent */
+}
+
+/* Authentication Forms (Login/Signup) */
+.auth-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.auth-title {
+    font-size: 2em;
+    margin-bottom: 25px;
+    color: #333;
+    font-weight: 700;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+.auth-form label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+.auth-form input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+.submit {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+}
+
+.auth-button:hover {
+    background-color: #357bd8;
+    transform: translateY(-2px);
+}
+
+.auth-toggle {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.auth-toggle a {
+    font-weight: 600;
+}
+
+/* Navbar */
+#navbar {
+    background-color: var(--dark-bg);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.nav-brand {
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-right: 20px;
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.nav-links li a,
+.nav-links button {
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1em;
+}
+
+.nav-links li a:hover,
+.nav-links button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+}
+
+#logoutButton {
+    background-color: var(--danger-color); /* Red for logout */
+}
+
+#logoutButton:hover {
+    background-color: #c53030;
+}
+
+/* Home, Library, Profile Common Styles */
+.page-title {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    padding-top: 20px;
+}
+
+.search-bar-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    position: relative;
+}
+
+.search-bar-container input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    font-size: 1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    padding-left: 45px; /* Space for icon if added via JS */
+}
+
+.search-bar-container input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+.action-button {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: block; /* Make it a block element for centering */
+    margin: 0 auto 30px auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.action-button:hover {
+    background-color: #e0993a;
+    transform: translateY(-2px);
+}
+
+/* Book Grid */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    padding-bottom: 40px; /* Space at the bottom */
+}
+
+.book-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.book-card img {
+    max-width: 100%;
+    height: 180px; /* Fixed height for image consistency */
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.book-card h3 {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.book-card p {
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Profile Page specific styles */
+.profile-details {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.profile-image-placeholder {
+    width: 100px;
+    height: 100px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin: 0 auto 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    color: #666;
+    border: 3px solid var(--primary-color);
+}
+
+.profile-details p {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: #444;
+}
+
+.profile-details p strong {
+    color: #222;
+    margin-right: 5px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    #navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-brand {
+        margin-bottom: 10px;
+    }
+
+    .book-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    .book-card img {
+        height: 150px;
+    }
+
+    .auth-container, .profile-details {
+        padding: 25px;
+    }
+
+    .page-title {
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-container {
+        padding: 20px;
+    }
+
+    .auth-title {
+        font-size: 1.8em;
+    }
+
+    .auth-button {
+        font-size: 1em;
+        padding: 10px 15px;
+    }
+
+    .book-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 15px;
+    }
+    .book-card img {
+        height: 120px;
+    }
+}
+
+/* --- Modal Styles --- */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+.modal-content input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.modal-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.modal-button:hover {
+    background-color: #357bd8;
+}
+
+.modal-button.cancel {
+    background-color: #6c757d;
+}
+
+.modal-button.cancel:hover {
+    background-color: #5a6268;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* --- wag tanggalin pls --- */
+.hidden-content {
+  display: none;
+}
+
+.hidden-page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+ .book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.book-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  text-align: center;
+  padding: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.book-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.book-card h3 {
+  font-size: 1rem;
+  margin: 10px 0 5px;
+  color: #2c3e50;
+}
+
+.book-card p {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+.auth-forgot {
+  margin-top: 10px;
+  text-align: right;
+}
+
+.auth-forgot a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.auth-forgot a:hover {
+  text-decoration: underline;
+}
+
+.favorite-star {
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #bbb;
+  position: absolute;
+  top: 6px; right: 6px;
+}
+.favorite-star.fav { color: gold; }
+.book-card { position: relative; }
