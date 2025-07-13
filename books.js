@@ -1,4 +1,8 @@
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyBpkPV1xptnhF0g5pJkQjC3rEQjjrCzPdE",
   authDomain: "event-manager-data.firebaseapp.com",
@@ -10,75 +14,128 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const booksCol = collection(db, "books");
 
+// 📌 Select both book display containers
+const homeBookList = document.getElementById("bookList"); // homepage
+const libraryBookList = document.getElementById("libraryDynamicBookList"); // library page
 
-import { db } from './firebase.js';
-import {
-  collection, getDocs, addDoc,
-  updateDoc, deleteDoc, doc
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+// Add book using prompt
+document.getElementById("addBookBtn")?.addEventListener("click", async () => {
+  const title = prompt("Enter title:");
+  const author = prompt("Enter author:");
+  const content = prompt("Enter book content (optional):");
 
-const booksRef = collection(db, "books");
-const library = document.getElementById("library");
-const form = document.getElementById("bookForm");
+  if (!title || !author) return;
 
-// 🔹 CREATE – Add book when user clicks "Create"
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const title = form.title.value.trim();
-  const author = form.author.value.trim();
+  const book = {
+    title: title.trim(),
+    author: author.trim(),
+    content: content ? content.trim() : "",
+    favorite: false,
+    imageUrl: "https://via.placeholder.com/100x150?text=Book"
+  };
 
-  if (title && author) {
-    await addDoc(booksRef, { title, author });
-    form.reset();
-    loadBooks(); // Refresh book list
+  try {
+    await addDoc(booksCol, book);
+    alert("Book saved!");
+    loadBooks();
+  } catch (error) {
+    console.error("Error saving book:", error);
   }
 });
 
-// 🔹 READ – Load all books
+// Add book using form
+const userBookForm = document.getElementById("userBookForm");
+userBookForm?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const title = document.getElementById("userBookTitle").value.trim();
+  const author = document.getElementById("userBookAuthor").value.trim();
+  const content = document.getElementById("userBookContent").value.trim();
+
+  if (!title || !author || !content) {
+    alert("Please fill out all fields.");
+    return;
+  }
+
+  const newBook = {
+    title,
+    author,
+    content,
+    favorite: false,
+    imageUrl: "https://via.placeholder.com/100x150?text=Book"
+  };
+
+  try {
+    await addDoc(booksCol, newBook);
+    alert("Your book has been published!");
+    userBookForm.reset();
+    loadBooks();
+  } catch (e) {
+    console.error("Error saving book:", e);
+    alert("Failed to save book. Try again.");
+  }
+});
+
+// 📌 Load and display books into both home and library
 async function loadBooks() {
-  library.innerHTML = ""; // Clear current list
-  const snapshot = await getDocs(booksRef);
+  if (homeBookList) homeBookList.innerHTML = "";
+  if (libraryBookList) libraryBookList.innerHTML = "";
+
+  const snapshot = await getDocs(booksCol);
   snapshot.forEach((docSnap) => {
     const book = docSnap.data();
-    const id = docSnap.id;
+    const bookId = docSnap.id;
 
-    // Create HTML for each book
-    const bookCard = document.createElement("div");
-    bookCard.className = "book-card";
-    bookCard.innerHTML = `
-      <strong>${book.title}</strong><br>
-      <em>by ${book.author}</em><br><br>
-      <button onclick="editBook('${id}', '${book.title}', '${book.author}')">Update</button>
-      <button onclick="deleteBook('${id}')">Delete</button>
-      <hr>
+    const card = document.createElement("div");
+    card.className = "book-card";
+    card.innerHTML = `
+      <img src="${book.imageUrl}" alt="Book Cover">
+      <h3>${book.title}</h3>
+      <p><strong>by:</strong> ${book.author}</p>
+      <p>${book.content ? book.content.slice(0, 100) + "..." : ""}</p>
+      <button onclick="editBook('${bookId}', '${book.title}', '${book.author}', \`${book.content || ""}\`)">Edit</button>
+      <button onclick="deleteBook('${bookId}')">Delete</button>
     `;
-    library.appendChild(bookCard);
+
+    if (homeBookList) homeBookList.appendChild(card.cloneNode(true));
+    if (libraryBookList) libraryBookList.appendChild(card);
   });
 }
 
+// Edit book
+window.editBook = async function (id, oldTitle, oldAuthor, oldContent = "") {
+  const newTitle = prompt("Edit title:", oldTitle);
+  const newAuthor = prompt("Edit author:", oldAuthor);
+  const newContent = prompt("Edit content:", oldContent);
 
-window.editBook = async (id, currentTitle, currentAuthor) => {
-  const newTitle = prompt("Edit book title:", currentTitle);
-  const newAuthor = prompt("Edit author name:", currentAuthor);
+  if (!newTitle || !newAuthor || !newContent) return;
 
-  if (newTitle && newAuthor) {
-    await updateDoc(doc(db, "books", id), {
-      title: newTitle.trim(),
-      author: newAuthor.trim()
-    });
-    loadBooks();
-  }
+  const bookRef = doc(db, "books", id);
+  await updateDoc(bookRef, {
+    title: newTitle.trim(),
+    author: newAuthor.trim(),
+    content: newContent.trim()
+  });
+
+  alert("Book updated!");
+  loadBooks();
 };
 
-// 🔹 DELETE – Confirm and delete
-window.deleteBook = async (id) => {
-  const confirmDelete = confirm("Are you sure you want to delete this book?");
-  if (confirmDelete) {
-    await deleteDoc(doc(db, "books", id));
-    loadBooks();
-  }
+// Delete book
+window.deleteBook = async function (id) {
+  if (!confirm("Are you sure you want to delete this book?")) return;
+
+  const bookRef = doc(db, "books", id);
+  await deleteDoc(bookRef);
+
+  alert("Book deleted!");
+  loadBooks();
 };
 
-// Load books on page start
+// Load books on page load
 loadBooks();
+
+export { loadBooks };
