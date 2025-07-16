@@ -1,21 +1,21 @@
-/* ---------- script.js (paste over the old file) ---------- */
+
 import { loadBooks } from "./books.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  /* --------------------------- DOM ELEMENTS --------------------------- */
+  
   const navLinks     = document.querySelectorAll(".nav-links a");
   const contentPages = document.querySelectorAll(".content-page");
 
   const editProfileBtn = document.getElementById("editProfileButton");
 
-  /* ------------- PROFILE FIELDS ------------- */
+ 
   const profileName      = document.getElementById("profileName");
   const profileSchool    = document.getElementById("profileSchool");
   const profileAddress   = document.getElementById("profileAddress");
   const profileYearLevel = document.getElementById("profileYearLevel");
   const profileContact   = document.getElementById("profileContact");
 
-  /* ------------- MODAL ELEMENTS ------------- */
+  
   const customAlert  = document.getElementById("customAlertModal");
   const alertMsg     = document.getElementById("alertMessage");
   const alertOK      = document.getElementById("alertOkButton");
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const promptOK     = document.getElementById("promptOkButton");
   const promptCancel = document.getElementById("promptCancelButton");
 
-  /* ------------- SIMPLE PROFILE DATA ------------- */
+  
   let userProfile = {
     name: "First Name, Middle Name, Surname",
     school: "Your School Here",
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     contact: "Your Phone Number Here",
   };
 
-  /* ------------------------ MODAL HELPERS ------------------------ */
+  
   function showAlert(text) {
     alertMsg.textContent = text;
     customAlert.style.display = "flex";
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ------------------------ PAGE NAVIGATION ------------------------ */
+  
   function showPage(id) {
     contentPages.forEach((p) => {
       p.classList.remove("active-page");
@@ -73,11 +73,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // initial page
+  
   showPage("homePageContent");
-  loadBooks();                       // first Firestore fetch
+  loadBooks();                       
 
-  // click handlers
+  
   navLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
@@ -85,14 +85,14 @@ document.addEventListener("DOMContentLoaded", () => {
       showPage(`${key}PageContent`);
 
       if (key === "home" || key === "library") {
-        loadBooks();                 // refresh book grids
+        loadBooks();                 
       } else if (key === "profile") {
         renderProfile();
       }
     });
   });
 
-  /* --------------------- PROFILE RENDER / EDIT --------------------- */
+  
   function renderProfile() {
     profileName.textContent      = userProfile.name;
     profileSchool.textContent    = userProfile.school;
@@ -122,3 +122,27 @@ document.addEventListener("DOMContentLoaded", () => {
     showAlert("Profile updated successfully!");
   });
 });
+
+
+const librarySearchBar = document.getElementById('librarySearchBar');
+const libraryBookList = document.getElementById('libraryBookList');
+
+
+librarySearchBar.addEventListener('input', () => {
+  const searchTerm = librarySearchBar.value.toLowerCase();
+
+  
+  const bookCards = libraryBookList.querySelectorAll('.book-card');
+
+  bookCards.forEach(card => {
+    const title = card.querySelector('h3').textContent.toLowerCase();
+    const author = card.querySelector('p').textContent.toLowerCase();
+
+    // Check if the title or author includes the search term
+    const matches = title.includes(searchTerm) || author.includes(searchTerm);
+
+    
+    card.style.display = matches ? 'block' : 'none';
+  });
+});
+

@@ -26,6 +26,7 @@
                     <button type="submit" class="submit">LOG IN</button>
                 </form>
                 <p class="auth-toggle">Don't have an account? <a href="#" id="showSignup">Sign Up</a></p>
+                
             </div>
         </section>
 
@@ -67,11 +68,9 @@
             </nav>
 
             <!-- Home Page -->
-            <section id="homePageContent" class="content-page">
-                <h1 class="page-title">Welcome to Library Cove</h1>
-                <div class="search-bar-container">
-                    <input type="text" id="homeSearchBar" placeholder="Search for Books">
-                </div>
+            <section id="libraryPageContent" class="content-page hidden-page">
+                <h1 class="page-title">Library</h1>
+                     <button id="addBookBtn" class="action-button">Add New Book</button>
                 <div id="bookList" class="book-grid">
                     <!-- Book titles will be dynamically added here -->
                 </div>
@@ -81,7 +80,6 @@
             <section id="profilePageContent" class="content-page hidden-page">
                 <h1 class="page-title">Profile</h1>
                 <div class="search-bar-container">
-                    <input type="text" id="profileSearchBar" placeholder="Search Bar">
                 </div>
                 <div class="profile-details">
                     <div class="profile-image-placeholder"></div>
@@ -96,12 +94,12 @@
 
             <!-- Library Page -->
             <!-- Library Page -->
-<section id="libraryPageContent" class="content-page hidden-page">
-    <h1 class="page-title">Library</h1>
+<section id="homePageContent" class="content-page">
+    <h1 class="page-title">Welcome to Library Cove</h1>
+
     <div class="search-bar-container">
         <input type="text" id="librarySearchBar" placeholder="Search Bar">
     </div>
-    <button id="addBookBtn" class="action-button">Add New Book</button>
     <div id="libraryBookList" class="book-grid">
 <div id="libraryDynamicBookList"></div>
 

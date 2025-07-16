@@ -17,11 +17,11 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const booksCol = collection(db, "books");
 
-// 📌 Select both book display containers
+
 const homeBookList = document.getElementById("bookList"); // homepage
 const libraryBookList = document.getElementById("libraryDynamicBookList"); // library page
 
-// Add book using prompt
+
 document.getElementById("addBookBtn")?.addEventListener("click", async () => {
   const title = prompt("Enter title:");
   const author = prompt("Enter author:");
@@ -79,7 +79,7 @@ userBookForm?.addEventListener("submit", async (e) => {
   }
 });
 
-// 📌 Load and display books into both home and library
+
 async function loadBooks() {
   if (homeBookList) homeBookList.innerHTML = "";
   if (libraryBookList) libraryBookList.innerHTML = "";
