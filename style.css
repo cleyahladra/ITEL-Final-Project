@@ -54,7 +54,6 @@ h1, h2, h3, h4, h5, h6 {
 a {
     color: var(--highlight-color);
     text-decoration: none;
-    transition: color 0.3s ease;
 }
 
 a:hover {
@@ -150,23 +149,8 @@ a:hover {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-/* Forgot Links */
-.forgot-link {
-    font-size: 0.85em;
-    color: rgb(16, 9, 9); /* Muted gold/yellow */
-    text-align: right;
-    margin-top: -10px; /* Pull it closer to the input above */
-    margin-bottom: 5px; /* Space before next label/input */
-    display: block; /* Ensures it takes its own line */
-}
-
-/* Remember Me Checkbox */
-.remember-me {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+.submit {
+    background-color: var(--primary-color);
     color: white;
     font-size: 0.9em;
 }
