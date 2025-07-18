@@ -1,4 +1,3 @@
-/* --- Root Variables for Light Mode (Default) --- */
 :root {
     --background-color: rgba(245, 240, 225, 1); /* Soft cream or warm beige */
     --primary-accent: rgba(138, 156, 115, 1);   /* Muted olive green or sage */
@@ -26,9 +25,8 @@ body.dark-mode {
     --box-shadow-color: rgba(0, 0, 0, 0.3);     /* More pronounced shadow in dark mode */
 }
 
-/* --- Base Styles --- */
 *, *::before, *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
@@ -370,19 +368,19 @@ a:hover {
 
 /* Book Grid */
 .book-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
     padding-bottom: 40px; /* Space at the bottom */
     margin-top: 20px; /* Added for consistency */
 }
 
 .book-card {
     background-color: var(--card-background);
-    border-radius: 8px;
+  border-radius: 8px;
     box-shadow: 0 2px 8px var(--box-shadow-color);
-    padding: 15px;
-    text-align: center;
+  padding: 15px;
+  text-align: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
     border: 1px solid var(--border-color);
     position: relative;
@@ -398,8 +396,8 @@ a:hover {
     max-width: 100%;
     height: 180px; /* Fixed height for image consistency */
     object-fit: cover;
-    border-radius: 5px;
-    margin-bottom: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 .book-card h3 {
@@ -708,13 +706,83 @@ body.auth-page .live-background {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Existing wag tanggalin styles (kept as is) */
+/* Book Content Modal */
+.book-content-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1001; /* Higher than other modals */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.8); /* Darker overlay */
+    justify-content: center;
+    align-items: center;
+}
+
+.book-content-modal.active {
+    display: flex;
+}
+
+.book-content-modal-content {
+    background-color: white; /* White background for content */
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    width: 90%;
+    max-width: 700px; /* Adjust max-width as needed */
+    text-align: left;
+    animation: fadeIn 0.3s ease-out;
+    color: black; /* Black text color */
+    position: relative;
+}
+
+.book-content-modal-content h2 {
+    font-size: 2.2em; /* Bigger title */
+    text-align: center; /* Centered title */
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.book-content-modal-content h3 {
+    font-size: 1.3em;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.book-content-modal-content p {
+    font-size: 1.1em;
+    line-height: 1.8;
+    white-space: pre-wrap; /* Preserve whitespace and allow wrapping */
+    word-wrap: break-word; /* Break long words */
+}
+
+.book-content-modal-close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.book-content-modal-close:hover,
+.book-content-modal-close:focus {
+    color: #333;
+    text-decoration: none;
+}
+
+/* --- wag tanggalin pls --- */
 .hidden-content {
-    display: none;
+  display: none;
 }
 
 .hidden-page {
-    display: none;
+  display: none;
 }
 
 .page.active {
@@ -771,7 +839,7 @@ body.auth-page .live-background {
 }
 
 .password-toggle-icon {
-    position: absolute;
+  position: absolute;
     right: 15px;
     top: 50%;
     transform: translateY(-50%);

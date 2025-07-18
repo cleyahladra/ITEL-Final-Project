@@ -10,7 +10,7 @@
 </head>
 
 <body>
-
+    
     <div id="app">
         <section id="loginPage" class="page active">
             <div class="main-header">
@@ -80,97 +80,107 @@
                     <li><a href="#" data-page="home">Home</a></li>
                     <li><a href="#" data-page="profile">Profile</a></li>
                     <li><a href="#" data-page="library">Library</a></li>
-
+                    
                     <li><button id="logoutButton">Logout</button></li>
                 </ul>
             </nav>
 
             <section id="homePageContent" class="content-page">
-                <h1 class="page-title">Welcome to Library Cove</h1>
-                <div class="search-bar-container">
-                    <input type="text" id="homeSearchBar" placeholder="Search for Books">
-                </div>
-                <div id="bookList" class="book-grid">
-                </div>
-            </section>
+    <h1 class="page-title">Welcome to Library Cove</h1>
+    <div class="search-bar-container">
+        <input type="text" id="homeSearchBar" placeholder="Search for Books">
+    </div>
+    <div id="homeBookList" class="book-grid">
+        </div>
+</section>
 
-            <section id="profilePageContent" class="content-page hidden-page">
-                <h1 class="page-title">Profile</h1>
-                <div class="profile-details">
-                    <div class="profile-image-placeholder"></div>
-                    <p><strong>Student's Name:</strong> <span id="profileName">First Name, Middle Name, Surname</span></p>
-                    <p><strong>School:</strong> <span id="profileSchool"></span></p>
-                    <p><strong>Address:</strong> <span id="profileAddress"></span></p>
-                    <p><strong>Year Level:</strong> <span id="profileYearLevel"></span></p>
-                    <p><strong>Contact Number:</strong> <span id="profileContact"></span></p>
-                    <button id="editProfileButton" class="action-button">Edit Profile</button>
-                </div>
-            </section>
+<section id="profilePageContent" class="content-page hidden-page">
+    <h1 class="page-title">Profile</h1>
+    <div class="search-bar-container">
+        <input type="text" id="profileSearchBar" placeholder="Search Bar">
+    </div>
+    <div class="profile-details">
+        <div class="profile-image-placeholder"></div>
+        <p><strong>Student's Name:</strong> <span id="profileName">First Name, Middle Name, Surname</span></p>
+        <p><strong>School:</strong> <span id="profileSchool"></span></p>
+        <p><strong>Address:</strong> <span id="profileAddress"></span></p>
+        <p><strong>Year Level:</strong> <span id="profileYearLevel"></span></p>
+        <p><strong>Contact Number:</strong> <span id="profileContact"></span></p>
+        <button id="editProfileButton" class="action-button">Edit Profile</button>
+    </div>
+</section>
 
-            <section id="libraryPageContent" class="content-page hidden-page">
-                <h1 class="page-title">Library</h1>
-                <div class="search-bar-container">
-                    <input type="text" id="librarySearchBar" placeholder="Search Bar">
-                </div>
-                <button id="addBookBtn" class="action-button">Add New Book</button>
-                <div id="libraryBookList" class="book-grid">
-                    <div id="libraryDynamicBookList"></div>
+<section id="libraryPageContent" class="content-page hidden-page">
+    <h1 class="page-title">Library</h1>
+    <div class="search-bar-container">
+        <input type="text" id="librarySearchBar" placeholder="Search Bar">
+    </div>
+    <button id="addBookBtn" class="action-button">Add New Book</button>
 
+    <div id="libraryBookList" class="book-grid">
+        
+        <div class="book-card">
+            <img src="https://via.placeholder.com/100x150?text=The+Hobbit" alt="The Hobbit">
+            <h3>The Hobbit</h3>
+            <p>by J.R.R. Tolkien</p>
+        </div>
+        <div class="book-card">
+            <img src="https://via.placeholder.com/100x150?text=1984" alt="1984">
+            <h3>1984</h3>
+            <p>by George Orwell</p>
+        </div>
+        <div class="book-card">
+            <img src="https://via.placeholder.com/100x150?text=Pride+and+Prejudice" alt="Pride and Prejudice">
+            <h3>Pride and Prejudice</h3>
+            <p>by Jane Austen</p>
+        </div>
+        <div class="book-card">
+            <img src="https://via.placeholder.com/100x150?text=To+Kill+a+Mockingbird" alt="To Kill a Mockingbird">
+            <h3>To Kill a Mockingbird</h3>
+            <p>by Harper Lee</p>
+        </div>
+        <div class="book-card">
+            <img src="https://via.placeholder.com/100x150?text=The+Great+Gatsby" alt="The Great Gatsby">
+            <h3>The Great Gatsby</h3>
+            <p>by F. Scott Fitzgerald</p>
+        </div>
+        <div class="book-card">
+            <img src="https://via.placeholder.com/100x150?text=Dune" alt="Dune">
+            <h3>Dune</h3>
+            <p>by Frank Herbert</p>
+        </div>
+    </div>
+</section>
 
-                    <div class="book-card">
-                        <img src="https://via.placeholder.com/100x150?text=The+Hobbit" alt="The Hobbit">
-                        <h3>The Hobbit</h3>
-                        <p>by J.R.R. Tolkien</p>
-                    </div>
-                    <div class="book-card">
-                        <img src="https://via.placeholder.com/100x150?text=1984" alt="1984">
-                        <h3>1984</h3>
-                        <p>by George Orwell</p>
-                    </div>
-                    <div class="book-card">
-                        <img src="https://via.placeholder.com/100x150?text=Pride+and+Prejudice" alt="Pride and Prejudice">
-                        <h3>Pride and Prejudice</h3>
-                        <p>by Jane Austen</p>
-                    </div>
-                    <div class="book-card">
-                        <img src="https://via.placeholder.com/100x150?text=To+Kill+a+Mockingbird" alt="To Kill a Mockingbird">
-                        <h3>To Kill a Mockingbird</h3>
-                        <p>by Harper Lee</p>
-                    </div>
-                    <div class="book-card">
-                        <img src="https://via.placeholder.com/100x150?text=The+Great+Gatsby" alt="The Great Gatsby">
-                        <h3>The Great Gatsby</h3>
-                        <p>by F. Scott Fitzgerald</p>
-                    </div>
-                    <div class="book-card">
-                        <img src="https://via.placeholder.com/100x150?text=Dune" alt="Dune">
-                        <h3>Dune</h3>
-                        <p>by Frank Herbert</p>
-                    </div>
-                </div>
-            </section>
-
-
-            <div id="customAlertModal" class="modal">
-                <div class="modal-content">
-                    <p id="alertMessage"></p>
-                    <button id="alertOkButton" class="modal-button">OK</button>
-                </div>
+        <div id="bookContentModal" class="book-content-modal">
+            <div class="book-content-modal-content">
+                <span class="book-content-modal-close">&times;</span>
+                <h2 id="modalBookTitle"></h2>
+                <h3 id="modalBookAuthor"></h3>
+                <p id="modalBookContent"></p>
             </div>
+        </div>
 
-            <div id="customPromptModal" class="modal">
-                <div class="modal-content">
-                    <p id="promptMessage"></p>
-                    <input type="text" id="promptInput">
-                    <div class="modal-buttons">
-                        <button id="promptOkButton" class="modal-button">OK</button>
-                        <button id="promptCancelButton" class="modal-button cancel">Cancel</button>
-                    </div>
-                </div>
+    <div id="customAlertModal" class="modal">
+        <div class="modal-content">
+            <p id="alertMessage"></p>
+            <button id="alertOkButton" class="modal-button">OK</button>
+        </div>
+    </div>
+
+    <div id="customPromptModal" class="modal">
+        <div class="modal-content">
+            <p id="promptMessage"></p>
+            <input type="text" id="promptInput">
+            <div class="modal-buttons">
+                <button id="promptOkButton" class="modal-button">OK</button>
+                <button id="promptCancelButton" class="modal-button cancel">Cancel</button>
             </div>
-
-            <script type="module" src="script.js"></script>
-            <script type="module" src="authh.js"></script>
-            <script type="module" src="books.js"></script>
+        </div>
+    </div>
+    
+    <script type="module" src="script.js"></script>
+    <script type="module" src="authh.js"></script>
+     <script type="module" src="books.js"></script>
 </body>
 </html>

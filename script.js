@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // initial page
   showPage("homePageContent");
-  loadBooks(); // first Firestore fetch
+  loadBooks();                       // first Firestore fetch
 
   // click handlers
   navLinks.forEach((link) => {
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
       showPage(`${key}PageContent`);
 
       if (key === "home" || key === "library") {
-        loadBooks(); // refresh book grids
+        loadBooks();                 // refresh book grids
       } else if (key === "profile") {
         renderProfile();
       }
