@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBpkPV1xptnhF0g5pJkQjC3rEQjjrCzPdE",
@@ -18,55 +18,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signupForm");
   const loginPage = document.getElementById("loginPage");
   const signupPage = document.getElementById("signupPage");
+
   const showLogin = document.getElementById("showLogin");
   const showSignup = document.getElementById("showSignup");
-  const mainContent = document.getElementById("mainContent");
-  const homePageContent = document.getElementById("homePageContent");
 
-  loginPage.style.display = "none";
-  signupPage.style.display = "none";
-  mainContent.style.display = "none";
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      mainContent.style.display = "block";
-      loginPage.style.display = "none";
-      signupPage.style.display = "none";
-
-      document.querySelectorAll(".content-page").forEach((section) => {
-        section.classList.add("hidden-page");
-      });
-      homePageContent.classList.remove("hidden-page");
-    } else {
-      loginPage.style.display = "block";
-      signupPage.style.display = "none";
-      mainContent.style.display = "none";
-      homePageContent.classList.add("hidden-page");
-    }
-  });
-
+  // Toggle to Sign Up
   showSignup.addEventListener("click", (e) => {
     e.preventDefault();
     loginPage.classList.remove("active");
-    loginPage.style.display = "none";
-
     signupPage.classList.add("active");
-    signupPage.style.display = "block";
-
-    homePageContent.classList.add("hidden-page");
   });
 
+  // Toggle to Log In
   showLogin.addEventListener("click", (e) => {
     e.preventDefault();
     signupPage.classList.remove("active");
-    signupPage.style.display = "none";
-
     loginPage.classList.add("active");
-    loginPage.style.display = "block";
-
-    homePageContent.classList.add("hidden-page");
   });
 
+  // Sign Up Logic
   signupForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -76,11 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         alert("Sign-up successful! Please log in.");
+        // Switch to login page
         signupPage.classList.remove("active");
         loginPage.classList.add("active");
-        signupPage.style.display = "none";
-        loginPage.style.display = "block";
-        homePageContent.classList.add("hidden-page");
       })
       .catch((error) => {
         alert("Signup error: " + error.message);
@@ -96,13 +64,17 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
 
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
+      
       console.log("Logged in:", userCredential.user);
 
+      // Hide login and signup pages
       document.getElementById('loginPage').classList.remove('active');
       document.getElementById('signupPage').classList.remove('active');
 
+      // Show main content
       document.getElementById('mainContent').classList.remove('hidden-content');
 
+      // Show home page, hide others
       document.querySelectorAll('.content-page').forEach(section => {
         section.classList.add('hidden-page');
       });
@@ -116,10 +88,12 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
 
 logoutButton.addEventListener("click", () => {
   signOut(auth).then(() => {
+    // Successfully signed out
     document.getElementById("mainContent").classList.add("hidden-content");
     document.getElementById("loginPage").classList.add("active");
     document.getElementById("signupPage").classList.remove("active");
-    document.getElementById("homePageContent").classList.add("hidden-page");
+
+    // Optional: clear form inputs
     document.getElementById("loginForm").reset();
   }).catch((error) => {
     alert("Error signing out: " + error.message);
