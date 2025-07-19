@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBpkPV1xptnhF0g5pJkQjC3rEQjjrCzPdE",
@@ -12,7 +12,37 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const auth = getAuth(app); 
+
+window.addEventListener("load", () => {
+  // Delay hiding the preloader to prevent flickering
+  setTimeout(() => {
+    document.body.classList.remove("auth-loading");
+    const preloader = document.getElementById("preloader");
+    if (preloader) preloader.style.display = "none";
+  }, 1000); // 1 second delay (adjust as needed)
+});
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // Logged in
+    document.getElementById("loginPage").style.display = "none";
+    document.getElementById("signupPage").style.display = "none";
+    document.getElementById("mainContent").classList.remove("hidden-content");
+
+    // Show home page after login
+    const homePage = document.getElementById("homePageContent");
+    if (homePage) {
+      homePage.classList.add("active-page");
+      homePage.classList.remove("hidden-page");
+    }
+  } else {
+    // Not logged in
+    document.getElementById("mainContent").classList.add("hidden-content");
+    document.getElementById("loginPage").style.display = "block";
+    document.getElementById("signupPage").style.display = "none";
+  }
+}); 
 
 document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signupForm");
@@ -21,6 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const showLogin = document.getElementById("showLogin");
   const showSignup = document.getElementById("showSignup");
+  
+  
 
   // Toggle to Sign Up
   showSignup.addEventListener("click", (e) => {
@@ -99,3 +131,4 @@ logoutButton.addEventListener("click", () => {
     alert("Error signing out: " + error.message);
   });
 });
+

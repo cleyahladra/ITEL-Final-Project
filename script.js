@@ -1,67 +1,49 @@
-/* ---------- script.js (paste over the old file) ---------- */
 import { loadBooks } from "./books.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-  /* --------------------------- DOM ELEMENTS --------------------------- */
-  const navLinks = document.querySelectorAll(".nav-links a");
-  const contentPages = document.querySelectorAll(".content-page");
-  const themeToggle = document.getElementById("themeToggle"); // Get the theme toggle button
-
-  const editProfileBtn = document.getElementById("editProfileButton");
-
-  /* ------------- PROFILE FIELDS ------------- */
-  const profileName = document.getElementById("profileName");
-  const profileSchool = document.getElementById("profileSchool");
-  const profileAddress = document.getElementById("profileAddress");
-  const profileYearLevel = document.getElementById("profileYearLevel");
-  const profileContact = document.getElementById("profileContact");
-
-  /* ------------- MODAL ELEMENTS ------------- */
-  const customAlert = document.getElementById("customAlertModal");
+/* --------------------------- GLOBAL ALERT & PROMPT --------------------------- */
+window.showAlert = function (text) {
   const alertMsg = document.getElementById("alertMessage");
+  const customAlert = document.getElementById("customAlertModal");
   const alertOK = document.getElementById("alertOkButton");
 
-  const customPrompt = document.getElementById("customPromptModal");
-  const promptMsg = document.getElementById("promptMessage");
-  const promptInput = document.getElementById("promptInput");
-  const promptOK = document.getElementById("promptOkButton");
-  const promptCancel = document.getElementById("promptCancelButton");
+  alertMsg.textContent = text;
+  customAlert.style.display = "flex";
 
-  /* ------------- SIMPLE PROFILE DATA ------------- */
-  let userProfile = {
-    name: "First Name, Middle Name, Surname",
-    school: "Your School Here",
-    address: "Your Address Here",
-    yearLevel: "Your Year Level Here",
-    contact: "Your Phone Number Here",
-  };
-
-  /* ------------------------ MODAL HELPERS ------------------------ */
-  function showAlert(text) {
-    alertMsg.textContent = text;
-    customAlert.style.display = "flex";
-  }
-  alertOK.addEventListener("click", () => {
+  alertOK.onclick = () => {
     customAlert.style.display = "none";
+  };
+};
+
+window.showPrompt = function (text, initial = "") {
+  return new Promise((resolve) => {
+    const promptMsg = document.getElementById("promptMessage");
+    const promptInput = document.getElementById("promptInput");
+    const promptOK = document.getElementById("promptOkButton");
+    const promptCancel = document.getElementById("promptCancelButton");
+    const customPrompt = document.getElementById("customPromptModal");
+
+    promptMsg.textContent = text;
+    promptInput.value = initial;
+    customPrompt.style.display = "flex";
+
+    promptOK.onclick = () => {
+      customPrompt.style.display = "none";
+      resolve(promptInput.value);
+    };
+
+    promptCancel.onclick = () => {
+      customPrompt.style.display = "none";
+      resolve(null);
+    };
   });
+};
 
-  function showPrompt(text, initial = "") {
-    return new Promise((resolve) => {
-      promptMsg.textContent = text;
-      promptInput.value = initial;
-      customPrompt.style.display = "flex";
-      promptOK.onclick = () => {
-        customPrompt.style.display = "none";
-        resolve(promptInput.value);
-      };
-      promptCancel.onclick = () => {
-        customPrompt.style.display = "none";
-        resolve(null);
-      };
-    });
-  }
+/* --------------------------- DOM READY --------------------------- */
+document.addEventListener("DOMContentLoaded", () => {
+  const navLinks = document.querySelectorAll(".nav-links a");
+  const contentPages = document.querySelectorAll(".content-page");
+  const themeToggle = document.getElementById("themeToggle");
 
-  /* ------------------------ PAGE NAVIGATION ------------------------ */
   function showPage(id) {
     contentPages.forEach((p) => {
       p.classList.remove("active-page");
@@ -74,76 +56,34 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // initial page
   showPage("homePageContent");
-  loadBooks();                       // first Firestore fetch
+  loadBooks();
 
-  // click handlers
   navLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
-      const key = link.dataset.page; // home | profile | library
+      const key = link.dataset.page;
       showPage(`${key}PageContent`);
 
       if (key === "home" || key === "library") {
-        loadBooks();                 // refresh book grids
+        loadBooks();
       } else if (key === "profile") {
         renderProfile();
       }
     });
   });
 
-  /* --------------------- PROFILE RENDER / EDIT --------------------- */
-  function renderProfile() {
-    profileName.textContent = userProfile.name;
-    profileSchool.textContent = userProfile.school;
-    profileAddress.textContent = userProfile.address;
-    profileYearLevel.textContent = userProfile.yearLevel;
-    profileContact.textContent = userProfile.contact;
-  }
-  renderProfile();
-
-  editProfileBtn.addEventListener("click", async () => {
-    const n = await showPrompt("Enter new Student's Name:", userProfile.name);
-    if (n !== null) userProfile.name = n.trim();
-
-    const s = await showPrompt("Enter new School:", userProfile.school);
-    if (s !== null) userProfile.school = s.trim();
-
-    const a = await showPrompt("Enter new Address:", userProfile.address);
-    if (a !== null) userProfile.address = a.trim();
-
-    const y = await showPrompt("Enter new Year Level:", userProfile.yearLevel);
-    if (y !== null) userProfile.yearLevel = y.trim();
-
-    const c = await showPrompt("Enter new Contact Number:", userProfile.contact);
-    if (c !== null) userProfile.contact = c.trim();
-
-    renderProfile();
-    showAlert("Profile updated successfully!");
-  });
-
-  /* ------------------------ THEME TOGGLE LOGIC ------------------------ */
-
-  /**
-   * Applies the stored theme preference or defaults to light mode.
-   */
   function applyThemePreference() {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") {
       document.body.classList.add("dark-mode");
       document.body.classList.remove("light-mode");
     } else {
-      // Default to light mode if no preference or explicitly 'light'
       document.body.classList.add("light-mode");
       document.body.classList.remove("dark-mode");
     }
   }
 
-  /**
-   * Toggles the theme between dark and light mode.
-   * Stores the preference in localStorage.
-   */
   function toggleTheme() {
     if (document.body.classList.contains("dark-mode")) {
       document.body.classList.remove("dark-mode");
@@ -156,9 +96,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Event listener for the theme toggle button
   themeToggle.addEventListener("click", toggleTheme);
-
-  // Apply theme preference when the page loads
   applyThemePreference();
 });
+
+
+const librarySearchBar = document.getElementById('librarySearchBar');
+const libraryBookList = document.getElementById('libraryBookList');
+
+librarySearchBar.addEventListener('input', () => {
+  const searchTerm = librarySearchBar.value.toLowerCase();
+  const bookCards = libraryBookList.querySelectorAll('.book-card');
+
+  bookCards.forEach(card => {
+    const title = card.querySelector('h3').textContent.toLowerCase();
+    const author = card.querySelector('p').textContent.toLowerCase();
+    const matches = title.includes(searchTerm) || author.includes(searchTerm);
+    card.style.display = matches ? 'block' : 'none';
+  });
+});
+
+const homeSearchBar = document.getElementById('homeSearchBar');
+const homeBookList = document.getElementById('homeBookList');
+
+if (homeSearchBar && homeBookList) {
+  homeSearchBar.addEventListener('input', () => {
+    const searchTerm = homeSearchBar.value.toLowerCase();
+    const bookCards = homeBookList.querySelectorAll('.book-card');
+
+    bookCards.forEach(card => {
+      const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
+      const author = card.querySelector('p')?.textContent.toLowerCase() || '';
+      const matches = title.includes(searchTerm) || author.includes(searchTerm);
+      card.style.display = matches ? 'block' : 'none';
+    });
+  });
+}
