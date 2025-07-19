@@ -1,3 +1,4 @@
+// profile.js
 import {
   getFirestore,
   doc,
@@ -15,19 +16,19 @@ window.addEventListener("DOMContentLoaded", () => {
   const auth = getAuth();
   let userProfile = {};
 
-  const profileName      = document.getElementById("profileName");
-  const profileSchool    = document.getElementById("profileSchool");
-  const profileAddress   = document.getElementById("profileAddress");
+  const profileName = document.getElementById("profileName");
+  const profileSchool = document.getElementById("profileSchool");
+  const profileAddress = document.getElementById("profileAddress");
   const profileYearLevel = document.getElementById("profileYearLevel");
-  const profileContact   = document.getElementById("profileContact");
-  const editProfileBtn   = document.getElementById("editProfileButton");
+  const profileContact = document.getElementById("profileContact");
+  const editProfileBtn = document.getElementById("editProfileButton");
 
   function renderProfile() {
-    profileName.textContent      = userProfile.name;
-    profileSchool.textContent    = userProfile.school;
-    profileAddress.textContent   = userProfile.address;
+    profileName.textContent = userProfile.name;
+    profileSchool.textContent = userProfile.school;
+    profileAddress.textContent = userProfile.address;
     profileYearLevel.textContent = userProfile.yearLevel;
-    profileContact.textContent   = userProfile.contact;
+    profileContact.textContent = userProfile.contact;
   }
 
   onAuthStateChanged(auth, async (user) => {
@@ -38,13 +39,15 @@ window.addEventListener("DOMContentLoaded", () => {
       if (snap.exists()) {
         userProfile = snap.data();
       } else {
+        // Create a new user profile if it doesn't exist
         userProfile = {
           uid: user.uid,
           name: "",
           school: "",
           address: "",
           yearLevel: "",
-          contact: ""
+          contact: "",
+          readingHistory: [] // Initialize readingHistory for new users
         };
         await setDoc(userRef, userProfile);
       }
@@ -54,25 +57,36 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   editProfileBtn.addEventListener("click", async () => {
-    const n = prompt("Enter new Student's Name:", userProfile.name);
+    const n = await showPrompt("Enter new Student's Name:", userProfile.name);
     if (n !== null) userProfile.name = n.trim();
 
-    const s = prompt("Enter new School:", userProfile.school);
+    const s = await showPrompt("Enter new School:", userProfile.school);
     if (s !== null) userProfile.school = s.trim();
 
-    const a = prompt("Enter new Address:", userProfile.address);
+    const a = await showPrompt("Enter new Address:", userProfile.address);
     if (a !== null) userProfile.address = a.trim();
 
-    const y = prompt("Enter new Year Level:", userProfile.yearLevel);
+    const y = await showPrompt("Enter new Year Level:", userProfile.yearLevel);
     if (y !== null) userProfile.yearLevel = y.trim();
 
-    const c = prompt("Enter new Contact Number:", userProfile.contact);
+    const c = await showPrompt("Enter new Contact Number:", userProfile.contact);
     if (c !== null) userProfile.contact = c.trim();
 
     const userRef = doc(db, "users", userProfile.uid);
     await setDoc(userRef, userProfile, { merge: true });
 
     renderProfile();
-    alert("Profile updated successfully!");
+    showAlert("Profile updated successfully!");
+
+    // Update the profile in Firestore
+    if (auth.currentUser) {
+      const userRef = doc(db, "users", auth.currentUser.uid);
+      try {
+        await setDoc(userRef, userProfile, { merge: true }); // Use merge: true to only update specified fields
+        console.log("User profile updated in Firestore.");
+      } catch (error) {
+        console.error("Error updating user profile in Firestore:", error);
+      }
+    }
   });
 });

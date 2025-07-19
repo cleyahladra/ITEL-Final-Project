@@ -86,29 +86,48 @@
             </nav>
 
             <section id="homePageContent" class="content-page">
-    <h1 class="page-title">Welcome to Library Cove</h1>
-    <div class="search-bar-container">
-        <input type="text" id="homeSearchBar" placeholder="Search for Books">
-    </div>
-    <div id="homeBookList" class="book-grid">
-        </div>
-</section>
+                <h1 class="page-title">Welcome to Library Cove</h1>
+                <div class="search-bar-container">
+                    <input type="text" id="homeSearchBar" placeholder="Search for Books">
+                </div>
+                <div class="home-layout"> <div class="genre-sidebar"> <h3>Genres</h3>
+                        <div class="genre-filter-buttons">
+                            <button class="genre-button active" data-genre="all">All Genres</button>
+                            <button class="genre-button" data-genre="fiction">Fiction</button>
+                            <button class="genre-button" data-genre="fantasy">Fantasy</button>
+                            <button class="genre-button" data-genre="science fiction">Science Fiction</button>
+                            <button class="genre-button" data-genre="mystery">Mystery</button>
+                            <button class="genre-button" data-genre="thriller">Thriller</button>
+                            <button class="genre-button" data-genre="romance">Romance</button>
+                            <button class="genre-button" data-genre="biography">Biography</button>
+                            <button class="genre-button" data-genre="history">History</button>
+                            <button class="genre-button" data-genre="self-help">Self-Help</button>
+                            </div>
+                    </div>
+                    <div id="homeBookList" class="book-grid books-display">
+                        </div>
+                </div>
+            </section>
 
-<section id="profilePageContent" class="content-page hidden-page">
-    <h1 class="page-title">Profile</h1>
-    <div class="search-bar-container">
-        <input type="text" id="profileSearchBar" placeholder="Search Bar">
+        <section id="profilePageContent" class="content-page hidden-page">
+            <h1 class="page-title">Profile</h1>
+            <div class="search-bar-container">
+                <input type="text" id="profileSearchBar" placeholder="Search Bar">
+            </div>
+            <div class="profile-details">
+                <div class="profile-image-placeholder"></div>
+                <p><strong>Student's Name:</strong> <span id="profileName">First Name, Middle Name, Surname</span></p>
+                <p><strong>School:</strong> <span id="profileSchool"></span></p>
+                <p><strong>Address:</strong> <span id="profileAddress"></span></p>
+                <p><strong>Year Level:</strong> <span id="profileYearLevel"></span></p>
+                <p><strong>Contact Number:</strong> <span id="profileContact"></span></p>
+                <button id="editProfileButton" class="action-button">Edit Profile</button>
+            </div>
+        </section>
+
+    <div id="booksDisplay" class="book-grid books-display">
+        <span class="favorite-star" data-book-id="BOOK_ID_HERE">♡</span>
     </div>
-    <div class="profile-details">
-        <div class="profile-image-placeholder"></div>
-        <p><strong>Student's Name:</strong> <span id="profileName">First Name, Middle Name, Surname</span></p>
-        <p><strong>School:</strong> <span id="profileSchool"></span></p>
-        <p><strong>Address:</strong> <span id="profileAddress"></span></p>
-        <p><strong>Year Level:</strong> <span id="profileYearLevel"></span></p>
-        <p><strong>Contact Number:</strong> <span id="profileContact"></span></p>
-        <button id="editProfileButton" class="action-button">Edit Profile</button>
-    </div>
-</section>
 
 <section id="libraryPageContent" class="content-page hidden-page">
     <h1 class="page-title">Library</h1>
@@ -117,37 +136,23 @@
     </div>
     <button id="addBookBtn" class="action-button">Add New Book</button>
 
-    <div id="libraryBookList" class="book-grid">
-        
-        <div class="book-card">
-            <img src="https://via.placeholder.com/100x150?text=The+Hobbit" alt="The Hobbit">
-            <h3>The Hobbit</h3>
-            <p>by J.R.R. Tolkien</p>
+    <div class="library-sections">
+        <div class="library-section">
+            <h2 class="section-title">My Books</h2>
+            <div id="libraryBookList" class="book-grid books-display">
+                </div>
         </div>
-        <div class="book-card">
-            <img src="https://via.placeholder.com/100x150?text=1984" alt="1984">
-            <h3>1984</h3>
-            <p>by George Orwell</p>
+
+        <div class="library-section">
+            <h2 class="section-title">Favorite Books</h2>
+            <div id="favoriteBookList" class="book-grid books-display">
+                </div>
         </div>
-        <div class="book-card">
-            <img src="https://via.placeholder.com/100x150?text=Pride+and+Prejudice" alt="Pride and Prejudice">
-            <h3>Pride and Prejudice</h3>
-            <p>by Jane Austen</p>
-        </div>
-        <div class="book-card">
-            <img src="https://via.placeholder.com/100x150?text=To+Kill+a+Mockingbird" alt="To Kill a Mockingbird">
-            <h3>To Kill a Mockingbird</h3>
-            <p>by Harper Lee</p>
-        </div>
-        <div class="book-card">
-            <img src="https://via.placeholder.com/100x150?text=The+Great+Gatsby" alt="The Great Gatsby">
-            <h3>The Great Gatsby</h3>
-            <p>by F. Scott Fitzgerald</p>
-        </div>
-        <div class="book-card">
-            <img src="https://via.placeholder.com/100x150?text=Dune" alt="Dune">
-            <h3>Dune</h3>
-            <p>by Frank Herbert</p>
+
+        <div class="library-section">
+            <h2 class="section-title">Reading History</h2>
+            <div id="historyBookList" class="book-grid books-display">
+                </div>
         </div>
     </div>
 </section>

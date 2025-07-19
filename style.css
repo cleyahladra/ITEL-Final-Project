@@ -415,22 +415,28 @@ a:hover {
     opacity: 0.8;
 }
 
+/* Favorite Star Button Design */
 .favorite-star {
+    font-size: 1.6em; /* Slightly larger for better visibility */
     cursor: pointer;
-    font-size: 1.2rem;
-    color: var(--border-color); /* Muted star color initially */
+    z-index: 10;
+    color: #666; /* Default color: a dark gray for the empty heart */
     position: absolute;
     top: 6px;
     right: 6px;
-    transition: color 0.2s ease, transform 0.2s ease;
-    z-index: 2;
+    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out; /* Smooth transition */
 }
-.favorite-star.fav {
-    color: gold;
-    filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.5));
-}
+
 .favorite-star:hover {
-    transform: scale(1.1);
+    transform: scale(1.1); /* Slightly enlarge on hover */
+    color: var(--highlight-color); /* Highlight color on hover */
+}
+
+/* New: Style for when a book IS favorited */
+.favorite-star.favorited {
+    color: red; /* Or var(--secondary-accent) for a themed color */
+    /* You can change the symbol here if you want a filled heart */
+    /* content: '❤️'; */ /* If you want to use content, remember it won't be a text node */
 }
 
 /* Profile Page specific styles */
@@ -523,6 +529,21 @@ a:hover {
     .page-title-text {
         font-size: 1em;
     }
+
+    /* Adjust home layout for smaller screens */
+    .home-layout {
+        flex-direction: column; /* Stack sidebar and books vertically */
+        align-items: center; /* Center items */
+    }
+
+    .genre-sidebar {
+        width: 100%; /* Full width for sidebar */
+        margin-bottom: 20px; /* Space below sidebar */
+    }
+
+    .books-display {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust book grid */
+    }
 }
 
 @media (max-width: 480px) {
@@ -554,6 +575,10 @@ a:hover {
 
     .page-title-text {
         font-size: 1.5em;
+    }
+
+    .books-display {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     }
 }
 
@@ -847,4 +872,180 @@ body.auth-page .live-background {
     color: var(--text-color); /* Or a specific icon color */
     font-size: 1.2em;
     z-index: 10; /* Ensure it's above the input */
+}
+
+
+/* For the Login Page Password Field */
+#loginForm input[type="password"] {
+    color: #333;
+}
+
+/* For the Book Text Visibility in Light Mode */
+.book-card h3,
+.book-card p {
+    color: #333; /* Dark gray for light mode, ensuring visibility */
+}
+
+/* For the Book Text Visibility in Dark Mode (assuming .dark-mode class is applied to body) */
+body.dark-mode .book-card h3,
+body.dark-mode .book-card p {
+    color: #eee; /* Light gray for dark mode, ensuring visibility */
+}
+
+/* In style.css */
+
+/* For the Profile Page Text Visibility in Light Mode */
+.profile-details p,
+.profile-details p strong,
+.profile-details p span {
+    color: #333; /* Dark gray for light mode */
+}
+
+/* For the Profile Page Text Visibility in Dark Mode (assuming .dark-mode class is applied to body) */
+body.dark-mode .profile-details p,
+body.dark-mode .profile-details p strong,
+body.dark-mode .profile-details p span {
+    color: #eee; /* Light gray for dark mode */
+}
+
+/* For Forgot Email/Password Links Visibility */
+.forgot-link {
+    font-weight: bold; /* Makes the text bold for better visibility */
+}
+
+/* New styles for home-layout to implement sidebar */
+.home-layout {
+    display: flex;
+    gap: 40px; /* Increased space between sidebar and main content */
+    padding: 0 20px 20px; /* Adjust padding for the whole layout */
+    max-width: 1500px; /* Increased max-width for more horizontal space */
+    margin: 0 auto;
+    align-items: flex-start; /* Align items to the top */
+}
+
+.genre-sidebar {
+    flex: 0 0 250px; /* Fixed width for the sidebar, wider to accommodate content */
+    background-color: var(--card-background);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--box-shadow-color) 0px 4px 12px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.genre-sidebar h3 {
+    font-family: var(--heading-font);
+    color: var(--highlight-color);
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 1.8em;
+}
+
+.genre-filter-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.genre-button {
+    background-color: var(--primary-accent);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: left; /* Align text to the left */
+}
+
+.genre-button:hover {
+    background-color: var(--highlight-color);
+    transform: translateY(-2px);
+}
+
+.genre-button.active {
+    background-color: var(--highlight-color);
+    font-weight: 700;
+    border: 2px solid var(--text-color); /* Stronger active indicator */
+}
+
+.books-display {
+    flex-grow: 1; /* Allows the books section to take up the remaining space */
+    display: grid;
+    /* Adjusted minmax to allow for 6 books per row within the increased max-width */
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); /* Increased min-width for potentially larger cards */
+    gap: 25px; /* Increased space between book cards */
+    padding-bottom: 20px;
+}
+
+/* Also ensure book-card text colors are visible in both themes */
+.book-card h3,
+.book-card p {
+    color: #333; /* Dark gray for light mode, ensuring visibility */
+}
+
+body.dark-mode .book-card h3,
+body.dark-mode .book-card p {
+    color: #eee; /* Light gray for dark mode, ensuring visibility */
+}
+
+/* Add this new line within your existing .book-card styles if not present */
+.book-card .book-genre {
+    font-size: 0.8em;
+    color: var(--text-color);
+    font-style: italic;
+    margin-top: 5px;
+}
+
+/* Responsive Adjustments for Home Layout */
+@media (max-width: 992px) { /* Adjust breakpoint as needed */
+    .home-layout {
+        flex-direction: column; /* Stack sidebar and books vertically */
+        align-items: center; /* Center items when stacked */
+    }
+
+    .genre-sidebar {
+        width: 100%; /* Full width for sidebar when stacked */
+        max-width: 400px; /* Optional: limit max width even when full width */
+        margin-bottom: 20px; /* Space below sidebar */
+    }
+
+    .books-display {
+        width: 100%; /* Books display takes full width when stacked */
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust book grid */
+    }
+}
+
+@media (max-width: 768px) {
+    /* Existing rules for smaller screens */
+    .book-grid { /* This might conflict with .books-display, consider consolidating */
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    .books-display { /* Ensuring consistency */
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    /* Existing rules for even smaller screens */
+    .book-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 15px;
+    }
+    .books-display { /* Ensuring consistency */
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+}
+
+/* Add this to your style.css, or modify the existing #mainContent rule */
+#mainContent {
+    display: flex; /* Makes mainContent a flex container */
+    flex-direction: column; /* Stacks its children (header, content pages) vertically */
+    min-height: 100vh; /* Ensures it takes at least the full viewport height */
+    width: 100%; /* Ensures it takes full width */
+    /* You can add other base styles for main content layout here if needed */
 }
