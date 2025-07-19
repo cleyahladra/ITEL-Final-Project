@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Cove</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="auth-loading">
+    <div id="preloader">
+        <div class="loader-container">
+            <div class="loader-spinner"></div>
+            <p class="loader-text">Loading Library Cove...</p>
+        </div>
+    </div>
+    <div id="app">
+        <section id="loginPage" class="page active">
+            <div class="main-header">
+                <div class="header-logo-container">
+                    <img src="https://i.ibb.co/G4Nzywdk/pp.png" width="200" height="110" alt="pp">
+                </div>
+                <h1 class="page-title-text">Library Cove</h1>
+            </div>
+            <div class="auth-container">
+                <h1 class="auth-title">Login to your Account</h1>
+                <form id="loginForm" class="auth-form">
+                    <label for="loginEmail">Username/Email:</label>
+                    <input type="text" id="loginEmail" placeholder="Enter Email" required>
+                    
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" placeholder="Enter Password" required>
+                    <a href="#" class="forgot-link" id="forgotPasswordLink">Forgot your password?</a>
+
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+
+                    <button type="submit" class="submit">LOG IN</button>
+                </form>
+                <p class="auth-toggle">Don't have an account? <a href="#" id="showSignup">Sign up now.</a></p>
+            </div>
+        </section>
+
+        <section id="signupPage" class="page">
+            <div class="main-header">
+                <div class="header-logo-container">
+                    <img src="508301580_1439439013718529_924727040627149128_n (1).png" alt="Library Logo" class="header-logo">
+                </div>
+                <h1 class="page-title-text">Title Page</h1>
+            </div>
+            <div class="auth-container">
+                <h1 class="auth-title">Sign-Up</h1>
+                <form id="signupForm" class="auth-form">
+                    <label for="signupEmail">E-mail:</label>
+                    <input type="email" id="signupEmail" placeholder="Enter Your Email" required>
+
+                    <label for="signupPassword">Password:</label>
+                    <input type="password" id="signupPassword" placeholder="Enter Your Password" required>
+
+                    <label for="signupBirthdate">Birthdate:</label>
+                    <input type="date" id="signupBirthdate" required>
+
+                    <label for="signupPhone">Phone Number:</label>
+                    <input type="tel" id="signupPhone" placeholder="Enter Your Phone Number" required>
+
+                    <button type="submit" class="sign-up">Sign-Up</button>
+                </form>
+                <p class="auth-toggle">Already have an account? <a href="#" id="showLogin">Log In</a></p>
+            </div>
+        </section>
+
+        <div id="mainContent" class="hidden-content">
+            <nav id="navbar" class="sticky-navbar">
+                <div class="nav-left">
+                    <div class="nav-brand">Library Cove</div>
+                    <ul class="nav-links">
+                        <li><a href="#" data-page="home">Browse</a></li>
+                        <li><a href="#" data-page="community">Community</a></li>
+                        <li class="search-input-desktop">
+                            <div class="search-bar-nav">
+                                <input type="text" placeholder="Search">
+                                <span class="search-icon">🔍</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="nav-right">
+                    <button class="write-button">Write</button>
+                    <button class="try-premium-button">Try Premium</button>
+                    <div class="profile-dropdown-container">
+                        <button class="profile-button">A</button>
+                        <div class="dropdown-menu">
+                            <a href="#" data-page="profile">My Profile</a>
+                            <a href="#">Inbox</a>
+                            <a href="#">Notifications</a>
+                            <a href="#" data-page="library">Library</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#">Language: English</a>
+                            <a href="#">Help</a>
+                            <a href="#">Settings</a>
+                            <button id="logoutButton" class="logout-dropdown-button">Log Out</button>
+                        </div>
+                    </div>
+                     <button id="themeToggle" class="theme-toggle">
+                        <span class="icon light-icon">☀️</span>
+                        <span class="icon dark-icon">🌙</span>
+                    </button>
+                </div>
+            </nav>
+
+            <section id="homePageContent" class="content-page active-page">
+                <div class="announcement-banner">
+                    <div class="banner-content">
+                        <h2>2025</h2>
+                        <h3>WELCOME TO LIBRARY COVE!</h3>
+                        <button class="banner-button">Make your OWN story</button>
+                    </div>
+                </div>
+
+                <h2 class="section-heading">Top picks for you</h2>
+                <div class="carousel-container">
+                    <button class="scroll-button left" aria-label="Scroll left">&#10094;</button>
+                    <div class="book-carousel">
+                        <div class="book-card">
+                            <img src="images/enchanted_forest.jpg" alt="The Enchanted Forest Cover">
+                            <h3>The Enchanted Forest</h3>
+                            <p class="genre-tag">Fantasy</p>
+                        </div>
+                        <div class="book-card">
+                            <img src="images/whispers_stars.png" alt="Whispers of the Stars Cover">
+                            <h3>Whispers of the Stars</h3>
+                            <p class="genre-tag">Science Fiction</p>
+                        </div>
+                        <div class="book-card">
+                            <img src="images/detective_legacy.jpeg" alt="The Detective's Legacy Cover">
+                            <h3>The Detective's Legacy</h3>
+                            <p class="genre-tag">Mystery</p>
+                        </div>
+                        <div class="book-card">
+                            <img src="https://via.placeholder.com/250x350/FF6347/FFFFFF?text=Book+1+Cover" alt="Book Cover">
+                            <h3>Hiding The Billionaire's Daughter</h3>
+                            <p class="genre-tag">Romance</p>
+                        </div>
+
+                        <div class="book-card">
+                            <img src="https://via.placeholder.com/250x350/6A5ACD/FFFFFF?text=Book+2+Cover" alt="Book Cover">
+                            <h3>To Live for Love Book 2</h3>
+                            <p class="genre-tag">Romance</p>
+                        </div>
+
+                        <div class="book-card">
+                            <img src="https://via.placeholder.com/250x350/20B2AA/FFFFFF?text=Book+3+Cover" alt="Book Cover">
+                            <h3>The Pianist's Unwanted Existence</h3>
+                            <p class="genre-tag">Drama</p>
+                        </div>
+
+                        <div class="book-card">
+                            <img src="https://via.placeholder.com/250x350/DAA520/FFFFFF?text=Book+4+Cover" alt="Book Cover">
+                            <h3>Connard (Ducani Legacy Series 2)</h3>
+                            <p class="genre-tag">Mystery</p>
+                        </div>
+
+                        <div class="book-card">
+                            <img src="https://via.placeholder.com/250x350/8A2BE2/FFFFFF?text=Book+5+Cover" alt="Book Cover">
+                            <h3>Keeno (Ducani Legacy Series 3)</h3>
+                            <p class="genre-tag">Thriller</p>
+                        </div>
+
+                        <div class="book-card">
+                            <img src="https://via.placeholder.com/250x350/DC143C/FFFFFF?text=Book+6+Cover" alt="Book Cover">
+                            <h3>Klinn (Ducani Legacy Series 4)</h3>
+                            <p class="genre-tag">Fiction</p>
+                        </div>
+
+                        <div class="book-card">
+                            <img src="https://via.placeholder.com/250x350/008080/FFFFFF?text=Book+7+Cover" alt="Book Cover">
+                            <h3>Riot Crown 3: The Son</h3>
+                            <p class="genre-tag">Mystery</p>
+                        </div>
+                    </div>
+                    <button class="scroll-button right" aria-label="Scroll right">&#10095;</button>
+                </div>
+                <div class="home-layout">
+                    <div class="genre-sidebar">
+                        <h3>Genres</h3>
+                        <div class="genre-filter-buttons">
+                            <button class="genre-button active" data-genre="all">All Genres</button>
+                            <button class="genre-button" data-genre="fiction">Fiction</button>
+                            <button class="genre-button" data-genre="fantasy">Fantasy</button>
+                            <button class="genre-button" data-genre="science fiction">Science Fiction</button>
+                            <button class="genre-button" data-genre="mystery">Mystery</button>
+                            <button class="genre-button" data-genre="thriller">Thriller</button>
+                            <button class="genre-button" data-genre="romance">Romance</button>
+                            <button class="genre-button" data-genre="biography">Biography</button>
+                            <button class="genre-button" data-genre="history">History</button>
+                            <button class="genre-button" data-genre="self-help">Self-Help</button>
+                        </div>
+                    </div>
+                    <div id="homeBookList" class="book-grid books-display">
+                    </div>
+                </div>
+            </section>
+
+            <section id="profilePageContent" class="content-page hidden-page">
+                <h1 class="page-title">Profile</h1>
+                <div class="profile-details">
+                    <div class="profile-image-placeholder"></div>
+                    <p><strong>Student's Name:</strong> <span id="profileName">First Name, Middle Name, Surname</span></p>
+                    <p><strong>School:</strong> <span id="profileSchool"></span></p>
+                    <p><strong>Address:</strong> <span id="profileAddress"></span></p>
+                    <p><strong>Year Level:</strong> <span id="profileYearLevel"></span></p>
+                    <p><strong>Contact Number:</strong> <span id="profileContact"></span></p>
+                    <button id="editProfileButton" class="action-button">Edit Profile</button>
+                </div>
+            </section>
+
+            <div id="booksDisplay" class="book-grid books-display">
+                <span class="favorite-star" data-book-id="BOOK_ID_HERE">♡</span>
+            </div>
+
+            <section id="libraryPageContent" class="content-page hidden-page">
+                <h1 class="page-title">Library</h1>
+                <div class="search-bar-container">
+                    <input type="text" id="librarySearchBar" placeholder="Search Bar">
+                </div>
+                <button id="addBookBtn" class="action-button">Add New Book</button>
+
+                <div class="library-sections">
+                    <div class="library-section">
+                        <h2 class="section-title">My Books</h2>
+                        <div id="libraryBookList" class="book-grid books-display">
+                        </div>
+                    </div>
+
+                    <div class="library-section">
+                        <h2 class="section-title">Favorite Books</h2>
+                        <div id="favoriteBookList" class="book-grid books-display">
+                        </div>
+                    </div>
+
+                    <div class="library-section">
+                        <h2 class="section-title">Reading History</h2>
+                        <div id="historyBookList" class="book-grid books-display">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div id="bookContentModal" class="book-content-modal">
+                <div class="book-content-modal-content">
+                    <span class="book-content-modal-close">&times;</span>
+                    <h2 id="modalBookTitle"></h2>
+                    <h3 id="modalBookAuthor"></h3>
+                    <p id="modalBookContent"></p>
+                </div>
+            </div>
+
+            <div id="customAlertModal" class="modal">
+                <div class="modal-content">
+                    <p id="alertMessage"></p>
+                    <button id="alertOkButton" class="modal-button">OK</button>
+                </div>
+            </div>
+
+            <div id="customPromptModal" class="modal">
+                <div class="modal-content">
+                    <p id="promptMessage"></p>
+                    <input type="text" id="promptInput">
+                    <div class="modal-buttons">
+                        <button id="promptOkButton" class="modal-button">OK</button>
+                        <button id="promptCancelButton" class="modal-button cancel">Cancel</button>
+                    </div>
+                </div>
+            </div> 
+        </div> 
+    </div> 
+    <script type="module" src="script.js"></script>
+    <script type="module" src="authh.js"></script>
+    <script type="module" src="books.js"></script>
+    <script type="module" src="profile.js"></script>
+    </body>
+</html>
