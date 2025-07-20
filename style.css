@@ -83,6 +83,7 @@ html, body {
     font-size: 1.2em;
     font-family: 'Inter', sans-serif; /* Use your body font or another suitable font */
 }
+
 /* Keyframe animation for the spinner */
 @keyframes spin {
     0% { transform: rotate(0deg); }
