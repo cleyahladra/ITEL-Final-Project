@@ -83,7 +83,6 @@ html, body {
     font-size: 1.2em;
     font-family: 'Inter', sans-serif; /* Use your body font or another suitable font */
 }
-
 /* Keyframe animation for the spinner */
 @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -1259,3 +1258,20 @@ body.auth-page .live-background {
         height: 13rem;
     }
 }
+
+.home-button {
+    background-color: #f7c6d9; /* Pastel pink */
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-weight: bold;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+    background-color: #f4acc7; /* Slightly darker on hover */
+}
+

@@ -1,5 +1,4 @@
-import { loadBooks } from "./books.js";
-
+import { loadBooks } from "./books.js"
 /* --------------------------- GLOBAL ALERT & PROMPT --------------------------- */
 window.showAlert = function (text) {
     const alertMsg = document.getElementById("alertMessage");
@@ -11,6 +10,7 @@ window.showAlert = function (text) {
         customAlert.style.display = "none";
     };
 };
+
 window.showPrompt = function (text, initial = "") {
     return new Promise((resolve) => {
         const promptMsg = document.getElementById("promptMessage");
@@ -31,280 +31,135 @@ window.showPrompt = function (text, initial = "") {
         };
     });
 };
+
 window.showConfirm = function (text) {
     return new Promise((resolve) => {
-        const confirmModal = document.getElementById("customAlertModal");
+        // Assuming you have a modal for confirmation similar to showAlert/showPrompt
+        // For now, let's use a simple prompt for confirmation, but ideally, you'd have a dedicated modal.
+        const confirmModal = document.getElementById("customAlertModal"); // Reusing alert modal for simplicity
         const confirmMessage = document.getElementById("alertMessage");
         const okButton = document.getElementById("alertOkButton");
-        let cancelButton = document.getElementById("confirmCancelButton");
-        if (!cancelButton) {
-            cancelButton = document.createElement("button");
-            cancelButton.id = "confirmCancelButton";
-            cancelButton.textContent = "Cancel";
-            cancelButton.className = "modal-button cancel";
+        const cancelButton = document.createElement("button"); // Create a cancel button
+        cancelButton.textContent = "Cancel";
+        cancelButton.className = "modal-button cancel";
+        
+        // Clear previous buttons if any
+        const modalButtonsDiv = okButton.parentNode;
+        while (modalButtonsDiv.children.length > 1) { // Keep only the message
+            modalButtonsDiv.removeChild(modalButtonsDiv.lastChild);
         }
 
-        const modalButtonsDiv = okButton.parentNode;
-        modalButtonsDiv.innerHTML = '';
-        modalButtonsDiv.appendChild(okButton);
-        modalButtonsDiv.appendChild(cancelButton);
-
         confirmMessage.textContent = text;
+        modalButtonsDiv.appendChild(okButton);
+        modalButtonsDiv.appendChild(cancelButton); // Add cancel button
+
         confirmModal.style.display = "flex";
 
         okButton.onclick = () => {
             confirmModal.style.display = "none";
+            modalButtonsDiv.removeChild(cancelButton); // Clean up
             resolve(true);
         };
+
         cancelButton.onclick = () => {
             confirmModal.style.display = "none";
+            modalButtonsDiv.removeChild(cancelButton); // Clean up
             resolve(false);
         };
     });
 };
 
-/* --------------------------- DARK MODE TOGGLE --------------------------- */
-document.addEventListener('DOMContentLoaded', () => {
-    const themeToggle = document.getElementById('themeToggle');
-    if (themeToggle) {
-        const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
-        if (isDarkMode) {
-            document.body.classList.add('dark-mode');
-        }
 
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                localStorage.setItem('darkMode', 'disabled');
-            }
+/* --------------------------- DOM READY --------------------------- */
+document.addEventListener("DOMContentLoaded", () => {
+    // Select all navigation links, including those in the dropdown menu
+    const navLinks = document.querySelectorAll(".nav-links a, .dropdown-menu a");
+    const contentPages = document.querySelectorAll(".content-page");
+    const themeToggle = document.getElementById("themeToggle");
+    const writeButton = document.getElementById("writeButton"); // Get the write button
+    const makeStoryButton = document.getElementById("makeStoryButton"); // Get the "Make your OWN story" button
+
+    function showPage(id) {
+        contentPages.forEach((p) => {
+            p.classList.remove("active-page");
+            p.classList.add("hidden-page");
         });
-    }
-
-    // Book content modal functionality
-    const bookContentModal = document.getElementById('bookContentModal');
-    const bookContentClose = document.querySelector('.book-content-modal-close');
-
-    if (bookContentClose) {
-        bookContentClose.addEventListener('click', () => {
-            bookContentModal.style.display = 'none';
-        });
-    }
-
-    window.addEventListener('click', (event) => {
-        if (event.target === bookContentModal) {
-            bookContentModal.style.display = 'none';
-        }
-    });
-
-    // Navigation and Page Display (assuming loginPage/signupPage/mainContent are managed by authh.js initially)
-    const loginPage = document.getElementById('loginPage');
-    const signupPage = document.getElementById('signupPage');
-    const mainContent = document.getElementById('mainContent');
-
-    // Authentication Form Toggles
-    const showLoginLink = document.getElementById('showLogin');
-    const showSignupLink = document.getElementById('showSignup');
-
-    if (showLoginLink && showSignupLink && loginPage && signupPage) {
-        showSignupLink.addEventListener('click', (event) => {
-            event.preventDefault();
-            loginPage.classList.remove('active');
-            loginPage.classList.add('hidden');
-            signupPage.classList.remove('hidden');
-            signupPage.classList.add('active');
-        });
-
-        showLoginLink.addEventListener('click', (event) => {
-            event.preventDefault();
-            signupPage.classList.remove('active');
-            signupPage.classList.add('hidden');
-            loginPage.classList.remove('hidden');
-            loginPage.classList.add('active');
-        });
-    }
-
-    // Function to show/hide content pages within mainContent
-    function showContentPage(pageId) {
-        const pages = document.querySelectorAll('.content-page');
-        pages.forEach(page => {
-            page.classList.add('hidden-page');
-            page.classList.remove('active-page');
-        });
-        const activePage = document.getElementById(pageId);
-        if (activePage) {
-            activePage.classList.remove('hidden-page');
-            activePage.classList.add('active-page');
-        }
-
-        // Update active class for nav links (within the mainContent navbar)
-        const navLinks = document.querySelectorAll('#navbar .nav-links');
-        navLinks.forEach(link => link.classList.remove('active'));
-
-        const currentNavLink = document.querySelector(`#navbar .nav-links[data-page="${pageId.replace('PageContent', '')}"]`);
-        if (currentNavLink) {
-            currentNavLink.classList.add('active');
+        const page = document.getElementById(id);
+        if (page) {
+            page.classList.remove("hidden-page");
+            page.classList.add("active-page");
         }
     }
 
+    showPage("homePageContent");
+    loadBooks();
 
-    // Event listener for the "Home" button in the navbar
-    const homeNavToLoginButton = document.getElementById('homeNavToLoginButton');
-    if (homeNavToLoginButton) {
-        homeNavToLoginButton.addEventListener('click', (event) => {
-            event.preventDefault();
-            // This is the key change: When "Home" is clicked while logged in,
-            // it should show the homePageContent, not go back to login.
-            showContentPage('homePageContent');
-        });
-    }
-
-    // Event listeners for internal navigation links (Profile, Library, Write)
-    const profileNavLink = document.getElementById('profileNavLink');
-    const libraryNavLink = document.getElementById('libraryNavLink');
-    const writeButton = document.getElementById('writeButton');
-
-
-    if (profileNavLink) {
-        profileNavLink.addEventListener('click', (event) => {
-            event.preventDefault();
-            showContentPage('profilePageContent');
-            if (typeof renderProfile === 'function') {
+    navLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const key = link.dataset.page;
+            showPage(`${key}PageContent`);
+            if (key === "home" || key === "library") {
+                loadBooks();
+            } else if (key === "profile") {
                 renderProfile();
             }
         });
-    }
+    });
 
-    if (libraryNavLink) {
-        libraryNavLink.addEventListener('click', (event) => {
-            event.preventDefault();
-            showContentPage('libraryPageContent');
-            loadBooks();
-        });
-    }
-
+    // Event listener for the "Write" button in the navbar
     if (writeButton) {
-        writeButton.addEventListener('click', (event) => {
-            event.preventDefault();
-            showContentPage('writePageContent');
-        });
-    }
-    // Logout button handler (this correctly returns to the login page)
-    const logoutButton = document.getElementById("logoutButton");
-    if (logoutButton) {
-        logoutButton.addEventListener("click", async () => {
-            // This will trigger the onAuthStateChanged in authh.js to show login page
-            // Assuming authh.js handles Firebase signOut.
-            window.returnToLoginPage(); // Calls the function to return to the initial login screen
+        writeButton.addEventListener("click", () => {
+            showPage("writePageContent"); // Show the new write page
         });
     }
 
-    // Initial page load state: if mainContent is shown, display homePageContent
-    if (!mainContent.classList.contains('hidden-content')) {
-        showContentPage('homePageContent');
-    }
-
-    // Search functionality for home page (using navbar search bar)
-    const navbarSearchBar = document.getElementById('navbarSearchBar');
-    const homeBookList = document.getElementById('homeBookList');
-    const bookCarousel = document.querySelector('.book-carousel');
-
-    if (navbarSearchBar && (homeBookList || bookCarousel)) {
-        navbarSearchBar.addEventListener('input', () => {
-            const searchTerm = navbarSearchBar.value.toLowerCase();
-            let allBooks = [];
-
-            if (homeBookList) {
-                homeBookList.querySelectorAll('.book-card').forEach(card => allBooks.push(card));
-            }
-            if (bookCarousel) {
-                bookCarousel.querySelectorAll('.book-card').forEach(card => allBooks.push(card));
-            }
-
-            allBooks.forEach(card => {
-                const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
-                const author = card.querySelector('p')?.textContent.toLowerCase() || '';
-                if (title.includes(searchTerm) || author.includes(searchTerm)) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+    // Event listener for the "Make your OWN story" button in the banner
+    if (makeStoryButton) {
+        makeStoryButton.addEventListener("click", () => {
+            showPage("writePageContent"); // Show the new write page
         });
     }
 
-
-    // Search functionality for library
-    const librarySearchBar = document.getElementById('librarySearchBar');
-    const libraryBookList = document.getElementById('libraryBookList');
-    const favoriteBookList = document.getElementById('favoriteBookList');
-    const historyBookList = document.getElementById('historyBookList');
-
-
-    if (librarySearchBar && (libraryBookList || favoriteBookList || historyBookList)) {
-        librarySearchBar.addEventListener('input', () => {
-            const searchTerm = librarySearchBar.value.toLowerCase();
-            let allLibraryBooks = [];
-
-            if (libraryBookList) {
-                libraryBookList.querySelectorAll('.book-card').forEach(card => allLibraryBooks.push(card));
-            }
-            if (favoriteBookList) {
-                favoriteBookList.querySelectorAll('.book-card').forEach(card => allLibraryBooks.push(card));
-            }
-            if (historyBookList) {
-                historyBookList.querySelectorAll('.book-card').forEach(card => allLibraryBooks.push(card));
-            }
-
-            allLibraryBooks.forEach(card => {
-                const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
-                const author = card.querySelector('p')?.textContent.toLowerCase() || '';
-                if (title.includes(searchTerm) || author.includes(searchTerm)) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
+    function applyThemePreference() {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+            document.body.classList.add("dark-mode");
+            document.body.classList.remove("light-mode");
+        } else {
+            document.body.classList.add("light-mode");
+            document.body.classList.remove("dark-mode");
+        }
     }
 
-
-    // Genre filtering for home page
-    const genreButtons = document.querySelectorAll('.genre-button');
-    if (genreButtons.length > 0 && homeBookList) {
-        genreButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                genreButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                const selectedGenre = button.dataset.genre;
-                filterBooksByGenre(selectedGenre);
-            });
-        });
+    function toggleTheme() {
+        if (document.body.classList.contains("dark-mode")) {
+            document.body.classList.remove("dark-mode");
+            document.body.classList.add("light-mode");
+            localStorage.setItem("theme", "light");
+        } else {
+            document.body.classList.remove("light-mode");
+            document.body.classList.add("dark-mode");
+            localStorage.setItem("theme", "dark");
+        }
     }
 
-    function filterBooksByGenre(genre) {
-        const bookCards = homeBookList.querySelectorAll('.book-card');
-        bookCards.forEach(card => {
-            const bookGenre = card.dataset.genre ? card.dataset.genre.toLowerCase() : '';
-            if (genre === 'all' || bookGenre === genre) {
-                card.style.display = '';
-            } else {
-                card.style.display = 'none';
-            }
-        });
+    if (themeToggle) {
+        themeToggle.addEventListener("click", toggleTheme);
     }
+    applyThemePreference();
 
-    // Carousel scroll functionality
+    /* --------------------------- CAROUSEL FUNCTIONALITY --------------------------- */
     const carouselWrapper = document.querySelector('.book-carousel');
     const leftButton = document.querySelector('.scroll-button.left');
     const rightButton = document.querySelector('.scroll-button.right');
 
-    if (carouselWrapper && leftButton && rightButton) {
+    if (carouselWrapper && leftButton && rightButton) { // Ensure all elements exist
         let isDown = false;
         let startX;
         let scrollLeft;
 
+        // Mouse drag functionality for desktop
         carouselWrapper.addEventListener('mousedown', (e) => {
             isDown = true;
             carouselWrapper.style.cursor = 'grabbing';
@@ -326,20 +181,28 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isDown) return;
             e.preventDefault();
             const x = e.pageX - carouselWrapper.offsetLeft;
-            const walk = (x - startX) * 2;
+            const walk = (x - startX) * 2; // Adjust multiplier for scroll speed
             carouselWrapper.scrollLeft = scrollLeft - walk;
         });
 
+        // Scroll button functionality
         leftButton.addEventListener('click', () => {
-            const scrollAmount = carouselWrapper.offsetWidth * 0.7;
-            carouselWrapper.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            const scrollAmount = carouselWrapper.offsetWidth * 0.7; // Scroll by 70% of visible width
+            carouselWrapper.scrollBy({
+                left: -scrollAmount,
+                behavior: 'smooth'
+            });
         });
 
         rightButton.addEventListener('click', () => {
-            const scrollAmount = carouselWrapper.offsetWidth * 0.7;
-            carouselWrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            const scrollAmount = carouselWrapper.offsetWidth * 0.7; // Scroll by 70% of visible width
+            carouselWrapper.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
         });
 
+        // Optional: Hide/Show scroll buttons based on scroll position
         const toggleScrollButtons = () => {
             const scrollTolerance = 5;
             if (carouselWrapper.scrollLeft <= scrollTolerance) {
@@ -354,41 +217,74 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
+        // Initial check on load
         toggleScrollButtons();
+        // Check on scroll
         carouselWrapper.addEventListener('scroll', toggleScrollButtons);
+        // Check on window resize
         window.addEventListener('resize', toggleScrollButtons);
     } else {
         console.warn("Carousel elements not found. Carousel functionality will not be active.");
     }
+    /* ------------------------ END CAROUSEL FUNCTIONALITY ------------------------ */
 
+    const librarySearchBar = document.getElementById('librarySearchBar');
+    const libraryBookList = document.getElementById('libraryBookList');
+
+    // Ensure librarySearchBar and libraryBookList exist before adding event listener
+    if (librarySearchBar && libraryBookList) {
+        librarySearchBar.addEventListener('input', () => {
+            const searchTerm = librarySearchBar.value.toLowerCase();
+            const bookCards = libraryBookList.querySelectorAll('.book-card');
+            bookCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const author = card.querySelector('p').textContent.toLowerCase();
+                const matches = title.includes(searchTerm) || author.includes(searchTerm);
+                card.style.display = matches ? 'block' : 'none';
+            });
+        });
+    } else {
+        console.warn("Library search bar or book list not found.");
+    }
+
+    // homeSearchBar and homeBookList were removed from HTML, so this block might not be necessary.
+    // If you add them back, ensure they are correctly referenced.
+    const homeSearchBar = document.getElementById('homeSearchBar');
+    const homeBookList = document.getElementById('homeBookList');
+    if (homeSearchBar && homeBookList) {
+        homeSearchBar.addEventListener('input', () => {
+            const searchTerm = homeSearchBar.value.toLowerCase();
+            const bookCards = homeBookList.querySelectorAll('.book-card');
+            bookCards.forEach(card => {
+                const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
+                const author = card.querySelector('p')?.textContent.toLowerCase() || '';
+                const matches = title.includes(searchTerm) || author.includes(searchTerm);
+                card.style.display = matches ? 'block' : 'none';
+            });
+        });
+    }
+
+    // Dummy renderProfile function to avoid errors, assuming it's imported from profile.js
+    // If profile.js isn't linked or defined, this will prevent an error.
     function renderProfile() {
-        // This function should be defined and exported from profile.js
-        // If it's not, you might see a console error but the navigation will still work.
-        console.log("Rendering profile... (Ensure profile.js is correctly linked and exporting this function)");
+        console.log("Rendering profile...");
+        // Add your profile rendering logic here if it's not handled by profile.js
+        // This function is imported from profile.js, so this dummy function is just a fallback.
     }
 });
 
-/* --------------------------- RETURN TO LOGIN PAGE FUNCTION --------------------------- */
-// This function is correctly designed to transition back to the login/signup page.
-// It should only be called when the user intends to log out or if authentication fails.
-function returnToLoginPage() {
-    const loginPage = document.getElementById('loginPage');
-    const signupPage = document.getElementById('signupPage');
-    const mainContent = document.getElementById('mainContent');
+document.addEventListener('DOMContentLoaded', () => {
+    const homeButton = document.getElementById('homeButton');
+    const contentSections = document.querySelectorAll('.content-page');
 
-    if (loginPage && signupPage && mainContent) {
-        mainContent.classList.add('hidden-content');
+    homeButton.addEventListener('click', () => {
+        contentSections.forEach(section => {
+            section.classList.remove('active');
+            section.classList.add('hidden-page');
+        });
 
-        loginPage.classList.remove('hidden');
-        loginPage.classList.add('active');
-        signupPage.classList.add('hidden');
-        signupPage.classList.remove('active');
-
-        document.getElementById('loginEmail').value = '';
-        document.getElementById('loginPassword').value = '';
-    } else {
-        console.error("Could not find loginPage, signupPage, or mainContent elements to return home.");
-    }
-}
-
-window.returnToLoginPage = returnToLoginPage;
+        const homePage = document.getElementById('homePageContent');
+        homePage.classList.add('active');
+        homePage.classList.remove('hidden-page');
+    });
+});

@@ -16,7 +16,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
-
 let currentUser = null;
 
 onAuthStateChanged(auth, (user) => {
@@ -40,6 +39,7 @@ const writeAuthor = document.getElementById('writeAuthor');
 const writeGenre = document.getElementById('writeGenre');
 const writeImageUrl = document.getElementById('writeImageUrl');
 const writeContent = document.getElementById('writeContent');
+
 
 // Updated predefinedBooks with genre property and more books
 const predefinedBooks = [
@@ -105,270 +105,387 @@ const predefinedBooks = [
     { id: "system-60", title: "The Poppy War", author: "R.F. Kuang", content: "An epic fantasy novel inspired by Chinese history.", imageUrl: "https://i.ibb.co/qN2s4bY/poppywar.jpg", creatorId: "system", genre: "fantasy" },
     { id: "system-61", title: "Neverwhere", author: "Neil Gaiman", content: "A fantasy novel set in a magical realm coexisting with London.", imageUrl: "https://i.ibb.co/Zf2h0YQ/neverwhere.jpg", creatorId: "system", genre: "fantasy" },
     { id: "system-62", title: "Stardust", author: "Neil Gaiman", content: "A fantasy novel about a young man's quest to retrieve a fallen star.", imageUrl: "https://i.ibb.co/vj1p0k0/stardust.jpg", creatorId: "system", genre: "fantasy" },
-    { id: "system-63", title: "Mythos", author: "Stephen Fry", content: "A retelling of Greek myths.", imageUrl: "https://i.ibb.co/y4Lg30f/mythos.jpg", creatorId: "system", genre: "mythology" },
-    { id: "system-64", title: "Norse Mythology", author: "Neil Gaiman", content: "A retelling of Norse myths.", imageUrl: "https://i.ibb.co/k5v5W1g/norsemyth.jpg", creatorId: "system", genre: "mythology" },
-    { id: "system-65", title: "The Song of Roland", author: "Anonymous", content: "An epic poem based on the Battle of Roncevaux in 778.", imageUrl: "https://i.ibb.co/R73f98P/roland.jpg", creatorId: "system", genre: "epic" },
-    { id: "system-66", title: "Beowulf", author: "Anonymous", content: "An Old English epic poem. One of the most important works of Old English literature.", imageUrl: "https://i.ibb.co/5c9j1G7/beowulf.jpg", creatorId: "system", genre: "epic" },
-    { id: "system-67", title: "The Iliad", author: "Homer", content: "An ancient Greek epic poem. Set during the Trojan War.", imageUrl: "https://i.ibb.co/fY2K1Xf/iliad.jpg", creatorId: "system", genre: "epic" },
-    { id: "system-68", title: "Meditations", author: "Marcus Aurelius", content: "A series of personal writings by Marcus Aurelius, Roman Emperor from 161 to 180 AD, recording his private notes to himself and ideas on Stoic philosophy.", imageUrl: "https://i.ibb.co/P4y4W9z/meditations.jpg", creatorId: "system", genre: "philosophy" },
-    { id: "system-69", title: "Thus Spoke Zarathustra", author: "Friedrich Nietzsche", content: "A philosophical novel by Friedrich Nietzsche, composed in four parts between 1883 and 1885.", imageUrl: "https://i.ibb.co/Pz2X5Yd/zarathustra.jpg", creatorId: "system", genre: "philosophy" },
-    { id: "system-70", title: "The Republic", author: "Plato", content: "A Socratic dialogue, written by Plato around 375 BC, concerning justice, the order and character of the just city-state, and the just man.", imageUrl: "https://i.ibb.co/qN2s4bY/republic.jpg", creatorId: "system", genre: "philosophy" }
+    { id: "system-63", title: "Mythos", author: "Stephen Fry", content: "A retelling of Greek myths.", imageUrl: "https://i.ibb.co/j3g2B1T/mythos.jpg", creatorId: "system", genre: "mythology" },
+    { id: "system-64", title: "Norse Mythology", author: "Neil Gaiman", content: "A retelling of Norse myths.", imageUrl: "https://i.ibb.co/W9g2k2R/norsemythology.jpg", creatorId: "system", genre: "mythology" },
+    { id: "system-65", title: "The Hero with a Thousand Faces", author: "Joseph Campbell", content: "A non-fiction book about comparative mythology. Introduces the concept of the monomyth.", imageUrl: "https://i.ibb.co/b9k3x1H/herowithathousandfaces.jpg", creatorId: "system", genre: "mythology" },
+    { id: "system-66", title: "Astrophysics for People in a Hurry", author: "Neil deGrasse Tyson", content: "A non-fiction book about astrophysics.", imageUrl: "https://i.ibb.co/dL3R2Fh/astrophysics.jpg", creatorId: "system", genre: "science" },
+    { id: "system-67", title: "Cosmos", author: "Carl Sagan", content: "A non-fiction book about science and the universe.", imageUrl: "https://i.ibb.co/7j93f33/cosmos.jpg", creatorId: "system", genre: "science" },
+    { id: "system-68", title: "The Art of War", author: "Sun Tzu", content: "An ancient Chinese military treatise.", imageUrl: "https://i.ibb.co/X8gP21L/artofwar.jpg", creatorId: "system", genre: "philosophy" },
+    { id: "system-69", title: "Meditations", author: "Marcus Aurelius", content: "A series of personal writings by Marcus Aurelius, Roman Emperor, expressing his ideas on Stoic philosophy.", imageUrl: "https://i.ibb.co/k5v5W1g/meditations.jpg", creatorId: "system", genre: "philosophy" },
+    { id: "system-70", title: "Thus Spoke Zarathustra", author: "Friedrich Nietzsche", content: "A philosophical novel by Friedrich Nietzsche, concerning the ideas of the 'eternal recurrence of the same' and the 'will to power'.", imageUrl: "https://i.ibb.co/L89Yf2S/zarathustra.jpg", creatorId: "system", genre: "philosophy" },
+    { id: "system-71", title: "The Prince", author: "Niccolò Machiavelli", content: "A 16th-century political treatise by the Italian diplomat and political theorist Niccolò Machiavelli.", imageUrl: "https://i.ibb.co/s2J2bS3/theprince.jpg", creatorId: "system", genre: "philosophy" },
+    { id: "system-72", title: "Critique of Pure Reason", author: "Immanuel Kant", content: "A foundational work in Western philosophy.", imageUrl: "https://i.ibb.co/gMw8sXf/critique.jpg", creatorId: "system", genre: "philosophy" },
+    { id: "system-73", title: "The Republic", author: "Plato", content: "A Socratic dialogue by Plato concerning justice, the order and character of the just city-state, and the just man.", imageUrl: "https://i.ibb.co/5c9j1G7/republic.jpg", creatorId: "system", genre: "philosophy" },
+    { id: "system-74", title: "Beyond Good and Evil", author: "Friedrich Nietzsche", content: "A book by Friedrich Nietzsche that traces the origins of morality.", imageUrl: "https://i.ibb.co/P4y4W9z/beyondgoodandevil.jpg", creatorId: "system", genre: "philosophy" },
+    { id: "system-75", title: "Fear and Trembling", author: "Søren Kierkegaard", content: "A philosophical work by Søren Kierkegaard.", imageUrl: "https://i.ibb.co/Pz2X5Yd/feartrembling.jpg", creatorId: "system", genre: "philosophy" },
+    { id: "system-76", title: "Walden", author: "Henry David Thoreau", content: "A reflection upon simple living in natural surroundings.", imageUrl: "https://i.ibb.co/qN2s4bY/walden.jpg", creatorId: "system", genre: "philosophy" },
+    { id: "system-77", title: "The Analects of Confucius", author: "Confucius", content: "A collection of sayings and ideas attributed to the Chinese philosopher Confucius.", imageUrl: "https://i.ibb.co/Zf2h0YQ/analects.jpg", creatorId: "system", genre: "philosophy" },
+    { id: "system-78", title: "The History of the Peloponnesian War", author: "Thucydides", content: "A historical account of the Peloponnesian War.", imageUrl: "https://i.ibb.co/vj1p0k0/peloponnesian.jpg", creatorId: "system", genre: "history" },
+    { id: "system-79", title: "Guns, Germs, and Steel", author: "Jared Diamond", content: "A non-fiction book about the factors that have shaped human history.", imageUrl: "https://i.ibb.co/j3g2B1T/guns.jpg", creatorId: "system", genre: "history" },
+    { id: "system-80", title: "A People's History of the United States", author: "Howard Zinn", content: "A non-fiction book by Howard Zinn, presenting a multi-sided view of American history.", imageUrl: "https://i.ibb.co/8Y4T7jC/peopleshistory.jpg", creatorId: "system", genre: "history" },
+    { id: "system-81", title: "The Diary of a Young Girl", author: "Anne Frank", content: "The diary of Anne Frank, a Jewish girl who hid with her family during the Holocaust.", imageUrl: "https://i.ibb.co/f4F3H1Z/annefrank.jpg", creatorId: "system", genre: "biography" },
+    { id: "system-82", title: "Long Walk to Freedom", author: "Nelson Mandela", content: "An autobiography of Nelson Mandela, detailing his early life, coming of age, education and 27 years in prison.", imageUrl: "https://i.ibb.co/dL3R2Fh/longwalktofreedom.jpg", creatorId: "system", genre: "biography" },
+    { id: "system-83", title: "Steve Jobs", author: "Walter Isaacson", content: "A biography of Steve Jobs, co-founder of Apple Inc.", imageUrl: "https://i.ibb.co/7j93f33/stevejobs.jpg", creatorId: "system", genre: "biography" },
+    { id: "system-84", title: "Becoming", author: "Michelle Obama", content: "A memoir by former First Lady of the United States Michelle Obama.", imageUrl: "https://i.ibb.co/3k5fH4L/becoming.jpg", creatorId: "system", genre: "biography" },
+    { id: "system-85", title: "The Immortal Life of Henrietta Lacks", author: "Rebecca Skloot", content: "A non-fiction book about Henrietta Lacks and the HeLa cell line.", imageUrl: "https://i.ibb.co/X8gP21L/henrietta.jpg", creatorId: "system", genre: "biography" },
+    { id: "system-86", title: "Into Thin Air", author: "Jon Krakauer", content: "A non-fiction book about the 1996 Mount Everest disaster.", imageUrl: "https://i.ibb.co/k5v5W1g/intothinair.jpg", creatorId: "system", genre: "adventure" },
+    { id: "system-87", title: "Wild", author: "Cheryl Strayed", content: "A memoir about a woman's 1,100-mile hike on the Pacific Crest Trail.", imageUrl: "https://i.ibb.co/L89Yf2S/wild.jpg", creatorId: "system", genre: "adventure" },
+    { id: "system-88", title: "The Secret History", author: "Donna Tartt", content: "A novel about a group of classics students at a New England college.", imageUrl: "https://i.ibb.co/s2J2bS3/secrethistory.jpg", creatorId: "system", genre: "fiction" },
+    { id: "system-89", title: "Atonement", author: "Ian McEwan", content: "A novel that spans several decades, beginning in 1935 England.", imageUrl: "https://i.ibb.co/gMw8sXf/atonement.jpg", creatorId: "system", genre: "fiction" },
+    { id: "system-90", title: "Cloud Atlas", author: "David Mitchell", content: "A novel composed of six nested stories that take the reader from the South Pacific in the 19th century to a post-apocalyptic future.", imageUrl: "https://i.ibb.co/5c9j1G7/cloudatlas.jpg", creatorId: "system", genre: "science fiction" },
+    { id: "system-91", title: "Life of Pi", author: "Yann Martel", content: "A fantasy adventure novel about a boy shipwrecked with a Bengal tiger.", imageUrl: "https://i.ibb.co/P4y4W9z/lifeofpi.jpg", creatorId: "system", genre: "adventure" },
+    { id: "system-92", title: "The Road", author: "Cormac McCarthy", content: "A post-apocalyptic novel about a father and son's journey.", imageUrl: "https://i.ibb.co/Pz2X5Yd/theroad.jpg", creatorId: "system", genre: "post-apocalyptic" },
+    { id: "system-93", title: "Blindness", author: "José Saramago", content: "A novel about a city struck by an epidemic of white blindness.", imageUrl: "https://i.ibb.co/qN2s4bY/blindness.jpg", creatorId: "system", genre: "dystopian" },
+    { id: "system-94", title: "The Handmaid's Tale", author: "Margaret Atwood", content: "A dystopian novel set in a totalitarian society.", imageUrl: "https://i.ibb.co/Zf2h0YQ/handmaidstale.jpg", creatorId: "system", genre: "dystopian" },
+    { id: "system-95", title: "Fahrenheit 451", author: "Ray Bradbury", content: "A dystopian novel where books are outlawed and burned.", imageUrl: "https://i.ibb.co/vj1p0k0/fahrenheit.jpg", creatorId: "system", genre: "dystopian" },
+    { id: "system-96", title: "The Name of the Rose", author: "Umberto Eco", content: "A historical murder mystery set in a medieval monastery.", imageUrl: "https://i.ibb.co/j3g2B1T/nameoftherose.jpg", creatorId: "system", genre: "historical fiction" },
+    { id: "system-97", title: "The Pillars of the Earth", author: "Ken Follett", content: "A historical novel set in 12th-century England during the building of a cathedral.", imageUrl: "https://i.ibb.co/W9g2k2R/pillars.jpg", creatorId: "system", genre: "historical fiction" },
+    { id: "system-98", title: "Shogun", author: "James Clavell", content: "A historical novel set in feudal Japan.", imageUrl: "https://i.ibb.co/b9k3x1H/shogun.jpg", creatorId: "system", genre: "historical fiction" },
+    { id: "system-99", title: "Outlander", author: "Diana Gabaldon", content: "A historical romance novel about a World War II nurse who travels back in time to 18th-century Scotland.", imageUrl: "https://i.ibb.co/dL3R2Fh/outlander.jpg", creatorId: "system", genre: "historical romance" },
+    { id: "system-100", title: "The Midnight Library", author: "Matt Haig", content: "A fantasy novel about a woman who gets a chance to explore alternate lives.", imageUrl: "https://i.ibb.co/tZQ1x11/midnightlibrary.jpg", creatorId: "system", genre: "fantasy" },
+    { id: "system-101", title: "Entangled Life", author: "Merlin Sheldrake", content: "A non-fiction book about fungi and their impact on the world.", imageUrl: "https://i.ibb.co/7j93f33/entangledlife.jpg", creatorId: "system", genre: "science" },
+    { id: "system-102", title: "A Brief History of Humankind", author: "Yuval Noah Harari", content: "A comprehensive overview of human history from the Stone Age to the 21st century.", imageUrl: "https://i.ibb.co/9y2zN3N/sapiens.jpg", creatorId: "system", genre: "history" },
+    { id: "system-103", title: "Homo Deus: A Brief History of Tomorrow", author: "Yuval Noah Harari", content: "Explores projects, dreams and nightmares that will shape the 21st century—from overcoming death to creating artificial life.", imageUrl: "https://i.ibb.co/bF9j2xR/homodeus.jpg", creatorId: "system", genre: "future studies" },
+    { id: "system-104", title: "21 Lessons for the 21st Century", author: "Yuval Noah Harari", content: "A book that explores some of the most pressing issues of the current global landscape.", imageUrl: "https://i.ibb.co/5v1d3tP/21lessons.jpg", creatorId: "system", genre: "current affairs" },
+    { id: "system-105", title: "Thinking, Fast and Slow", author: "Daniel Kahneman", content: "A best-selling non-fiction book by Daniel Kahneman, which summarizes research on cognitive biases.", imageUrl: "https://i.ibb.co/5v1d3tP/thinkingfastandslow.jpg", creatorId: "system", genre: "psychology" },
+    { id: "system-106", title: "Influence: The Psychology of Persuasion", author: "Robert B. Cialdini", content: "A book on persuasion and marketing.", imageUrl: "https://i.ibb.co/f4F3H1Z/influence.jpg", creatorId: "system", genre: "psychology" },
+    { id: "system-107", title: "The Power of Habit", author: "Charles Duhigg", content: "A book that explores the science behind habit creation and reformation.", imageUrl: "https://i.ibb.co/dL3R2Fh/powerofhabit.jpg", creatorId: "system", genre: "self-help" },
+    { id: "system-108", title: "Mindset: The New Psychology of Success", author: "Carol S. Dweck", content: "A book on the power of believing that you can improve.", imageUrl: "https://i.ibb.co/7j93f33/mindset.jpg", creatorId: "system", genre: "psychology" },
+    { id: "system-109", title: "Grit: The Power of Passion and Perseverance", author: "Angela Duckworth", content: "A book about the importance of passion and perseverance to achieve long-term goals.", imageUrl: "https://i.ibb.co/X8gP21L/grit.jpg", creatorId: "system", genre: "self-help" },
+    { id: "system-110", title: "Quiet: The Power of Introverts in a World That Can't Stop Talking", author: "Susan Cain", content: "A non-fiction book about introversion.", imageUrl: "https://i.ibb.co/k5v5W1g/quiet.jpg", creatorId: "system", genre: "psychology" },
+    { id: "system-111", title: "The 7 Habits of Highly Effective People", author: "Stephen Covey", content: "A business and self-help book.", imageUrl: "https://i.ibb.co/L89Yf2S/7habits.jpg", creatorId: "system", genre: "self-help" },
+    { id: "system-112", title: "The Martian", author: "Andy Weir", content: "A science fiction novel about an astronaut presumed dead and left behind on Mars.", imageUrl: "https://i.ibb.co/qN2s4bY/martian.jpg", creatorId: "system", genre: "science fiction" },
+    { id: "system-113", title: "Artemis", author: "Andy Weir", content: "A science fiction heist novel set on the Moon.", imageUrl: "https://i.ibb.co/R73f98P/artemis.jpg", creatorId: "system", genre: "science fiction" },
+    { id: "system-114", title: "The Midnight Library", author: "Matt Haig", content: "A fantasy novel about a woman who gets a chance to explore alternate lives.", imageUrl: "https://i.ibb.co/tZQ1x11/midnightlibrary.jpg", creatorId: "system", genre: "fantasy" },
+    { id: "system-115", title: "Eleanor Oliphant Is Completely Fine", author: "Gail Honeyman", content: "A contemporary fiction novel about a socially awkward woman who finds friendship.", imageUrl: "https://i.ibb.co/y4Lg30f/eleanoroliphant.jpg", creatorId: "system", genre: "fiction" },
+    { id: "system-116", title: "Normal People", author: "Sally Rooney", content: "A contemporary fiction novel about the intricate relationship between two young people.", imageUrl: "https://i.ibb.co/X8gP21L/normalpeople.jpg", creatorId: "system", genre: "fiction" },
+    { id: "system-117", title: "The Vanishing Half", author: "Brit Bennett", content: "A historical fiction novel about twin sisters who choose to live in very different worlds.", imageUrl: "https://i.ibb.co/k5v5W1g/vanishinghalf.jpg", creatorId: "system", genre: "historical fiction" },
+    { id: "system-118", title: "Pachinko", author: "Min Jin Lee", content: "A historical fiction novel following a Korean family who immigrates to Japan.", imageUrl: "https://i.ibb.co/L89Yf2S/pachinko.jpg", creatorId: "system", genre: "historical fiction" },
+    { id: "system-119", title: "Hamnet", author: "Maggie O'Farrell", content: "A historical fiction novel imagining the life of Shakespeare's wife, Agnes Hathaway.", imageUrl: "https://i.ibb.co/s2J2bS3/hamnet.jpg", creatorId: "system", genre: "historical fiction" },
+    { id: "system-120", title: "Project Hail Mary", author: "Andy Weir", content: "A science fiction novel about an amnesiac astronaut on a mission to save humanity.", imageUrl: "https://i.ibb.co/Pz2X5Yd/projecthailmary.jpg", creatorId: "system", genre: "science fiction" },
 ];
 
+function createBookCard(book, isFavorite = false, isHistory = false) {
+    const bookCard = document.createElement('div');
+    bookCard.className = 'book-card';
+    bookCard.setAttribute('data-id', book.id);
 
-// Function to render books into a specified container
-function renderBooks(books, containerElement, isUserBook = false) {
-    containerElement.innerHTML = ''; // Clear current books
-    books.forEach(book => {
-        const bookCard = document.createElement('div');
-        bookCard.className = 'book-card';
-        bookCard.dataset.id = book.id;
-        bookCard.dataset.genre = book.genre; // Set data-genre attribute
-        if (isUserBook) {
-            bookCard.classList.add('user-book'); // Add a class for user's own books
-        }
-        bookCard.innerHTML = `
-            <img src="${book.imageUrl}" alt="${book.title}" class="book-thumbnail">
-            <h3 class="book-title">${book.title}</h3>
-            <p class="book-author">${book.author}</p>
-            <div class="book-card-actions">
-                <button class="read-button">Read</button>
-                ${isUserBook ? `<button class="edit-button">Edit</button> <button class="delete-button">Delete</button>` : ''}
-                ${!isUserBook && currentUser ? `<button class="add-to-library-button">Add to Library</button>` : ''}
-                ${!isUserBook && currentUser ? `<button class="favorite-button">Favorite</button>` : ''}
-            </div>
-        `;
-        containerElement.appendChild(bookCard);
+    const bookImage = document.createElement('img');
+    bookImage.src = book.imageUrl;
+    bookImage.alt = book.title;
+    bookCard.appendChild(bookImage);
 
-        // Add event listeners for buttons
-        bookCard.querySelector('.read-button').addEventListener('click', () => openBookContentModal(book));
-        if (isUserBook) {
-            bookCard.querySelector('.edit-button').addEventListener('click', () => editBook(book));
-            bookCard.querySelector('.delete-button').addEventListener('click', () => deleteBook(book.id));
-        }
-        if (!isUserBook && currentUser) {
-            bookCard.querySelector('.add-to-library-button').addEventListener('click', () => addBookToUserLibrary(book));
-            bookCard.querySelector('.favorite-button').addEventListener('click', () => toggleFavoriteBook(book));
-        }
-    });
+    const bookTitle = document.createElement('h3');
+    bookTitle.textContent = book.title;
+    bookCard.appendChild(bookTitle);
+
+    const bookAuthor = document.createElement('p');
+    bookAuthor.textContent = book.author;
+    bookCard.appendChild(bookAuthor);
+
+    const genreTag = document.createElement('span');
+    genreTag.className = 'genre-tag';
+    genreTag.textContent = book.genre;
+    bookCard.appendChild(genreTag);
+
+    // Favorite button
+    const favoriteStar = document.createElement('span');
+    favoriteStar.className = 'favorite-star';
+    favoriteStar.innerHTML = isFavorite ? ' ❤️ ' : ' ♡ '; // Filled heart for favorite, outline for not
+    favoriteStar.onclick = (e) => {
+        e.stopPropagation(); // Prevent opening modal when clicking star
+        toggleFavorite(book.id, isFavorite);
+    };
+    bookCard.appendChild(favoriteStar);
+
+    // Show edit/delete only for non-system books
+    if (book.creatorId !== "system" && currentUser && book.creatorId === currentUser.uid) {
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.className = 'action-button edit-button';
+        editButton.onclick = (e) => {
+            e.stopPropagation();
+            window.editBook(book.id, book.title, book.author, book.content, book.imageUrl, book.genre);
+        };
+        bookCard.appendChild(editButton);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.className = 'action-button delete-button';
+        deleteButton.onclick = (e) => {
+            e.stopPropagation();
+            window.deleteBook(book.id);
+        };
+        bookCard.appendChild(deleteButton);
+    }
+
+    // Add click event listener to open the book content modal
+    bookCard.addEventListener('click', () => openBookContentModal(book, isHistory));
+
+    return bookCard;
 }
 
-// Function to open the book content modal
-function openBookContentModal(book) {
+// Function to open book content modal and add to history
+async function openBookContentModal(book, isHistory) {
     modalBookTitle.textContent = book.title;
-    modalBookAuthor.textContent = book.author;
+    modalBookAuthor.textContent = `by ${book.author}`;
     modalBookContent.textContent = book.content;
-    bookContentModal.style.display = 'flex';
+    bookContentModal.style.display = 'flex'; // Use flex to center the modal
+
+    // Add to reading history if it's not already in history (prevents duplicates on re-opening)
+    if (currentUser) {
+        const userRef = doc(db, "users", currentUser.uid);
+        const userSnap = await getDoc(userRef);
+        const userData = userSnap.exists() ? userSnap.data() : {};
+        let readingHistory = userData.readingHistory || [];
+
+        // Check if the book is already in history
+        const isAlreadyInHistory = readingHistory.some(historyBook => historyBook.id === book.id);
+
+        if (!isAlreadyInHistory) {
+            // Add the new book to the end of the history
+            readingHistory.push(book);
+
+            // If history exceeds 10, remove the oldest book
+            if (readingHistory.length > 10) {
+                readingHistory = readingHistory.slice(readingHistory.length - 10);
+            }
+
+            // Update Firestore with the new reading history
+            await setDoc(userRef, { readingHistory: readingHistory }, { merge: true });
+            loadBooks(); // Reload books to update the history display
+        }
+    }
 }
 
-// Close modal button
-if (modalCloseBtn) {
-    modalCloseBtn.addEventListener('click', () => {
-        bookContentModal.style.display = 'none';
-    });
-}
+modalCloseBtn.addEventListener('click', () => {
+    bookContentModal.style.display = 'none';
+});
 
-// Close modal when clicking outside
-window.addEventListener('click', (event) => {
+window.onclick = (event) => {
     if (event.target === bookContentModal) {
         bookContentModal.style.display = 'none';
     }
-});
+};
 
-// Function to load all books (predefined and user's own)
 export async function loadBooks() {
-    console.log("Loading books...");
-    // Clear all lists before re-rendering
+    // Clear current displays
     if (homeBookList) homeBookList.innerHTML = '';
     if (libraryBookList) libraryBookList.innerHTML = '';
     if (favoriteBookList) favoriteBookList.innerHTML = '';
-    if (historyBookList) historyBookList.innerHTML = '';
+    if (historyBookList) historyBookList.innerHTML = ''; // Clear history list
 
-    // Render predefined books (e.g., to homeBookList for discovery)
-    if (homeBookList) {
-        renderBooks(predefinedBooks, homeBookList);
-    }
+    const booksCol = collection(db, 'books');
+    const q = query(booksCol, orderBy("title", "asc"));
+    const bookSnapshot = await getDocs(q);
+    const booksList = bookSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
+    // Fetch user-specific data
+    let favoriteBookIds = [];
+    let readingHistory = []; // Initialize readingHistory
     if (currentUser) {
-        // Load user's own created books
-        const userBooksCol = collection(db, `users/${currentUser.uid}/books`);
-        const userBooksSnapshot = await getDocs(query(userBooksCol, orderBy("createdAt", "desc")));
-        const userBooks = userBooksSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        if (libraryBookList) {
-            renderBooks(userBooks, libraryBookList, true); // Mark as user book for edit/delete buttons
-        }
-
-        // Load favorite books
-        const userDocRef = doc(db, 'users', currentUser.uid);
-        const userDocSnap = await getDoc(userDocRef);
-        if (userDocSnap.exists()) {
-            const userData = userDocSnap.data();
-            const favoriteBookIds = userData.favorites || [];
-            const historyBookIds = userData.history || [];
-
-            const allAvailableBooks = [...predefinedBooks, ...userBooks]; // Combine for easier lookup
-
-            const favoriteBooks = allAvailableBooks.filter(book => favoriteBookIds.includes(book.id));
-            if (favoriteBookList) {
-                renderBooks(favoriteBooks, favoriteBookList);
-            }
-
-            // Load reading history (simplified: just show books from history IDs)
-            const historyBooks = allAvailableBooks.filter(book => historyBookIds.includes(book.id));
-            if (historyBookList) {
-                renderBooks(historyBooks, historyBookList);
-            }
-        }
+        const userRef = doc(db, "users", currentUser.uid);
+        const userSnap = await getDoc(userRef);
+        const userData = userSnap.exists() ? userSnap.data() : {};
+        favoriteBookIds = userData.favorites || [];
+        readingHistory = userData.readingHistory || []; // Get reading history
     }
 
-    // After all books are rendered, apply the initial "All" filter to make sure everything is visible
-    filterBooksByGenre('All');
+    // Make favoriteBookIds accessible globally (or pass it to filterBooksByGenre if needed)
+    window.favoriteBookIds = favoriteBookIds;
+
+    // Display all predefined books on home page initially, handled by genre filter
+    filterBooksByGenre('all');
+
+    // Display user's own books and populate favorite/history lists
+    booksList.forEach(book => {
+        // Filter books for the user's library (non-system books created by the current user)
+        if (currentUser && book.creatorId === currentUser.uid) {
+            const isFavorite = favoriteBookIds.some(favId => favId === book.id);
+            if (libraryBookList) libraryBookList.appendChild(createBookCard(book, isFavorite));
+        }
+    });
+
+    // Display favorite books
+    const allBooks = [...predefinedBooks, ...booksList]; // Combine predefined and user-added books
+    favoriteBookIds.forEach(favId => {
+        const book = allBooks.find(b => b.id === favId);
+        if (book) {
+            if (favoriteBookList) favoriteBookList.appendChild(createBookCard(book, true));
+        }
+    });
+
+    // Display reading history
+    readingHistory.forEach(book => {
+        // Check if the book exists in either predefined or user-added books to ensure full data
+        const foundBook = allBooks.find(b => b.id === book.id);
+        if (foundBook) {
+            if (historyBookList) historyBookList.appendChild(createBookCard(foundBook, favoriteBookIds.includes(foundBook.id), true));
+        } else {
+            // If for some reason the book is not found (e.g., deleted), display minimal info or handle
+            if (historyBookList) historyBookList.appendChild(createBookCard(book, favoriteBookIds.includes(book.id), true));
+        }
+    });
 }
 
-// Add new book functionality
-if (writeForm) {
-    writeForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
+// ------------------------------
+// 2 · Add new book (owner only)
+// ------------------------------
+if (addBookBtn) {
+    addBookBtn.addEventListener('click', async () => {
         if (!currentUser) {
             window.showAlert("You must be logged in to add a book.");
             return;
         }
 
-        const newBook = {
-            title: writeTitle.value,
-            author: writeAuthor.value,
-            genre: writeGenre.value,
-            imageUrl: writeImageUrl.value || "https://via.placeholder.com/150", // Default image
-            content: writeContent.value,
-            creatorId: currentUser.uid,
-            createdAt: new Date()
-        };
+        const title = await window.showPrompt("Enter book title:");
+        if (!title) return; // User cancelled
 
-        try {
-            await addDoc(collection(db, `users/${currentUser.uid}/books`), newBook);
-            window.showAlert("Book added successfully!");
-            writeForm.reset();
-            loadBooks(); // Reload books to show the new addition
-            // Optionally, switch to the library page or refresh the view
-        } catch (error) {
-            console.error("Error adding book:", error);
-            window.showAlert("Failed to add book: " + error.message);
-        }
+        const author = await window.showPrompt("Enter book author:");
+        if (!author) return;
+
+        const content = await window.showPrompt("Enter book content:");
+        if (!content) return;
+
+        const imageUrl = await window.showPrompt("Enter image URL (optional):");
+        const genre = await window.showPrompt("Enter book genre (e.g., Fiction, Fantasy, Mystery):");
+        if (!genre) return; // User cancelled
+
+        await addDoc(collection(db, 'books'), {
+            title: title.trim(),
+            author: author.trim(),
+            content: content.trim(),
+            imageUrl: imageUrl ? imageUrl.trim() : '',
+            genre: genre.trim().toLowerCase(), // Store genre in lowercase for consistency
+            creatorId: currentUser.uid // Store the ID of the user who added the book
+        });
+        window.showAlert("Book added!");
+        loadBooks(); // Reload books to reflect the new addition
     });
 }
 
-// Function to add a predefined book to a user's library
-async function addBookToUserLibrary(book) {
-    if (!currentUser) {
-        window.showAlert("You must be logged in to add books to your library.");
-        return;
-    }
-    try {
-        const userBookRef = doc(db, `users/${currentUser.uid}/books`, book.id);
-        const docSnap = await getDoc(userBookRef);
+// Event listener for the "Publish Story" button on the write form
+if (writeForm) {
+    writeForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-        if (docSnap.exists()) {
-            window.showAlert("This book is already in your library!");
+        if (!currentUser) {
+            window.showAlert("You must be logged in to publish a story.");
             return;
         }
 
-        await setDoc(userBookRef, {
-            ...book,
-            creatorId: currentUser.uid, // Ensure it's marked as owned by the user
-            createdAt: new Date()
+        const title = writeTitle.value;
+        const author = writeAuthor.value;
+        const genre = writeGenre.value;
+        const imageUrl = writeImageUrl.value;
+        const content = writeContent.value;
+
+        if (!title || !author || !genre || !content) {
+            window.showAlert("Please fill in all required fields (Title, Author, Genre, Content).");
+            return;
+        }
+
+        await addDoc(collection(db, 'books'), {
+            title: title.trim(),
+            author: author.trim(),
+            content: content.trim(),
+            imageUrl: imageUrl ? imageUrl.trim() : '',
+            genre: genre.trim().toLowerCase(),
+            creatorId: currentUser.uid
         });
-        window.showAlert("Book added to your library!");
-        loadBooks(); // Refresh library view
-    } catch (error) {
-        console.error("Error adding book to library:", error);
-        window.showAlert("Failed to add book to library: " + error.message);
-    }
+
+        window.showAlert("Story published successfully!");
+        // Clear the form
+        writeTitle.value = '';
+        writeAuthor.value = '';
+        writeGenre.value = '';
+        writeImageUrl.value = '';
+        writeContent.value = '';
+        loadBooks(); // Reload books to show the new story
+        // Optionally navigate to the library or home page
+        document.getElementById('writePageContent').classList.add('hidden-page');
+        document.getElementById('homePageContent').classList.remove('hidden-page');
+        document.getElementById('homePageContent').classList.add('active-page');
+    });
 }
 
-// Function to toggle favorite status
-async function toggleFavoriteBook(book) {
+// ------------------------------
+// 3 · Toggle Favorite
+// ------------------------------
+async function toggleFavorite(bookId, isCurrentlyFavorite) {
     if (!currentUser) {
-        window.showAlert("You must be logged in to favorite books.");
+        window.showAlert("You must be logged in to add to favorites.");
         return;
     }
-    const userDocRef = doc(db, 'users', currentUser.uid);
-    try {
-        const userDocSnap = await getDoc(userDocRef);
-        let currentFavorites = [];
-        if (userDocSnap.exists()) {
-            currentFavorites = userDocSnap.data().favorites || [];
-        }
-
-        if (currentFavorites.includes(book.id)) {
-            // Remove from favorites
-            await updateDoc(userDocRef, {
-                favorites: arrayRemove(book.id)
-            });
-            window.showAlert(`"${book.title}" removed from favorites.`);
-        } else {
-            // Add to favorites
-            await updateDoc(userDocRef, {
-                favorites: arrayUnion(book.id)
-            });
-            window.showAlert(`"${book.title}" added to favorites!`);
-        }
-        loadBooks(); // Refresh favorite list
-    } catch (error) {
-        console.error("Error toggling favorite:", error);
-        window.showAlert("Failed to update favorites: " + error.message);
+    const userRef = doc(db, "users", currentUser.uid);
+    if (isCurrentlyFavorite) {
+        await updateDoc(userRef, {
+            favorites: arrayRemove(bookId)
+        });
+        window.showAlert("Removed from favorites!");
+    } else {
+        await updateDoc(userRef, {
+            favorites: arrayUnion(bookId)
+        });
+        window.showAlert("Added to favorites!");
     }
+    loadBooks(); // Reload books to update favorite status
 }
+window.toggleFavorite = toggleFavorite; // Make it globally accessible
 
-// Function to update book (for user's own books)
-async function editBook(book) {
-    if (!currentUser || book.creatorId !== currentUser.uid) {
-        window.showAlert("You can only edit your own books.");
-        return;
-    }
-
-    const newTitle = await window.showPrompt("Enter new title:", book.title);
-    if (newTitle === null) return; // User cancelled
-
-    const newAuthor = await window.showPrompt("Enter new author:", book.author);
+// ------------------------------
+// 4 · Edit book (owner only)
+// ------------------------------
+window.editBook = async function (id, currentTitle, currentAuthor, currentContent, currentImageUrl, currentGenre) {
+    const newTitle = await window.showPrompt("Enter new title:", currentTitle);
+    if (newTitle === null) return;
+    const newAuthor = await window.showPrompt("Enter new author:", currentAuthor);
     if (newAuthor === null) return;
-
-    const newGenre = await window.showPrompt("Enter new genre:", book.genre);
+    const newContent = await window.showPrompt("Enter new content:", currentContent);
+    if (newContent === null) return;
+    const newImageUrl = await window.showPrompt("Enter new image URL (optional):", currentImageUrl);
+    if (newImageUrl === null) return;
+    const newGenre = await window.showPrompt("Enter new genre:", currentGenre);
     if (newGenre === null) return;
 
-    const newImageUrl = await window.showPrompt("Enter new image URL:", book.imageUrl);
-    if (newImageUrl === null) return;
-
-    const newContent = await window.showPrompt("Enter new content:", book.content);
-    if (newContent === null) return;
-
-    try {
-        const bookRef = doc(db, `users/${currentUser.uid}/books`, book.id);
-        await updateDoc(bookRef, {
-            title: newTitle,
-            author: newAuthor,
-            genre: newGenre,
-            imageUrl: newImageUrl,
-            content: newContent
-        });
-        window.showAlert("Book updated successfully!");
-        loadBooks(); // Reload books to show updated info
-    } catch (error) {
-        console.error("Error updating book:", error);
-        window.showAlert("Failed to update book: " + error.message);
-    }
-}
-
-// Function to delete book (for user's own books)
-window.deleteBook = async function (bookId) {
-    if (!currentUser) {
-        window.showAlert("You must be logged in to delete books.");
+    const bookRef = doc(db, "books", id);
+    const snap = await getDoc(bookRef);
+    if (!snap.exists()) {
+        window.showAlert("Book not found.");
         return;
     }
-    const bookRef = doc(db, `users/${currentUser.uid}/books`, bookId);
-    const bookSnap = await getDoc(bookRef);
+    // Ensure current user is the creator
+    if (!currentUser || currentUser.uid !== snap.data().creatorId) {
+        window.showAlert("You do not have permission to edit this book.");
+        return;
+    }
+    await updateDoc(bookRef, {
+        title: newTitle.trim(),
+        author: newAuthor.trim(),
+        content: newContent.trim(),
+        imageUrl: newImageUrl.trim(),
+        genre: newGenre.trim().toLowerCase() // Update genre
+    });
+    window.showAlert("Book updated!");
+    loadBooks();
+};
 
-    if (!bookSnap.exists() || bookSnap.data().creatorId !== currentUser.uid) {
-        window.showAlert("You can only delete your own books.");
+// ------------------------------
+// 5 · Delete book (owner only)
+// ------------------------------
+window.deleteBook = async function (id) {
+    const confirmed = await window.showConfirm("Are you sure you want to delete this book?");
+    if (!confirmed) return;
+
+    const bookRef = doc(db, "books", id);
+    const snap = await getDoc(bookRef);
+    if (!snap.exists()) {
+        window.showAlert("Book not found.");
+        return;
+    }
+    // Ensure the book is not a 'system' book and current user is the creator
+    if (!currentUser || currentUser.uid !== snap.data().creatorId || snap.data().creatorId === "system") {
+        window.showAlert("You do not have permission to delete this book.");
         return;
     }
     await deleteDoc(bookRef);
@@ -389,24 +506,22 @@ document.addEventListener('DOMContentLoaded', () => {
             filterBooksByGenre(genre);
         });
     });
-
-    // Initial call to filter by 'All' when the page loads, after books are rendered
-    // This is handled by loadBooks now, but keeping this listener ensures buttons are active
-    const allButton = document.querySelector('.genre-button[data-genre="All"]');
-    if (allButton) {
-        allButton.classList.add('active');
-    }
 });
 
 function filterBooksByGenre(genre) {
-    const allBookCards = document.querySelectorAll('.book-grid .book-card'); // Get all book cards in the DOM
+    const allBooks = [...predefinedBooks]; // Start with all predefined books
     
-    allBookCards.forEach(card => {
-        const cardGenre = card.dataset.genre;
-        if (genre === 'All' || cardGenre === genre) {
-            card.style.display = ''; // Show the book card
-        } else {
-            card.style.display = 'none'; // Hide the book card
+    // Optionally add user's own books if they are to be filtered by genre as well
+    // For now, only predefined books are subject to genre filter for the Home tab
+    
+    if (homeBookList) homeBookList.innerHTML = ''; // Clear current display for home page
+    allBooks.forEach(book => {
+        const isFavorite = window.favoriteBookIds ? window.favoriteBookIds.some(favId => favId === book.id) : false;
+        if (genre === 'all' || book.genre.toLowerCase() === genre) {
+            if (homeBookList) homeBookList.appendChild(createBookCard(book, isFavorite));
         }
     });
 }
+
+// Make filterBooksByGenre accessible globally
+window.filterBooksByGenre = filterBooksByGenre;
