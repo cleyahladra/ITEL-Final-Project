@@ -1,6 +1,6 @@
 :root {
     /* Wattpad-inspired colors */
-    --background-color: #F8F8F8; /* Clean white background */
+    --background-color: #ffffff; /* Clean white background */
     --primary-accent: #FF5A7C; /* Bright pink (like Wattpad's logo) */
     --secondary-accent: #E0BBE4; /* Soft lavender */
     --tertiary-accent: #957DAD; /* Muted purple for darker accents */
@@ -96,7 +96,7 @@ body:not(.auth-loading) #preloader {
 }
 /* Continue with the rest of your CSS */
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--heading-font);
+    font-family: 'Great Vibes', cursive;;
     color: var(--text-color-dark);
     margin-top: 0;
 }
@@ -138,24 +138,13 @@ a:hover {
 .hidden-page {
     display: none;
 }
-/* Authentication Forms (Login/Signup) - Restyled */
-.auth-container {
-    margin-left: auto;
-    margin-right: auto;
-    background-color: var(--card-background);
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: var(--soft-shadow);
-    width: 200%;
-    max-width: 380px;
-    text-align: center;
-    border: 1px solid var(--border-color-light);
-}
+
 .auth-title {
-    font-size: 2em;
+    font-size: 1.5em;
     margin-bottom: 20px;
     color: var(--primary-accent);
     font-weight: 700;
+    padding-left:20px;
 }
 .auth-form {
     display: flex;
@@ -167,6 +156,7 @@ a:hover {
     font-weight: 600;
     margin-bottom: 3px;
     color: var(--text-color-dark);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .auth-form input, .auth-form textarea {
     width: 100%;
@@ -177,6 +167,19 @@ a:hover {
     transition: border-color 0.3s ease, background-color 0.3s ease;
     background-color: var(--background-color);
     color: var(--text-color-dark);
+}
+.auth-container {
+    background: rgba(255, 255, 255, 0.1); /* Slightly transparent white background */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 10px 30px rgba(18, 17, 17, 0.1); /* Subtle shadow for depth */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Light, semi-transparent border */
+    padding: 30px;
+    width: 100%; /* Or a specific max-width */
+    max-width: 400px; /* Example max-width for the form container */
+    margin: 0 auto; /* Center the container */
+    color: #333;
 }
 .auth-form input:focus, .auth-form textarea:focus {
     border-color: var(--primary-accent);
@@ -205,38 +208,52 @@ a:hover {
     margin-top: 20px;
     font-size: 0.9em;
     color: var(--text-color-light);
+    padding-left: 10px;
 }
 .auth-toggle a {
-    font-weight: 600;
-    color: var(--secondary-accent);
+    font-weight: 430;
+    color: rgb(92, 17, 89);
 }
 .auth-toggle a:hover {
     color: var(--primary-accent);
 }
 /* --- Header and Logo for Login/Signup --- */
-
+.maiheadern- {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-top: 1px;
+    width: 100%;
+    text-align: center;
+    gap:15px;
+}
 .header-logo-container {
-   width: 120px;
+    width: 120px; /* Adjusted size */
     height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
+    padding-left: 150px;
 }
 .header-logo {
-   max-width: 100%;
+    max-width: 100%;
     max-height: 100%;
     object-fit: contain;
     filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));
 }
 .page-title-text {
-    font-family: var(--heading-font);
-    font-size: 2em;
-    color: var(--primary-accent);
-    margin: 0;
-    font-weight: 700;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-    letter-spacing: 0.5px;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 2.5em; /* Keeping the original size */
+    color: var(--calligraphy-text-color); /* Using the new calligraphy text color variable */
+    -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.3);
+    font-weight: normal; /* Essential for script/calligraphy fonts */
+    text-shadow: var(--calligraphy-text-shadow); /* Applied the new text shadow variable */
+    letter-spacing: 0.5px; /* Keeping the original letter-spacing */
+    line-height: 1.2; /* Good practice for script fonts to prevent overlap */
+    white-space: nowrap;
+    align-self: flex-end; /* pushes the text lower inside the flex row */
+    margin-bottom: 25px;
 }
 /* --- Sticky Top Navbar --- */
 #navbar {
@@ -259,10 +276,10 @@ a:hover {
     flex-wrap: wrap;
 }
 .nav-brand {
-    font-size: 1.8em;
+    font-size: 2em;
     font-weight: 700;
     margin-right: 30px;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Brush Script MT', cursive;
     color: var(--primary-accent);
 }
 .nav-links {
@@ -305,9 +322,12 @@ a:hover {
 }
 .search-bar-nav {
     position: relative;
+     display: flex; /* Helps in aligning items if input and icon are siblings */
+    align-items: center;
 }
 .search-bar-nav input {
-    padding: 8px 15px 8px 40px; /* Left padding for icon */
+     width: 100%;
+    padding: 8px 15px 8px 40px; /* Left padding for icon: Increased to 40px to accommodate the SVG */
     border: 1px solid var(--border-color-light);
     border-radius: 20px;
     font-size: 0.9em;
@@ -321,12 +341,22 @@ a:hover {
     box-shadow: 0 0 0 2px rgba(255, 90, 124, 0.1);
 }
 .search-bar-nav .search-icon {
+   position: absolute;
+    left: 15px; 
+    top: 50%; /* Vertically center the icon */
+    transform: translateY(-50%); /* Adjust for perfect vertical centering */
+    color: var(--text-color-light); /* This color will be applied to the SVG's stroke */
+    display: flex; /* Use flexbox to easily center the SVG if needed */
+    align-items: center;
+    justify-content: center;
+}
+.search-bar-nav svg { 
     position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-color-light);
-    font-size: 0.9em;
+    left: 15px; 
+    top: 50%; /* Moves top edge to vertical center */
+    transform: translateY(-50%); /* Shifts up by half its height for perfect centering */
+    color: var(--text-color-light); /* Sets the stroke color of the SVG */
+    pointer-events: none; /* Prevents the SVG from interfering with input clicks/focus */
 }
 /* Navbar Buttons */
 .write-button, .try-premium-button {
@@ -442,7 +472,6 @@ a:hover {
     color: white; /* Keep text white for contrast */
     text-align: center;
     width: 100%;
-    /* New Purple Gradient */
     background: linear-gradient(270deg, #E0BBE4, #957DAD, #6C5B7B, #452C5B); /* Using your defined purples and adding darker shades */
     background-size: 800% 800%; /* Large background to allow animation */
     animation: gradientAnimation 15s ease infinite; /* Keep your existing animation */
@@ -473,7 +502,7 @@ a:hover {
     font-size: 2.5em;
     margin-bottom: 25px;
     color: white;
-    font-family: 'Poppins', sans-serif;
+   font-family: 'Great Vibes', cursive;
     font-weight: 700;
     line-height: 1.2;
 }
@@ -882,14 +911,15 @@ a:hover {
     }
 }
 @media (max-width: 480px) {
-
+    .main-header {
+        margin-bottom: 20px;
     }
     .header-logo-container {
-        width: 150px;
+        width: 100px;
         height: 100px;
     }
     .page-title-text {
-        font-size: 2.0em;
+        font-size: 2.2em;
     }
     .auth-container {
         padding: 20px;
@@ -1017,7 +1047,7 @@ body.auth-page .live-background {
     display: flex;
 }
 .modal-content {
-    background-color: var(--card-background);
+    background-color:#efd0d8;
     padding: 30px;
     border-radius: 12px;
     box-shadow: var(--soft-shadow);
@@ -1031,7 +1061,7 @@ body.auth-page .live-background {
     margin-bottom: 20px;
     font-size: 1.1em;
     color: var(--text-color-dark);
-    font-family: var(--body-font);
+    font-family:'Poppins', sans-serif;;
 }
 .modal-content input, .modal-content textarea {
     width: calc(100% - 20px);
@@ -1249,9 +1279,8 @@ body.auth-page .live-background {
         height: 13rem;
     }
 }
-
 .home-button {
-    background-color: #f7c6d9; /* Pastel pink */
+    background-color: #ea74a1; /* Pastel pink */
     color: #fff;
     border: none;
     padding: 8px 16px;
@@ -1266,9 +1295,8 @@ body.auth-page .live-background {
     background-color: #f4acc7; /* Slightly darker on hover */
 }
 
-
 #loginPage {
-    background-image: url("https://images.unsplash.com/photo-1437751068958-82e6fccc9360?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); /* Change this line */
+   background: linear-gradient(to right, #e8d0f3, #ffe6f2);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1277,21 +1305,27 @@ body.auth-page .live-background {
 
 
 #signupPage {
-    background-image: url("https://images.unsplash.com/photo-1719310469053-8c5c0c6803d3?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); /* Change this line */
+    background: linear-gradient(to right, #e8d0f3, #ffe6f2);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     min-height: 100vh;
+    transition: 0.5s ease; /* Smooth transition when changing modes */
 }
-.main-header {
-    background-color: rgb(255, 255, 255);              /* White background */
-    border: 2px solid #ccc;               /* Light gray border */
-    border-radius: 10px;                  /* Optional: rounded corners */
-    padding: 20px;                        /* Space inside the box */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: soft shadow */
-    max-width: 500px;                     /* Optional: limit width */
-    margin: 20px auto;                    /* Center horizontally */
-    display: flex;
-    flex-direction: column; /* Stack logo above text */
-    align-items: center;    /* Center horizontally */
+.auth-footer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 20px;
+    padding: 10px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.auth-footer a {
+    color: #555;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
 }

@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const contentPages = document.querySelectorAll(".content-page");
     const themeToggle = document.getElementById("themeToggle");
     const writeButton = document.getElementById("writeButton"); // Get the write button
-    const makeStoryButton = document.getElementById("makeStoryButton"); // Get the "Make your OWN story" button
+    
 
     function showPage(id) {
         contentPages.forEach((p) => {
@@ -115,11 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Event listener for the "Make your OWN story" button in the banner
-    if (makeStoryButton) {
-        makeStoryButton.addEventListener("click", () => {
-            showPage("writePageContent"); // Show the new write page
-        });
-    }
+   
 
     function applyThemePreference() {
         const savedTheme = localStorage.getItem("theme");
@@ -272,7 +268,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // This function is imported from profile.js, so this dummy function is just a fallback.
     }
 });
-
 document.addEventListener('DOMContentLoaded', () => {
     const homeButton = document.getElementById('homeButton');
     const contentSections = document.querySelectorAll('.content-page');
@@ -288,3 +283,48 @@ document.addEventListener('DOMContentLoaded', () => {
         homePage.classList.remove('hidden-page');
     });
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const uploadButton = document.getElementById("uploadProfileImage");
+  const imageInput = document.getElementById("profileImageInput");
+
+  // Load saved photo
+  renderProfile();
+
+  uploadButton.addEventListener("click", () => {
+    const file = imageInput.files[0];
+
+    if (!file) {
+      alert("Please select a photo to upload.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const photoDataURL = e.target.result;
+
+      // Save to localStorage
+      localStorage.setItem("profilePhoto", photoDataURL);
+
+      // Update the display
+      renderProfile();
+    };
+    reader.readAsDataURL(file);
+  });
+});
+
+// This updates the profile image visually
+function renderProfile() {
+  const imagePlaceholder = document.querySelector(".profile-image-placeholder");
+  const photo = localStorage.getItem("profilePhoto");
+
+  if (photo) {
+    imagePlaceholder.innerHTML = `
+      <img src="${photo}" alt="Profile Image"
+        style="width: 130px; height: 130px; border-radius: 50%;
+               object-fit: cover; border: 3px solid #e8e8e8ff;">`;
+  } else {
+    imagePlaceholder.innerHTML = `
+      <div style="width: 130px; height: 130px; background: #ccc;
+                  border-radius: 50%;"></div>`;
+  }
+}

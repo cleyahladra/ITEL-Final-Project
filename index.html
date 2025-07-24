@@ -20,8 +20,7 @@
         <section id="loginPage" class="page active">
             <div class="main-header">
                 <div class="header-logo-container">
-                    <img src="https://i.ibb.co/G4Nzywdk/pp.png" width="300" height="150" alt="pp">
-                </div>
+                    <img src="https://i.ibb.co/G4Nzywdk/pp.png" width="200" height="100" alt="pp">
                 <h1 class="page-title-text">Library Cove</h1>
             </div>
             <div class="auth-container">
@@ -29,28 +28,25 @@
                 <form id="loginForm" class="auth-form">
                     <label for="loginEmail">Username/Email:</label>
                     <input type="text" id="loginEmail" placeholder="Enter Email" required>
-                    
                     <label for="loginPassword">Password:</label>
                     <input type="password" id="loginPassword" placeholder="Enter Password" required>
                     <a href="#" class="forgot-link" id="forgotPasswordLink">Forgot your password?</a>
-                    <div class="remember-me">
-                        <input type="checkbox" id="rememberMe">
-                        <label for="rememberMe">Remember me</label>
-                    </div>
                     <button type="submit" class="submit">LOG IN</button>
                 </form>
                 <p class="auth-toggle">Don't have an account?<a href="#" id="showSignupLink">Sign up now.</a></p>
             </div>
+            <footer class="auth-footer">
+    <p>&copy; 2025 Library Cove. All rights reserved.</p>
+</footer>
+</section>
         </section>
         <section id="signupPage" class="page">
             <div class="main-header">
                 <div class="header-logo-container">
-                    <img src="https://i.ibb.co/G4Nzywdk/pp.png" alt="Library Logo" width="300" height="150" alt="pp"">
-                </div>
-                <h1 class="page-title-text">Library Cove</h1>
+                <h1 class="page-title-text">Join Us!</h1>
             </div>
             <div class="auth-container">
-                <h1 class="auth-title">Sign-Up</h1>
+                <h1 class="auth-title">Create an Account</h1>
                 <form id="signupForm" class="auth-form">
                     <label for="signupEmail">E-mail:</label>
                     <input type="email" id="signupEmail" placeholder="Enter Your Email" required>
@@ -62,7 +58,7 @@
                     <input type="tel" id="signupPhone" placeholder="Enter Your Phone Number" required>
                     <button type="submit" class="sign-up">Sign-Up</button>
                 </form>
-                <p class="auth-toggle">Already have an account?<a href="#" id="showLoginLink">Log In</a></p>
+                <p class="auth-toggle">Already have an account?<a href="#" id="showLoginLink">Log In.</a></p>
             </div>
         </section>
         <div id="mainContent" class="hidden-content">
@@ -71,7 +67,9 @@
                     <div class="nav-brand">Library Cove</div>
                             <div class="search-bar-nav">
                         <input type="text" id="homeSearchBar" placeholder="Search">
-                        <span class="search-icon"> 🔍 </span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                         d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 18.5a7.5 7.5 0 006.15-3.85z" />
                       </div>
                         </li>
                     </ul>
@@ -89,17 +87,18 @@
                         </div>
                     </div>
                    <button id="themeToggle" class="theme-toggle">
-                        <span class="icon light-icon"> ☀️ </span>
-                        <span class="icon dark-icon"> 🌙 </span>
+                        <span class="icon light-icon"> ☀︎ </span>
+                        <span class="icon dark-icon"> ⏾ </span>
                     </button>
                 </div>
             </nav>
             <section id="homePageContent" class="content-page active-page">
                 <div class="announcement-banner">
                     <div class="banner-content">
-                        <h2>2025</h2>
-                        <h3>WELCOME TO LIBRARY COVE!</h3>
-                        <button class="banner-button" id="makeStoryButton">Make your OWN story</button>
+                        <h2>WELCOME TO LIBRARY COVE!</h2>
+                        <h3>let the reading adventure begin</h3>
+                        <button class="banner-button" id="makeStoryButton">READ NOW</button>
+                         <div class="sparkle-layer"></div>
                     </div>
                 </div>
                 <h2 class="section-heading">Top picks for you</h2>
@@ -134,13 +133,14 @@
                 <h1 class="page-title">Profile</h1>
                 <div class="profile-details">
                     <div class="profile-image-placeholder"></div>
+                    <input type="file" id="profileImageInput" accept="image/*">
+                    <button id="uploadProfileImage">Upload Image</button>
                     <p><strong>Student's Name:</strong> <span id="profileName">First Name, Middle Name, Surname</span></p>
                     <p><strong>School:</strong> <span id="profileSchool"></span></p>
                     <p><strong>Address:</strong> <span id="profileAddress"></span></p>
                     <p><strong>Year Level:</strong> <span id="profileYearLevel"></span></p>
                     <p><strong>Contact Number:</strong> <span id="profileContact"></span></p>
                     <button id="editProfileButton" class="action-button">Edit Profile</button>
-                </div>
             </section>
             <section id="writePageContent" class="content-page hidden-page">
                 <h1 class="page-title">Write Your Story</h1>
@@ -166,7 +166,6 @@
                 </div>
             </section>
             <div id="booksDisplay" class="book-grid books-display">
-                <span class="favorite-star" data-book-id="BOOK_ID_HERE"> ♡ </span>
             </div>
             <section id="libraryPageContent" class="content-page hidden-page">
                 <h1 class="page-title">Library</h1>
