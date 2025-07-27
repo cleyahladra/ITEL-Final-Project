@@ -283,38 +283,66 @@ document.addEventListener('DOMContentLoaded', () => {
         homePage.classList.remove('hidden-page');
     });
 });
+
+// ... existing JS ...
+
 document.addEventListener("DOMContentLoaded", () => {
-  const uploadButton = document.getElementById("uploadProfileImage");
-  const imageInput = document.getElementById("profileImageInput");
+    // ... other DOMContentLoaded code ...
 
-  // Load saved photo
-  renderProfile();
+    // Profile Image Upload Handling
+    const profilePhoto = document.getElementById("profilePhoto"); // The new <img> tag
+    const profileImageInput = document.getElementById("profileImageInput"); // The hidden file input
+    const uploadProfileImageButton = document.getElementById("uploadProfileImage"); // The <label> element
 
-  uploadButton.addEventListener("click", () => {
-    const file = imageInput.files[0];
-
-    if (!file) {
-      alert("Please select a photo to upload.");
-      return;
+    // Function to render the profile image
+    function renderProfileImage() {
+        const savedPhoto = localStorage.getItem("profilePhoto");
+        if (profilePhoto) {
+            if (savedPhoto) {
+                profilePhoto.src = savedPhoto;
+            } else {
+                profilePhoto.src = "assets/profile-placeholder.png"; // Default placeholder image
+            }
+        }
     }
 
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const photoDataURL = e.target.result;
+    // Call renderProfileImage on DOMContentLoaded to display any saved photo
+    renderProfileImage();
 
-      // Save to localStorage
-      localStorage.setItem("profilePhoto", photoDataURL);
+    // Event listener for the hidden file input's change event (this is key)
+    if (profileImageInput) {
+        profileImageInput.addEventListener("change", (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const photoDataURL = e.target.result;
+                    localStorage.setItem("profilePhoto", photoDataURL); // Save to localStorage
+                    renderProfileImage(); // Update the displayed image
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
 
-      // Update the display
-      renderProfile();
-    };
-    reader.readAsDataURL(file);
-  });
+    // The 'uploadProfileImageButton' (label) already triggers the hidden input via the 'for' attribute,
+    // so no explicit click listener is needed on the label itself for file selection.
+    // The previous code had a click listener attempting to get files from imageInput.files[0]
+    // which would only work if a file was *already* selected. The 'change' event on the input is correct.
+
+    // Example of adding additional logic if needed for the button (e.g., showing a message)
+    if (uploadProfileImageButton) {
+        uploadProfileImageButton.addEventListener("click", () => {
+            // Optional: You could add a small visual feedback here if desired
+            console.log("Choose Photo button clicked, opening file dialog...");
+        });
+    }
 });
 
-// This updates the profile image visually
-function renderProfile() {
-  const imagePlaceholder = document.querySelector(".profile-image-placeholder");
+// The renderProfile() function was renamed to renderProfileImage() for clarity and
+// now correctly targets the <img> element.
+// The old renderProfile() function content is replaced by the new renderProfileImage().
+
   const photo = localStorage.getItem("profilePhoto");
 
   if (photo) {
@@ -327,4 +355,4 @@ function renderProfile() {
       <div style="width: 130px; height: 130px; background: #ccc;
                   border-radius: 50%;"></div>`;
   }
-}
+

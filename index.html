@@ -129,19 +129,24 @@
                     </div>
                 </div>
             </section>
-            <section id="profilePageContent" class="content-page hidden-page">
-                <h1 class="page-title">Profile</h1>
-                <div class="profile-details">
-                    <div class="profile-image-placeholder"></div>
-                    <input type="file" id="profileImageInput" accept="image/*">
-                    <button id="uploadProfileImage">Upload Image</button>
-                    <p><strong>Student's Name:</strong> <span id="profileName">First Name, Middle Name, Surname</span></p>
-                    <p><strong>School:</strong> <span id="profileSchool"></span></p>
-                    <p><strong>Address:</strong> <span id="profileAddress"></span></p>
-                    <p><strong>Year Level:</strong> <span id="profileYearLevel"></span></p>
-                    <p><strong>Contact Number:</strong> <span id="profileContact"></span></p>
-                    <button id="editProfileButton" class="action-button">Edit Profile</button>
-            </section>
+<section id="profilePageContent" class="content-page hidden-page">
+    <h1 class="page-title">Profile</h1>
+    <div class="profile-details">
+        <div class="profile-picture-section">
+            <img id="profilePhoto" class="profile-photo" src="assets/profile-placeholder.png" alt="Profile Picture">
+            <div class="profile-image-upload-area">
+                <input type="file" id="profileImageInput" accept="image/*">
+                <label for="profileImageInput" id="uploadProfileImage" class="profile-upload-button">Choose Photo</label>
+            </div>
+        </div>
+        <p><strong>Student's Name:</strong> <span id="profileName">First Name, Middle Name, Surname</span></p>
+        <p><strong>School:</strong> <span id="profileSchool"></span></p>
+        <p><strong>Address:</strong> <span id="profileAddress"></span></p>
+        <p><strong>Year Level:</strong> <span id="profileYearLevel"></span></p>
+        <p><strong>Contact Number:</strong> <span id="profileContact"></span></p>
+        <button id="editProfileButton" class="action-button">Edit Profile</button>
+    </div>
+</section>
             <section id="writePageContent" class="content-page hidden-page">
                 <h1 class="page-title">Write Your Story</h1>
                 <div class="write-form-container auth-container">
