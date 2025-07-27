@@ -162,10 +162,9 @@ a:hover {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: rgba(30, 30, 30, 0.9); 
 }
-
-
 .dark-mode .auth-form label {
-    color: rgba(52, 47, 47, 0.9);
+    color:rgb(131, 93, 93);
+
 }
 .auth-form input, .auth-form textarea {
     width: 100%;
