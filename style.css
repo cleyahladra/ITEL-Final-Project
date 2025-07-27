@@ -1,39 +1,39 @@
 :root {
-    --background-color: #ffffff; /* Clean white background */
-    --primary-accent: #FF5A7C; /* Bright pink (like Wattpad's logo) */
-    --secondary-accent: #E0BBE4; /* Soft lavender */
-    --tertiary-accent: #957DAD; /* Muted purple for darker accents */
-   --text-color-dark: rgba(30, 30, 30, 0.9); /* Dark text for light backgrounds */
-    --text-color-light: #666666; /* Lighter gray for secondary text */
-    --card-background: #FFFFFF; /* White for cards */
-    --soft-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Soft shadow */
-    --border-color-light: #EEEEEE; /* Light gray border */
-    --profile-button-bg: #f0f0f0; /* Example light background */
+    --background-color: #ffffff; 
+    --primary-accent: #FF5A7C; 
+    --secondary-accent: #E0BBE4; 
+    --tertiary-accent: #957DAD; 
+   --text-color-dark: rgba(30, 30, 30, 0.9); 
+    --text-color-light: #666666; 
+    --card-background: #FFFFFF; 
+    --soft-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+    --border-color-light: #EEEEEE; 
+    --profile-button-bg: #f0f0f0; 
     --heading-font: 'Poppins', sans-serif;
     --body-font: 'Inter', sans-serif;
     --calligraphy-text-color: rgba(9, 10, 11, 0.9);
-    --calligraphy-text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4); /* soft white glow */
+    --calligraphy-text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4); 
 }
 body.dark-mode {
     --background-color: #1A1A1A;
     --primary-accent: #FF8BA7;
     --secondary-accent: #C799D7;
     --tertiary-accent: #7C689A;
-    --text-color-dark: #E0E0E0; /* This variable holds the desired light gray color */
+    --text-color-dark: #E0E0E0; 
     --text-color-light: #B0B0B0;
     --card-background: #2D2D2D;
     --soft-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     --border-color-light: #000000cc;
-    --color: var(--text-color-dark); /* Changed text color to a readable light gray */
-    --profile-button-bg: #333; /* Example dark background */
-    --button-border-color: #666; /* A slightly lighter grey for dark mode */
+    --color: var(--text-color-dark); 
+    --profile-button-bg: #333; 
+    --button-border-color: #666; 
     }
 
-/* Global Styles */
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
-/* FIX: Ensure HTML and Body take full height and width for preloader */
+
 html, body {
     font-family: var(--body-font);
     margin: 0;
@@ -45,33 +45,33 @@ html, body {
     display: flex;
     flex-direction: column;
     transition: background-color 0.5s ease, color 0.5s ease;
-    overflow-x: hidden; /* Prevent horizontal scroll */
-    width: 100%; /* FIX: Ensure full width */
-    height: 100%; /* FIX: Ensure full height */
+    overflow-x: hidden; 
+    width: 100%; 
+    height: 100%; 
 }
-/* FIX: Preloader Styles */
+
 #preloader {
-    position: fixed; /* Positions it relative to the viewport */
+    position: fixed; 
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #ffffff; /* Sets the background to pure white */
-    display: flex; /* Use flexbox to center content */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    z-index: 9999; /* Ensures it's on top of all other content */
-    flex-direction: column; /* Stacks the spinner and text vertically */
-    overflow: hidden; /* Hide scrollbars during loading */
+    background-color: #ffffff; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 9999; 
+    flex-direction: column; 
+    overflow: hidden; 
 }
-/* FIX: Loader container for spinner and text */
+
 .loader-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px; /* Adds space between the spinner and the text */
+    gap: 15px; 
 }
-/* FIX: Your existing loader spinner styles */
+
 .loader-spinner {
     width: 50px;
     height: 50px;
@@ -79,26 +79,26 @@ html, body {
     border-top: 6px solid #40916c;
     border-radius: 50%;
     animation: spin 1s linear infinite;
-    /* margin: 0 auto; Removed as flexbox handles centering */
+    
 }
-/* FIX: Style for the loading text */
+
 .loader-text {
-    color: #333333; /* Dark text to be visible on a white background */
+    color: #333333; 
     font-size: 1.2em;
-    font-family: 'Inter', sans-serif; /* Use your body font or another suitable font */
+    font-family: 'Inter', sans-serif; 
 }
-/* Keyframe animation for the spinner */
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-/* FIX: This CSS will hide the preloader when the 'auth-loading' class is removed from the body */
+
 body:not(.auth-loading) #preloader {
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s ease-out, visibility 0.5s ease-out; /* Smooth fade-out effect */
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out; 
 }
-/* Continue with the rest of your CSS */
+
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Great Vibes', cursive;;
     color: var(--text-color-dark);
@@ -113,7 +113,7 @@ a:hover {
     color: var(--tertiary-accent);
     text-decoration: underline;
 }
-/* Page containers */
+
 .page {
     display: none;
     width: 100%;
@@ -131,7 +131,7 @@ a:hover {
 }
 .hidden-content.active {
     display: block;
-    flex-grow: 1; /* Allows main content to take available space */
+    flex-grow: 1; 
 }
 .content-page {
     padding: 20px;
@@ -160,12 +160,12 @@ a:hover {
     font-weight: 600;
     margin-bottom: 3px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color: rgba(30, 30, 30, 0.9); /* Light mode */
+    color: rgba(30, 30, 30, 0.9); 
 }
 
-/* Dark mode override */
+
 .dark-mode .auth-form label {
-    color: rgba(240, 240, 240, 0.9);
+    color: rgba(52, 47, 47, 0.9);
 }
 .auth-form input, .auth-form textarea {
     width: 100%;
@@ -178,16 +178,16 @@ a:hover {
     border-color: var(--primary-accent);
 }
 .auth-container {
-    background: rgba(255, 255, 255, 0.1); /* Slightly transparent white background */
-    border-radius: 15px; /* Rounded corners */
-    box-shadow: 0 10px 30px rgba(18, 17, 17, 0.1); /* Subtle shadow for depth */
-    backdrop-filter: blur(10px); /* Frosted glass effect */
-    -webkit-backdrop-filter: blur(10px); /* Safari support */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Light, semi-transparent border */
+    background: rgba(255, 255, 255, 0.1); 
+    border-radius: 15px; 
+    box-shadow: 0 10px 30px rgba(18, 17, 17, 0.1); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); 
+    border: 1px solid rgba(255, 255, 255, 0.3); 
     padding: 30px;
-    width: 100%; /* Or a specific max-width */
-    max-width: 400px; /* Example max-width for the form container */
-    margin: 0 auto; /* Center the container */
+    width: 100%; 
+    max-width: 400px; 
+    margin: 0 auto; 
     color: #333;
 }
 .auth-form input:focus, .auth-form textarea:focus {
@@ -226,7 +226,7 @@ a:hover {
 .auth-toggle a:hover {
     color: var(--primary-accent);
 }
-/* --- Header and Logo for Login/Signup --- */
+
 .maiheadern- {
     display: flex;
     flex-direction: row;
@@ -238,7 +238,7 @@ a:hover {
     gap:15px;
 }
 .header-logo-container {
-    width: 120px; /* Adjusted size */
+    width: 120px; 
     height: 120px;
     display: flex;
     align-items: center;
@@ -265,7 +265,7 @@ a:hover {
     margin-bottom: 25px;
 }
 
-/* --- Sticky Top Navbar --- */
+
 #navbar {
     background-color: var(--card-background);
     padding: 10px 20px;
@@ -324,20 +324,20 @@ a:hover {
 .nav-links li a:hover::after {
     width: 100%;
 }
-/* Navbar Search Input */
+
 .search-input-desktop {
-    display: flex; /* Initially hidden on mobile, shown on desktop */
+    display: flex; 
     align-items: center;
     margin-left: 20px;
 }
 .search-bar-nav {
     position: relative;
-     display: flex; /* Helps in aligning items if input and icon are siblings */
+     display: flex; 
     align-items: center;
 }
 .search-bar-nav input {
      width: 100%;
-    padding: 8px 15px 8px 40px; /* Left padding for icon: Increased to 40px to accommodate the SVG */
+    padding: 8px 15px 8px 40px; 
     border: 1px solid #695a5a;
     border-radius: 20px;
     font-size: 0.9em;
@@ -353,22 +353,22 @@ a:hover {
 .search-bar-nav .search-icon {
    position: absolute;
     left: 15px; 
-    top: 50%; /* Vertically center the icon */
-    transform: translateY(-50%); /* Adjust for perfect vertical centering */
-    color: var(--text-color-light); /* This color will be applied to the SVG's stroke */
-    display: flex; /* Use flexbox to easily center the SVG if needed */
+    top: 50%; 
+    transform: translateY(-50%); 
+    color: var(--text-color-light); 
+    display: flex; 
     align-items: center;
     justify-content: center;
 }
 .search-bar-nav svg { 
     position: absolute;
     left: 15px; 
-    top: 50%; /* Moves top edge to vertical center */
-    transform: translateY(-50%); /* Shifts up by half its height for perfect centering */
-    color: var(--text-color-light); /* Sets the stroke color of the SVG */
-    pointer-events: none; /* Prevents the SVG from interfering with input clicks/focus */
+    top: 50%; 
+    transform: translateY(-50%); 
+    color: var(--text-color-light); 
+    pointer-events: none; 
 }
-/* Navbar Buttons */
+
 .write-button, .try-premium-button {
     background-color: transparent;
     border: 1px solid var(--text-color-light);
@@ -385,7 +385,7 @@ a:hover {
     color: white;
     border-color: var(--secondary-accent);
 }
-/* Profile Dropdown */
+
 .profile-dropdown-container {
     position: relative;
     margin-left: 20px;
@@ -404,7 +404,7 @@ a:hover {
   justify-content: center;
   font-size: 1.1em;
   transition: background-color 0.3s ease, border-color 0.3s ease;
-   box-shadow: 0 0 0 5px var(--box-shadow-color); /* A 1px shadow as a border */
+   box-shadow: 0 0 0 5px var(--box-shadow-color); 
 }
 .profile-button:hover {
     background-color: var(--secondary-accent);
@@ -440,7 +440,7 @@ a:hover {
     cursor: pointer;
 }
 .dropdown-menu a:hover, .logout-dropdown-button:hover {
-    background-color: #F5F5F5; /* Lighter background on hover */
+    background-color: #F5F5F5; 
     text-decoration: none;
 }
 .logout-dropdown-button {
@@ -453,7 +453,7 @@ a:hover {
     background-color: var(--border-color-light);
     margin: 5px 0;
 }
-/* --- Announcement Banner --- */
+
 .announcement-banner {
     width: 100%;
     max-width: 1200px;
@@ -464,8 +464,8 @@ a:hover {
     box-shadow: var(--soft-shadow);
     display: flex;
     align-items: center;
-    min-height: 250px; /* Ensure banner has a minimum height */
-    background-color: var(--secondary-accent); /* Fallback background */
+    min-height: 250px; 
+    background-color: var(--secondary-accent); 
 }
 .announcement-banner .banner-image {
     width: 100%;
@@ -480,12 +480,12 @@ a:hover {
     position: relative;
     z-index: 2;
     padding: 40px;
-    color: white; /* Keep text white for contrast */
+    color: white; 
     text-align: center;
     width: 100%;
-    background: linear-gradient(270deg, #E0BBE4, #957DAD, #6C5B7B, #452C5B); /* Using your defined purples and adding darker shades */
-    background-size: 800% 800%; /* Large background to allow animation */
-    animation: gradientAnimation 15s ease infinite; /* Keep your existing animation */
+    background: linear-gradient(270deg, #E0BBE4, #957DAD, #6C5B7B, #452C5B); 
+    background-size: 800% 800%; 
+    animation: gradientAnimation 15s ease infinite; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -534,7 +534,7 @@ a:hover {
     color: white;
     transform: translateY(-2px);
 }
-/* --- Section Headings --- */
+
 .section-heading {
     font-size: 1.8em;
     font-weight: 700;
@@ -543,12 +543,12 @@ a:hover {
     padding-left: 10px;
     border-left: 4px solid var(--primary-accent);
 }
-/* --- Horizontally Scrollable Book Carousel --- */
+
 .book-carousel-wrapper {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch; 
     margin-bottom: 40px;
-    padding-bottom: 10px; /* Space for scrollbar */
+    padding-bottom: 10px; 
 }
 .book-carousel {
     display: flex;
@@ -556,11 +556,11 @@ a:hover {
     padding: 10px;
 }
 .book-carousel .book-card {
-    flex: 0 0 auto; /* Prevent cards from shrinking */
-    width: 160px; /* Fixed width for carousel cards */
-    min-height: 280px; /* Adjust min height for consistency */
+    flex: 0 0 auto; 
+    width: 160px; 
+    min-height: 280px; 
 }
-/* Existing Home, Library, Profile Common Styles - Restyled */
+
 .page-title {
     font-size: 2.5em;
     font-weight: 700;
@@ -619,14 +619,14 @@ a:hover {
 .action-button {
     background-color: var(--primary-accent);
     color: white;
-    padding: 8px 15px; /* Adjusted to make the button smaller */
+    padding: 8px 15px; 
     border: none;
     border-radius: 5px;
-    font-size: 1em; /* Controls the text size, which influences button size */
+    font-size: 1em; 
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    display: block; /* Makes it take its own line */
+    display: block; 
     margin: 0 auto 10px auto; 
     box-shadow: var(--soft-shadow);
     width: 50%; 
@@ -639,17 +639,17 @@ a:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
-/* Book Grid */
+
 .book-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Larger cards */
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
     gap: 25px;
     padding-bottom: 40px;
     margin-top: 20px;
 }
 .book-card {
     background-color: var(--card-background);
-    border-radius: 12px; /* More rounded */
+    border-radius: 12px; 
     box-shadow: var(--soft-shadow);
     padding: 15px;
     text-align: center;
@@ -667,28 +667,27 @@ a:hover {
 }
 .book-card img {
     max-width: 100%;
-    height: 220px; /* Taller images */
+    height: 220px; 
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
-/* FIX: Book card title to fit container */
+
 .book-card h3 {
-    font-size: 1em; /* Adjust this value (e.g., 0.9em, 0.85em) */
-    line-height: 1.3; /* Adjust this value (e.g., 1.2, 1.15) */
-    white-space: normal; /* Ensures text wraps naturally */
-    overflow-wrap: break-word; /* Breaks long words if necessary */
-    word-break: break-word; /* Similar to overflow-wrap, for broader compatibility */
-    margin: 0 0 8px; /* Your existing margin */
-    font-family: var(--heading-font); /* Your existing font family */
-    font-weight: 600; /* Your existing font weight */
-    color: var(--text-color-dark); /* Your existing text color */
-    /* Optional: For limiting to a specific number of lines with ellipsis */
-    display: -webkit-box; /* Required for -webkit-line-clamp */
-    -webkit-box-orient: vertical; /* Required for -webkit-line-clamp */
-    overflow: hidden; /* Hide overflowing content */
-    text-overflow: ellipsis; /* Add ellipsis for hidden text */
+    font-size: 1em; 
+    line-height: 1.3; 
+    white-space: normal; 
+    overflow-wrap: break-word; 
+    word-break: break-word; 
+    margin: 0 0 8px; 
+    font-family: var(--heading-font); 
+    font-weight: 600; 
+    color: var(--text-color-dark); 
+    display: -webkit-box; 
+    -webkit-box-orient: vertical; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
 }
 .book-card p {
     font-size: 0.9em;
@@ -707,26 +706,26 @@ a:hover {
     display: inline-block;
     text-transform: capitalize;
 }
-/* Favorite Star Button Design */
+
 .favorite-star {
     font-size: 1.8em;
     cursor: pointer;
     z-index: 10;
-    color: #CCCCCC; /* Default light gray for empty heart */
+    color: #CCCCCC; 
     position: absolute;
     top: 10px;
     right: 10px;
     transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
-    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1)); /* Subtle shadow for icon */
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1)); 
 }
 .favorite-star:hover {
     transform: scale(1.15);
     color: var(--primary-accent);
 }
 .favorite-star.favorited {
-    color: var(--primary-accent); /* Filled heart color */
+    color: var(--primary-accent); 
 }
-/* Profile Page specific styles */
+
 .profile-details {
     background-color: var(--card-background);
     padding: 40px;
@@ -763,9 +762,7 @@ a:hover {
     margin-right: 8px;
     font-family: var(--heading-font);
 }
-/* ... existing CSS ... */
 
-/* Profile Page Styling */
 .profile-details {
     display: flex;
     flex-direction: column;
@@ -777,17 +774,17 @@ a:hover {
     box-shadow: var(--soft-shadow);
     max-width: 600px;
     margin: 30px auto;
-    text-align: center; /* This still centers the whole block, but individual <p> tags will be left-aligned */
+    text-align: center; 
 }
 
-/* NEW: Align text inside <p> tags within .profile-details to the left */
+
 .profile-details p {
     font-size: 1.1em;
     color: var(--text-color-dark);
     margin: 5px 0;
-    text-align: left; /* Aligns the text to the left */
-    width: 100%; /* Ensures the <p> tag takes full width to respect text-align */
-    max-width: 400px; /* Optional: limit width for better readability on wider screens */
+    text-align: left; 
+    width: 100%; 
+    max-width: 400px; 
 }
 
 .profile-picture-section {
@@ -815,7 +812,7 @@ a:hover {
 }
 
 #profileImageInput {
-    display: none; /* Hide the default file input */
+    display: none; 
 }
 
 .profile-upload-button {
@@ -826,7 +823,7 @@ a:hover {
     cursor: pointer;
     font-weight: 600;
     transition: background-color 0.3s ease;
-    display: inline-block; /* Allows padding and alignment */
+    display: inline-block; 
     text-align: center;
 }
 
@@ -834,22 +831,21 @@ a:hover {
     background-color: var(--tertiary-accent);
 }
 
-/* ... rest of your CSS ... */
-/* Home Layout with Sidebar */
+
 .home-layout {
     display: flex;
     gap: 30px;
     margin-top: 40px;
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    flex-wrap: wrap; 
 }
 .genre-sidebar {
-    flex: 0 0 220px; /* Fixed width for sidebar */
+    flex: 0 0 220px; 
     background-color: var(--card-background);
     padding: 25px;
     border-radius: 12px;
     box-shadow: var(--soft-shadow);
     border: 1px solid var(--border-color-light);
-    align-self: flex-start; /* Stick to top */
+    align-self: flex-start; 
 }
 .genre-sidebar h3 {
     font-size: 1.6em;
@@ -888,9 +884,9 @@ a:hover {
 }
 .books-display {
     flex-grow: 1;
-    min-width: 0; /* Allows content to shrink correctly */
+    min-width: 0; 
 }
-/* Library Sections */
+
 .library-sections {
     display: flex;
     flex-direction: column;
@@ -911,7 +907,7 @@ a:hover {
     font-weight: 700;
 }
 
-/* Responsive Adjustments */
+
 @media (max-width: 1024px) {
     .home-layout {
         flex-direction: column;
@@ -919,7 +915,7 @@ a:hover {
     }
     .genre-sidebar {
         width: 100%;
-        max-width: 400px; /* Limit sidebar width when stacked */
+        max-width: 400px; 
         margin-bottom: 30px;
     }
     .books-display {
@@ -944,13 +940,13 @@ a:hover {
         margin-right: 0;
     }
     .nav-links {
-        display: none; /* Hide main nav links on smaller screens if a hamburger menu is desired */
+        display: none; 
         flex-direction: column;
         gap: 10px;
         width: 100%;
     }
     .search-input-desktop {
-        display: none; /* Hide desktop search input */
+        display: none; 
     }
     .write-button, .try-premium-button {
         margin-left: 0;
@@ -1061,7 +1057,7 @@ a:hover {
         font-size: 0.9em;
     }
 }
-/* --- Theme Toggle Button --- */
+
 .theme-toggle {
     background-color: var(--card-background);
     color: var(--text-color-dark);
@@ -1083,7 +1079,7 @@ a:hover {
     color: white;
     transform: scale(1.05);
 }
-/* Hide one icon based on the body class */
+
 .theme-toggle .icon {
     display: none;
 }
@@ -1093,7 +1089,7 @@ body.light-mode .light-icon {
 body.dark-mode .dark-icon {
     display: block;
 }
-/* --- Live Background for Login/Signup (kept existing for now) --- */
+
 .live-background {
     position: fixed;
     top: 0;
@@ -1117,7 +1113,7 @@ body.dark-mode .dark-icon {
 body.auth-page .live-background {
     opacity: 1;
 }
-/* --- Modal Styles (Updated to use theme variables) --- */
+
 .modal {
     display: none;
     position: fixed;
@@ -1134,7 +1130,7 @@ body.auth-page .live-background {
     display: flex;
 }
 .modal-content {
-       background-color: #ffffff; /* Light mode default */
+       background-color: #ffffff; 
     padding: 30px;
     border-radius: 12px;
     box-shadow: var(--soft-shadow);
@@ -1145,18 +1141,18 @@ body.auth-page .live-background {
     border: 1px solid var(--border-color-light);
 }
 body.dark-mode .modal-content {
-    background-color: #2c2c2c; /* Dark mode background */
+    background-color: #2c2c2c; 
     border: 1px solid var(--border-color-dark);
 }
 .modal-content p {
     margin-bottom: 20px;
     font-size: 1.1em;
     font-family: 'Poppins', sans-serif;
-    color: rgba(30, 30, 30, 0.95); /* Light mode text */
+    color: rgba(30, 30, 30, 0.95); 
 }
 
 body.dark-mode .modal-content p {
-    color: rgba(230, 230, 230, 0.95); /* Dark mode text */
+    color: rgba(230, 230, 230, 0.95); 
 }
 
 .modal-content input, .modal-content textarea {
@@ -1196,17 +1192,17 @@ body.dark-mode .modal-content p {
 .modal-button.cancel:hover {
     background-color: var(--tertiary-accent);
 }
-/* New styles for book content modal */
+
 .book-content-modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1001; /* Sit on top */
+    display: none; 
+    position: fixed; 
+    z-index: 1001; 
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.8); 
     justify-content: center;
     align-items: center;
     padding: 20px;
@@ -1222,8 +1218,8 @@ body.dark-mode .modal-content p {
     max-width: 700px;
     position: relative;
     animation: fadeIn 0.3s ease-out;
-    max-height: 90vh; /* Limit height to prevent overflow */
-    overflow-y: auto; /* Enable scrolling for content */
+    max-height: 90vh; 
+    overflow-y: auto; 
     text-align: left;
 }
 
@@ -1263,81 +1259,78 @@ body.dark-mode .modal-content p {
     font-size: 1em;
     color: var(--text-color-dark);
     line-height: 1.8;
-    white-space: pre-wrap; /* Preserves whitespace and line breaks */
+    white-space: pre-wrap; 
     font-family: var(--body-font);
 }
 
-/* Carousel Container - New */
+
 .carousel-container {
     position: relative;
     width: 100%;
-    max-width: 1200px; /* Adjust max width of the carousel as needed */
-    margin: 2rem auto; /* Centers the carousel and adds some vertical space */
-    overflow: hidden; /* Hides parts of cards that go beyond the container */
-    padding: 0 1rem; /* Adds padding on sides for cards to not touch edges */
+    max-width: 1200px; 
+    margin: 2rem auto; 
+    overflow: hidden; 
+    padding: 0 1rem; 
 }
-/* Book Carousel Wrapper - Your existing .book-carousel becomes the scrollable wrapper */
+
 .book-carousel {
     display: flex;
-    overflow-x: scroll; /* Enables horizontal scrolling */
-    scroll-behavior: smooth; /* Smooth scroll when buttons are clicked or programmatically scrolled */
-    -webkit-overflow-scrolling: touch; /* Improves scrolling performance on iOS */
-    gap: 1.5rem; /* Space between book cards */
-    padding-bottom: 1rem; /* Prevents scrollbar from overlapping content on some browsers */
-    cursor: grab; /* Indicates content is draggable on desktop */
-    user-select: none; /* Prevents text selection during drag */
-    /* Hide scrollbar for various browsers */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
+    overflow-x: scroll; 
+    scroll-behavior: smooth; 
+    -webkit-overflow-scrolling: touch; 
+    gap: 1.5rem; 
+    padding-bottom: 1rem; 
+    cursor: grab; 
+    user-select: none; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
 }
-/* Hide scrollbar for Webkit browsers (Chrome, Safari) */
+
 .book-carousel::-webkit-scrollbar {
     display: none;
 }
-/* Book Card Styling - Adjustments for the carousel layout */
-/* Using your existing .book-card styles and overriding where necessary for the carousel context */
-.book-carousel .book-card { /* Target book-card specifically within the carousel */
-    flex: 0 0 auto; /* Important: prevents cards from shrinking or growing */
-    width: 15rem; /* Fixed width for each card, approx 240px. Adjust as needed. */
-    height: auto; /* Allow height to adjust based on content */
-    display: flex; /* Make it a flex container for its content */
-    flex-direction: column; /* Stack content vertically */
-    justify-content: space-between; /* Space out title, image, genre */
-    /* Inherits background, border, shadow, transition from global .book-card */
+
+.book-carousel .book-card { 
+    flex: 0 0 auto; 
+    width: 15rem; 
+    height: auto; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
 }
 .book-carousel .book-card img {
-    height: 18rem; /* Fixed height for book cover images, approx 288px. Adjust as needed. */
-    object-fit: cover; /* Ensures image covers the area without distortion */
-    border-radius: 8px; /* Already defined, but ensuring */
-    margin-bottom: 0.75rem; /* Adjust as needed */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Already defined */
+    height: 18rem; 
+    object-fit: cover; 
+    border-radius: 8px; 
+    margin-bottom: 0.75rem; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); 
 }
 .book-carousel .book-card .genre-tag {
-    margin: 0 0 1rem; /* Space below genre tag */
+    margin: 0 0 1rem; 
 }
-/* Scroll Buttons */
+
 .scroll-button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: var(--primary-accent); /* Use your primary accent color */
+    background-color: var(--primary-accent); 
     color: white;
     border: none;
-    padding: 0.8rem 0.6rem; /* Adjust padding for button size */
+    padding: 0.8rem 0.6rem; 
     cursor: pointer;
-    z-index: 10; /* Ensure buttons are above carousel content */
-    font-size: 1.5rem; /* Size of arrow icon */
-    border-radius: 0.3rem; /* Slightly rounded corners */
+    z-index: 10; 
+    font-size: 1.5rem; 
+    border-radius: 0.3rem; 
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    line-height: 1; /* Helps vertically center the arrow */
-    box-shadow: var(--soft-shadow); /* Use your soft shadow variable */
+    line-height: 1; 
+    box-shadow: var(--soft-shadow); 
 }
 .scroll-button:hover {
-    background-color: var(--tertiary-accent); /* Darker accent on hover */
-    transform: scale(1.05); /* Subtle scale effect */
+    background-color: var(--tertiary-accent); 
+    transform: scale(1.05); 
 }
 .scroll-button.left {
     left: 0;
@@ -1349,35 +1342,35 @@ body.dark-mode .modal-content p {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
-/* Responsive adjustments for carousel */
+
 @media (max-width: 768px) {
     .scroll-button {
-        display: none; /* Hide buttons on smaller screens, rely on swipe */
+        display: none; 
     }
     .carousel-container {
-        padding: 0; /* Remove side padding on small screens if desired */
+        padding: 0; 
     }
-    .book-carousel .book-card { /* Target book-card specifically within the carousel */
-        width: 12rem; /* Make cards slightly smaller on mobile */
+    .book-carousel .book-card { 
+        width: 12rem; 
     }
     .book-carousel .book-card img {
-        height: 15rem; /* Adjust image height for smaller cards */
+        height: 15rem; 
     }
     .book-carousel {
-        padding-left: 1rem; /* Add some padding to the start of the scrollable area */
-        padding-right: 1rem; /* Add some padding to the end of the scrollable area */
+        padding-left: 1rem; 
+        padding-right: 1rem; 
     }
 }
 @media (max-width: 480px) {
-    .book-carousel .book-card { /* Target book-card specifically within the carousel */
-        width: 10rem; /* Even smaller cards for very small screens */
+    .book-carousel .book-card { 
+        width: 10rem; 
     }
     .book-carousel .book-card img {
         height: 13rem;
     }
 }
 .home-button {
-    background-color: #ea74a1; /* Pastel pink */
+    background-color: #ea74a1;
     color: #fff;
     border: none;
     padding: 8px 16px;
@@ -1389,7 +1382,7 @@ body.dark-mode .modal-content p {
 }
 
 .home-button:hover {
-    background-color: #f4acc7; /* Slightly darker on hover */
+    background-color: #f4acc7; 
 }
 
 #loginPage {
@@ -1407,7 +1400,7 @@ body.dark-mode .modal-content p {
     background-position: center;
     background-repeat: no-repeat;
     min-height: 100vh;
-    transition: 0.5s ease; /* Smooth transition when changing modes */
+    transition: 0.5s ease; 
 }
 .auth-footer {
     text-align: center;

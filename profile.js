@@ -37,7 +37,6 @@ window.addEventListener("DOMContentLoaded", () => {
             if (snap.exists()) {
                 userProfile = snap.data();
             } else {
-                // Create a new user profile if it doesn't exist
                 userProfile = {
                     uid: user.uid,
                     name: "",
@@ -45,8 +44,8 @@ window.addEventListener("DOMContentLoaded", () => {
                     address: "",
                     yearLevel: "",
                     contact: "",
-                    readingHistory: [], // Initialize readingHistory for new users
-                    favorites: [] // Initialize favorites for new users
+                    readingHistory: [], 
+                    favorites: [] 
                 };
                 await setDoc(userRef, userProfile);
             }
@@ -70,9 +69,9 @@ window.addEventListener("DOMContentLoaded", () => {
             if (auth.currentUser) {
                 const userRef = doc(db, "users", auth.currentUser.uid);
                 try {
-                    await setDoc(userRef, userProfile, { merge: true }); // Use merge: true to only update specified fields
+                    await setDoc(userRef, userProfile, { merge: true }); 
                     window.showAlert("Profile updated successfully!");
-                    renderProfile(); // Re-render profile after update
+                    renderProfile(); 
                 } catch (error) {
                     console.error("Error updating user profile in Firestore:", error);
                     window.showAlert("Error updating profile: " + error.message);

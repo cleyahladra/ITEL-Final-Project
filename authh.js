@@ -5,7 +5,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  sendPasswordResetEmail
+
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
@@ -172,7 +174,7 @@ if (signupForm) {
 
       const errorCode = error.code;
 
-      // Check for specific Firebase Auth error codes
+      
       if (errorCode === "auth/email-already-in-use") {
         alert("Email is already in use. Please try another email.");
       } else if (errorCode === "auth/invalid-email") {
@@ -180,7 +182,7 @@ if (signupForm) {
       } else if (errorCode === "auth/weak-password") {
         alert("Password should be at least 6 characters.");
       } else {
-        // Generic fallback
+        
         alert("Sign-up failed: " + error.message);
       }
     }
@@ -190,7 +192,7 @@ if (signupForm) {
 }
 
 
-// 🔓 LOGOUT HANDLING
+//Logout handling
 const logoutButton = document.getElementById("logoutButton");
 
 if (logoutButton) {
@@ -211,3 +213,21 @@ if (logoutButton) {
 } else {
   console.warn("Logout button not found in the DOM.");
 }
+// forgot password
+
+document.getElementById("forgotPasswordLink").addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const email = prompt("Please enter your email to reset your password:");
+
+  if (email) {
+    const auth = getAuth();
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        alert("✅ Password reset email sent! Please check your inbox or Spam Mail.");
+      })
+      .catch((error) => {
+        alert("❌ Error: " + error.message);
+      });
+  }
+});
