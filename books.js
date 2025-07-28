@@ -279,6 +279,8 @@ export async function loadBooks() {
     const q = query(booksCol, orderBy("title", "asc"));
     const bookSnapshot = await getDocs(q);
     const booksList = bookSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    window.loadedBooks = booksList; // Make books globally available for genre filtering
+
 
     // Fetch user-specific data
     let favoriteBookIds = [];
@@ -339,7 +341,7 @@ if (addBookBtn) {
         }
 
         const title = await window.showPrompt("Enter book title:");
-        if (!title) return; // User cancelled
+        if (!title) return;
 
         const author = await window.showPrompt("Enter book author:");
         if (!author) return;
@@ -349,18 +351,26 @@ if (addBookBtn) {
 
         const imageUrl = await window.showPrompt("Enter image URL (optional):");
         const genre = await window.showPrompt("Enter book genre (e.g., Fiction, Fantasy, Mystery):");
-        if (!genre) return; // User cancelled
+        if (!genre) return;
+
+        const visibility = await window.showPrompt("Should this book be 'public' or 'private'?");
+        if (!visibility || (visibility !== "public" && visibility !== "private")) {
+            window.showAlert("Invalid visibility option. Book not added.");
+            return;
+        }
 
         await addDoc(collection(db, 'books'), {
             title: title.trim(),
             author: author.trim(),
             content: content.trim(),
             imageUrl: imageUrl ? imageUrl.trim() : '',
-            genre: genre.trim().toLowerCase(), // Store genre in lowercase for consistency
-            creatorId: currentUser.uid // Store the ID of the user who added the book
+            genre: genre.trim().toLowerCase(),
+            creatorId: currentUser.uid,
+            visibility: visibility.trim().toLowerCase()
         });
+
         window.showAlert("Book added!");
-        loadBooks(); // Reload books to reflect the new addition
+        loadBooks();
     });
 }
 
@@ -385,24 +395,32 @@ if (writeForm) {
             return;
         }
 
+        const visibility = await window.showPrompt("Should this book be 'public' or 'private'?");
+        if (!visibility || (visibility !== "public" && visibility !== "private")) {
+            window.showAlert("Invalid visibility option. Story not published.");
+            return;
+        }
+
         await addDoc(collection(db, 'books'), {
             title: title.trim(),
             author: author.trim(),
             content: content.trim(),
             imageUrl: imageUrl ? imageUrl.trim() : '',
             genre: genre.trim().toLowerCase(),
-            creatorId: currentUser.uid
+            creatorId: currentUser.uid,
+            visibility: visibility.trim().toLowerCase()
         });
 
         window.showAlert("Story published successfully!");
-        // Clear the form
+
         writeTitle.value = '';
         writeAuthor.value = '';
         writeGenre.value = '';
         writeImageUrl.value = '';
         writeContent.value = '';
-        loadBooks(); // Reload books to show the new story
-        // Optionally navigate to the library or home page
+
+        loadBooks();
+
         document.getElementById('writePageContent').classList.add('hidden-page');
         document.getElementById('homePageContent').classList.remove('hidden-page');
         document.getElementById('homePageContent').classList.add('active-page');
@@ -509,19 +527,22 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function filterBooksByGenre(genre) {
-    const allBooks = [...predefinedBooks]; // Start with all predefined books
-    
-    // Optionally add user's own books if they are to be filtered by genre as well
-    // For now, only predefined books are subject to genre filter for the Home tab
-    
-    if (homeBookList) homeBookList.innerHTML = ''; // Clear current display for home page
+    const allBooks = [...predefinedBooks];
+
+    if (window.loadedBooks) {
+        window.loadedBooks.forEach(book => {
+            // Only include books that are public
+            if (book.visibility === 'public') {
+                allBooks.push(book);
+            }
+        });
+    }
+
+    if (homeBookList) homeBookList.innerHTML = ''; // Clear display
     allBooks.forEach(book => {
-        const isFavorite = window.favoriteBookIds ? window.favoriteBookIds.some(favId => favId === book.id) : false;
+        const isFavorite = window.favoriteBookIds ? window.favoriteBookIds.includes(book.id) : false;
         if (genre === 'all' || book.genre.toLowerCase() === genre) {
-            if (homeBookList) homeBookList.appendChild(createBookCard(book, isFavorite));
+            homeBookList.appendChild(createBookCard(book, isFavorite));
         }
     });
 }
-
-// Make filterBooksByGenre accessible globally
-window.filterBooksByGenre = filterBooksByGenre;

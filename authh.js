@@ -108,6 +108,7 @@ if (showLoginLink) {
 }
 
 // Login Form
+// Login Form
 const loginForm = document.getElementById('loginForm');
 
 if (loginForm) {
@@ -120,6 +121,28 @@ if (loginForm) {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("User logged in successfully!");
       if (window.showAlert) window.showAlert("Logged in successfully!");
+
+      // ✅ Immediately show the main content UI
+      const loginPage = document.getElementById('loginPage');
+      const signupPage = document.getElementById('signupPage');
+      const mainContent = document.getElementById('mainContent');
+      const homePageContent = document.getElementById('homePageContent');
+
+      if (loginPage && signupPage && mainContent && homePageContent) {
+        loginPage.classList.remove('active');
+        loginPage.classList.add('hidden');
+        signupPage.classList.remove('active');
+        signupPage.classList.add('hidden');
+        mainContent.classList.remove('hidden-content');
+
+        document.querySelectorAll('.content-page').forEach(section => {
+          section.classList.remove('active');
+          section.classList.add('hidden-page');
+        });
+
+        homePageContent.classList.add('active');
+        homePageContent.classList.remove('hidden-page');
+      }
     } catch (error) {
       console.error("Login failed:", error.message);
       if (window.showAlert) window.showAlert(`Login failed: ${error.message}`);
@@ -127,8 +150,6 @@ if (loginForm) {
   });
 }
 
-// Signup Form
-// Signup Form
 const signupForm = document.getElementById('signupForm');
 
 if (signupForm) {
